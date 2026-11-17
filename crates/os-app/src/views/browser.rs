@@ -741,7 +741,7 @@ fn paint_info(ui: &mut Ui, s: &State, path: &Path, r: Rect) {
         ui.c.text_clip(f, vx, y, vw, t.text, &v);
         y += lh;
     }
-    ui.c.text(f, lx, y, t.text_dim, "Path");
+    ui.c.text(f, lx, y, t.text_dim, os_ui::lang::t("Path"));
     // Wrap the path at any character (FL breaks mid-word too).
     let mut line = String::new();
     for ch in path.display().to_string().chars() {
@@ -829,7 +829,7 @@ pub fn paint(ui: &mut Ui, s: &State, r: Rect) {
         icons::draw(ui.c, icon, Rect::new(r.x + 1.0, 87.0 + dy, 12.0, 14.0), if hov { t.glyph } else { t.text_dim });
     }
     // Level with the arrows before it (their middle is y 94).
-    ui.c.text_mid(os_ui::Font::new(14), 52.0, 94.0 + dy, t.text_dim, "Browser");
+    ui.c.text_mid(os_ui::Font::new(14), 52.0, 94.0 + dy, t.text_dim, os_ui::lang::t("Browser"));
     // Tabs (spec ui/browser.md §1): FL's five without Online content, sharing the strip.
     ui.c.fill_rect(Rect::span(0.0, bw - 1.0, 106.0 + dy, 141.0 + dy), t.browser_tabs);
     const TIPS: [&str; 4] = ["All", "Current project", "Plugin library", "Favorites"];
@@ -909,7 +909,8 @@ pub fn paint(ui: &mut Ui, s: &State, r: Rect) {
         let (f, w) = (os_ui::Font::new(17), bw - 1.0 - x - 27.0 - if fav { 16.0 } else { 0.0 });
         // The label level with the icon (both are centred on the row).
         let ty = y + ROW_H / 2.0 - ui.c.cap_mid(f);
-        let over = ui.c.text_width(f, &row.label) - w;
+        let shown = os_ui::lang::t(&row.label);
+        let over = ui.c.text_width(f, shown) - w;
         // Hovered, a label that does not fit scrolls (§9) rather than being cut.
         if hov && over > 0.0 {
             let now = crate::anim::now();
@@ -917,12 +918,12 @@ pub fn paint(ui: &mut Ui, s: &State, r: Rect) {
             let off = marquee_offset(now.duration_since(since).as_secs_f32(), over);
             let lr = Rect::new(x + 25.0, y, w, ROW_H);
             ui.c.push_clip(lr);
-            ui.c.text(f, lr.x - off, ty, c, &row.label);
+            ui.c.text(f, lr.x - off, ty, c, shown);
             ui.c.pop_clip();
             marquee = Some(Marquee { key: row.key.clone(), since, rect: lr, over, off });
             continue;
         }
-        let label = if row.path.is_some() { middle_cut(ui, f, &row.label, w) } else { row.label.clone() };
+        let label = if row.path.is_some() { middle_cut(ui, f, shown, w) } else { shown.to_string() };
         ui.c.text_clip(f, x + 25.0, ty, w, c, &label);
     }
     *s.browser_marquee.borrow_mut() = marquee;
@@ -936,7 +937,7 @@ pub fn paint(ui: &mut Ui, s: &State, r: Rect) {
     };
     if rows.is_empty() && (s.browser_tab == FAV_TAB || !s.browser_search.is_empty()) {
         for (k, line) in empty.iter().enumerate() {
-            ui.c.text(os_ui::Font::new(14).italic(), 22.0, top + 6.0 + 18.0 * k as f32, t.text_faint, line);
+            ui.c.text(os_ui::Font::new(14).italic(), 22.0, top + 6.0 + 18.0 * k as f32, t.text_faint, os_ui::lang::t(line));
         }
     }
     ui.c.pop_clip();
@@ -950,7 +951,7 @@ pub fn paint(ui: &mut Ui, s: &State, r: Rect) {
     let tags = Rect::new(13.0, fy + 4.0, 41.0, 20.0);
     ui.off(tags, "Tags");
     ui.c.fill_rrect(tags, 3.0, t.sunken);
-    ui.c.text_center(os_ui::Font::condensed(11, 6).bold(), tags, ui.t.tx(0xc0c8cc), "TAGS");
+    ui.c.text_center(os_ui::Font::condensed(11, 6).bold(), tags, ui.t.tx(0xc0c8cc), os_ui::lang::t("TAGS"));
     ui.veil(tags, t.browser_footer);
     let field = Rect::new(57.0, fy + 4.0, bw - 82.0, 20.0);
     if !search_on_top {

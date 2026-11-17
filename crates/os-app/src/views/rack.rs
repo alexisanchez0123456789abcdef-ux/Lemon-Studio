@@ -563,7 +563,7 @@ fn title_bar(ui: &mut Ui, s: &State, win: Rect, c: Cols, f: &FrameInfo) {
     };
     let lf = Font::new(17);
     let label = shorten(ui, lf, &label, combo.w - 18.0);
-    ui.c.text(lf, combo.x + 6.0, y + 5.0, if chov { t.glyph.shade(0.1) } else { t.glyph }, &label);
+    ui.c.text(lf, combo.x + 6.0, y + 5.0, if chov { t.glyph.shade(0.1) } else { t.glyph }, os_ui::lang::t(&label));
     let ax = combo.right() - 9.0;
     ui.c.fill_polygon(&[(ax, y + 11.5), (ax + 4.0, y + 15.0), (ax, y + 18.5)], ui.t.s(0x686c6e));
     // Dots: drag to resize the channel buttons (§7).
@@ -581,7 +581,8 @@ fn title_bar(ui: &mut Ui, s: &State, win: Rect, c: Cols, f: &FrameInfo) {
     ui.c.push_clip(Rect::span(x + 236.0 + c.dx, r - 165.0, y, y + 29.0));
     // The window's name; "Instruments" where the full one does not fit before the swing knob.
     let (tf, tx) = (Font::new(17), x + 236.0 + c.dx);
-    let name = if tx + ui.c.text_width(tf, "Instrument rack") <= r - 165.0 { "Instrument rack" } else { "Instruments" };
+    let long = os_ui::lang::t("Instrument rack");
+    let name = if tx + ui.c.text_width(tf, long) <= r - 165.0 { long } else { os_ui::lang::t("Instruments") };
     ui.c.text(tf, tx, y + 5.0, t.text, name);
     ui.c.pop_clip();
     // Swing knob with its halo (§7); a non-zero swing draws an orange arc.
@@ -777,7 +778,7 @@ fn graph_editor(ui: &mut Ui, s: &State, sx: f32, first: u32, shown: u32) {
         let hov = ui.hit(r, Action::RackGraphTab(i), tb.label());
         let c = if tb == tab { ui.t.a(tb.color()) } else if hov { t.glyph } else { t.text_dim };
         ui.c.push_clip(r);
-        ui.c.text_center(Font::new(12), r, c, tb.label());
+        ui.c.text_center(Font::new(12), r, c, os_ui::lang::t(tb.label()));
         ui.c.pop_clip();
     }
 }
@@ -906,7 +907,7 @@ pub fn paint_fill(ui: &mut Ui, s: &State) {
     icons::draw(ui.c, Icon::Close, close.inset(1.5), if hov { ui.t.tx(0xffffff) } else { t.glyph });
     // Preview row: the channel.
     let name = s.project.channels.get(fd.row).map(|c| c.name.clone().unwrap_or_else(|| format!("Channel {}", c.index + 1))).unwrap_or_default();
-    ui.c.text(font, r.x + 12.0, r.y + 34.0, t.text_dim, "Preview");
+    ui.c.text(font, r.x + 12.0, r.y + 34.0, t.text_dim, os_ui::lang::t("Preview"));
     ui.c.fill_polygon(&[(r.x + 70.0, r.y + 38.0), (r.x + 75.0, r.y + 42.0), (r.x + 70.0, r.y + 46.0)], t.glyph);
     ui.c.text_clip(font, r.x + 82.0, r.y + 34.0, r.w - 94.0, t.text, &name);
     // Ring of steps.
@@ -952,12 +953,12 @@ pub fn paint_fill(ui: &mut Ui, s: &State) {
         let br = Rect::new(r.x + 12.0 + i as f32 * 84.0, by, 76.0, 22.0);
         let hov = ui.hit(br, Action::RackFill(hit), label);
         os_ui::kit::button(ui.c, t, br, os_ui::kit::State::hover(hov));
-        ui.c.text_center(font, br, t.text, label);
+        ui.c.text_center(font, br, t.text, os_ui::lang::t(label));
     }
     // Sequence group.
     let gy = r.y + 330.0;
     ui.c.fill_rect(Rect::new(r.x + 8.0, gy, r.w - 16.0, 18.0), t.menu_pop_head);
-    ui.c.text(Font::new(12), r.x + 12.0, gy + 2.0, t.menu_pop_head_text, "Sequence");
+    ui.c.text(Font::new(12), r.x + 12.0, gy + 2.0, t.menu_pop_head_text, os_ui::lang::t("Sequence"));
     let rows: [(&str, String, Option<FillHit>, Option<(FillHit, FillHit)>); 3] = [
         ("Fill type", fd.kind.label().to_string(), Some(FillHit::Type), None),
         ("Sequence length", fd.len.to_string(), None, Some((FillHit::Len(-1), FillHit::Len(1)))),
@@ -970,7 +971,7 @@ pub fn paint_fill(ui: &mut Ui, s: &State) {
     ];
     for (i, (label, value, click, arrows)) in rows.into_iter().enumerate() {
         let ry = gy + 24.0 + i as f32 * 24.0;
-        ui.c.text(font, r.x + 14.0, ry + 2.0, t.text_dim, label);
+        ui.c.text(font, r.x + 14.0, ry + 2.0, t.text_dim, os_ui::lang::t(label));
         let vb = Rect::new(r.x + 140.0, ry, 90.0, 21.0);
         let hov = match click {
             Some(h) => ui.hit(vb, Action::RackFill(h), "Click to change"),
@@ -991,5 +992,5 @@ pub fn paint_fill(ui: &mut Ui, s: &State) {
     let ar = Rect::new(r.right() - 92.0, r.bottom() - 32.0, 80.0, 24.0);
     let hov = ui.hit(ar, Action::RackFill(FillHit::Accept), "Write the sequence to the channel's steps (Enter)");
     os_ui::kit::button(ui.c, t, ar, os_ui::kit::State::hover(hov));
-    ui.c.text_center(font, ar, t.text, "Accept");
+    ui.c.text_center(font, ar, t.text, os_ui::lang::t("Accept"));
 }

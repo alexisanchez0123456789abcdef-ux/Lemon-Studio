@@ -223,7 +223,7 @@ pub fn label(c: &mut Canvas, t: &Palette, x: f32, cy: f32, s: &str, disabled: bo
     } else {
         t.tx(0xd2d8dc)
     };
-    c.text(LABEL, x, (cy - lh / 2.0).round(), col, s)
+    c.text(LABEL, x, (cy - lh / 2.0).round(), col, crate::lang::t(s))
 }
 
 /// Dark list box with the chosen entry and a ▸ arrow (declicking mode, stretch mode, filter type).
@@ -253,7 +253,7 @@ pub fn list_box(c: &mut Canvas, t: &Palette, r: Rect, text: &str, st: State) {
 /// Small push button with a text label ("Reset"), lit when `st.on`.
 pub fn text_button(c: &mut Canvas, r: Rect, s: &str, st: State) {
     let ink = lemon::plug_button(c, r, 6.0, st);
-    c.text_center(LABEL, r, ink, s);
+    c.text_center(LABEL, r, ink, crate::lang::t(s));
 }
 
 /// Vertical A / B switch (reverb type): a rounded slot with a lit square on the chosen side, letters to the right.

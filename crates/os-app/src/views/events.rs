@@ -88,6 +88,7 @@ fn y_of(g: Rect, level: f64) -> f32 {
 
 /// Text vertically centred on `cy` from `x` (or right-aligned to `x` when `right`).
 fn label(ui: &mut Ui, f: Font, x: f32, cy: f32, right: bool, col: Color, s: &str) {
+    let s = os_ui::lang::t(s);
     let lh = ui.c.line_height(f);
     let y = (cy - lh / 2.0).round();
     let x = if right { (x - ui.c.text_width(f, s)).round() } else { x };

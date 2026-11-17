@@ -56,6 +56,9 @@ Plugins are found in these folders, plus any added in Settings > Plugins:
 On Linux, `OPENSTUDIO_WAYLAND=1` asks for native Wayland even with an X server. On macOS, `OPENSTUDIO_FACTORY` overrides
 where FL Studio's factory content is looked for (by default the newest `/Applications/FL Studio *.app`).
 
+The interface's languages live in `crates/os-ui/assets/lang/`: one `English<TAB>translation` file per language, applied
+where each label is drawn. [translations.md](translations.md) has the format and what to translate.
+
 ## Tests
 
 ```bash

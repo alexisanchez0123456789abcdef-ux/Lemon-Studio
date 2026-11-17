@@ -409,7 +409,7 @@ fn layer_card(ui: &mut Ui, pad: Option<&Pad>, layer: usize, loaded: bool) {
     ui.c.text(LABEL, SAMPLE.x + 6.0, SAMPLE.cy() - 7.0, col, &s);
     let kst = ui.state(LOAD, &Target::Load);
     let ink = lemon::plug_button(ui.c, LOAD, 6.0, kst);
-    ui.c.text_center(PILL, LOAD, ink, "LOAD");
+    ui.c.text_center(PILL, LOAD, ink, os_ui::lang::t("LOAD"));
     ui.hit(LOAD, Target::Load);
     let v = |f: Field| pad.and_then(|p| value(p, layer, f));
     value_box(ui, BOX_X[0], LAYER_BOX_Y, Field::VelLo, v(Field::VelLo), "VEL LOW");

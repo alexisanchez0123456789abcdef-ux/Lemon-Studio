@@ -109,7 +109,7 @@ pub fn paint_hint_bar(ui: &mut Ui, s: &State, f: &FrameInfo) {
     let half = (r.h / 2.0).round();
     ui.c.fill_rect_gradient(Rect::new(r.x, r.y, r.w, half), edge, mid, 0.0);
     ui.c.fill_rect_gradient(Rect::new(r.x, r.y + half, r.w, r.h - half), mid, edge, 0.0);
-    let hint: &str = if !f.hint.is_empty() { &f.hint } else { s.message.as_deref().unwrap_or("") };
+    let hint: &str = os_ui::lang::t(if !f.hint.is_empty() { &f.hint } else { s.message.as_deref().unwrap_or("") });
     let font = Font::new(14);
     let (w, lh) = (r.w - 50.0, ui.c.line_height(font));
     let chars: Vec<char> = hint.chars().collect();
@@ -298,7 +298,7 @@ fn hint_panel(ui: &mut Ui, c: &Ctx) {
     sunken(ui, hp, t.sunken);
     ui.hit(hp, Action::DragWindow, "Status bar");
     ui.c.text_clip(Font::new(13), a.x(76.0), a.y(6.0), 280.0, t.text_dim.shade(-0.05), &f.title);
-    let hint: &str = if !f.hint.is_empty() { &f.hint } else { s.message.as_deref().unwrap_or("") };
+    let hint: &str = os_ui::lang::t(if !f.hint.is_empty() { &f.hint } else { s.message.as_deref().unwrap_or("") });
     ui.c.text_clip(Font::new(14), a.x(77.0), a.y(19.0), 280.0, t.text, hint);
     icons::draw(ui.c, Icon::MidiControl, a.span(360.0, 374.0, 17.0, 32.0), ui.t.s(0x515457));
 }
@@ -330,7 +330,7 @@ fn transport(ui: &mut Ui, c: &Ctx) {
             ui.c.fill_rrect(capsule.inset(1.0), 14.0, t.pill);
             ui.c.pop_clip();
         }
-        ui.c.text_center(Font::condensed(10, 5), Rect::new(r.x + 1.0, r.y, r.w, r.h), if active { t.pill_text } else { t.glyph_dim }, label);
+        ui.c.text_center(Font::condensed(10, 5), Rect::new(r.x + 1.0, r.y, r.w, r.h), if active { t.pill_text } else { t.glyph_dim }, os_ui::lang::t(label));
     }
     // Lit while playing, with a pause glyph (Play pauses); unlit with the play glyph when paused.
     let play_on = f.playing && !f.paused;
@@ -507,7 +507,7 @@ fn time(ui: &mut Ui, c: &Ctx) {
     let g = if lemon { t.pill } else { t.glyph };
     if let Some(c) = s.rec.count.filter(|c| c.left() > 0) {
         // A recording count-in (spec: ui/recording.md §3): the beats left.
-        ui.c.text_center(Font::light(22, 8), Rect::new(tp.x, tp.y + 2.0, tp.w, tp.h - 2.0), g, &format!("REC IN {}", c.left()));
+        ui.c.text_center(Font::light(22, 8), Rect::new(tp.x, tp.y + 2.0, tp.w, tp.h - 2.0), g, &format!("{} {}", os_ui::lang::t("REC IN"), c.left()));
     } else {
         ui.c.text(big, bar_x, a.y(-3.0), g, &bar_s);
         // Centered on the big digits (which span y 9..31), not on the small ones like the colon below.
@@ -697,7 +697,10 @@ fn utilities(ui: &mut Ui, c: &Ctx) -> bool {
 /// Menu bar.
 fn menu_bar(ui: &mut Ui, c: &Ctx) {
     let (t, a, s) = (ui.t, c.a, c.s);
-    let mb = a.span(4.0, 296.0, 45.0, 77.0);
+    // The panel is as wide as the bar's titles in this language (`menus::bar_layout`), so a longer word has its room.
+    let layout = menus::bar_layout(ui.c);
+    let end = layout.last().map_or(296.0, |l| l.1 + 4.0).clamp(120.0, 296.0);
+    let mb = a.span(4.0, end, 45.0, 77.0);
     let lemon = super::lemon(ui);
     if lemon {
         os_ui::kit::lemon::panel(ui.c, mb, 6.0, t.menu_panel);
@@ -705,11 +708,10 @@ fn menu_bar(ui: &mut Ui, c: &Ctx) {
         ui.c.fill_rect_gradient(mb, t.menu_panel.shade(-0.04), t.menu_panel.shade(0.02), 2.5);
         ui.c.stroke_rrect(mb, 2.5, 1.0, t.toolbar_line.shade(-0.1));
     }
-    let layout = menus::bar_layout(ui.c);
     for (i, (m, (x0, x1, width))) in menus::MENUS.iter().zip(layout).enumerate() {
-        let title = m.title;
+        let title = os_ui::lang::t(m.title);
         let r = a.r(Rect::new(x0 - 3.0, 47.0, x1 - x0 + 6.0, 29.0));
-        let hov = ui.hit(r, Action::Menu(i), title);
+        let hov = ui.hit(r, Action::Menu(i), m.title);
         let open = s.menu_open == Some(i) && !c.preview;
         if lemon && open {
             os_ui::kit::lemon::lit_in(ui.c, ui.t, r.inset(1.0), 4.0, false);
@@ -856,7 +858,7 @@ fn snap(ui: &mut Ui, c: &Ctx) {
     let label = global.label();
     let room = snap.w - 5.0 - 14.0;
     let font = if ui.c.text_width(Font::new(16), label) <= room { Font::new(16) } else { Font::condensed(16, 6) };
-    ui.c.text_mid(font, snap.x + 5.0, snap.cy(), t.glyph, label);
+    ui.c.text_mid(font, snap.x + 5.0, snap.cy(), t.glyph, os_ui::lang::t(label));
     // The arrow points down while the mouse is over the combo (§1).
     let dir = if hov { os_ui::kit::Dir::Down } else { os_ui::kit::Dir::Right };
     os_ui::kit::triangle(ui.c, snap.right() - 8.0, a.y(61.0), 3.5, dir, t.glyph_dim);
@@ -1092,7 +1094,7 @@ pub fn paint_palette(ui: &mut Ui, s: &State, f: &FrameInfo, width: f32) {
     let done = Rect::new(width - PAD - 70.0, b.y + 4.0, 70.0, BAR_H - 8.0);
     let hov = ui.hit(done, Action::Bar(BarHit::Done), "Done: the toolbar keeps this layout");
     os_ui::kit::button(ui.c, t, done, os_ui::kit::State::hover(hov));
-    ui.c.text_center(font, done, t.text, "Done");
+    ui.c.text_center(font, done, t.text, os_ui::lang::t("Done"));
     let rows = s.bar.layout.rows.len();
     for (i, label) in ["1 row", "2 rows"].into_iter().enumerate() {
         let r = Rect::new(done.x - 24.0 - 64.0 * (2 - i) as f32, b.y + 5.0, 60.0, BAR_H - 10.0);

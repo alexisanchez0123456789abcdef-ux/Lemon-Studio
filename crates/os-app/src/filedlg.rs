@@ -453,7 +453,7 @@ impl FileDlg {
             return if p.is_dir() {
                 Outcome::Done(p)
             } else {
-                self.status = Some(format!("No folder {}", p.display()));
+                self.status = Some(format!("{} {}", os_ui::lang::t("No folder"), p.display()));
                 Outcome::Stay
             };
         }
@@ -472,7 +472,7 @@ impl FileDlg {
                 if p.is_file() {
                     Outcome::Done(p)
                 } else {
-                    self.status = Some(format!("{typed} was not found"));
+                    self.status = Some(format!("{} {}", typed, os_ui::lang::t("was not found")));
                     Outcome::Stay
                 }
             }
@@ -507,9 +507,9 @@ impl FileDlg {
                 if let Some(i) = self.entries.iter().position(|e| e.name == name) {
                     self.select(i);
                 }
-                self.status = Some(format!("Made {name}"));
+                self.status = Some(format!("{} {name}", os_ui::lang::t("Made")));
             }
-            Err(e) => self.status = Some(format!("Could not make a folder: {e}")),
+            Err(e) => self.status = Some(format!("{}: {e}", os_ui::lang::t("Could not make a folder"))),
         }
     }
 

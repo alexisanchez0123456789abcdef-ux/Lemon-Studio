@@ -776,10 +776,14 @@ ASIO is a registered trademark of Steinberg Media Technologies GmbH.
 
 ## 🚧 Settings
 
-- Every page is there: MIDI, Audio, Recording, General, File, Plugins, Theme, Project and Info. About 14 controls are
-  still greyed (Mix in buffer switch, Triple buffer, Priority, Safe overloads, Playback tracking, Language, External
+- Every page is there: MIDI, Audio, Recording, General, File, Plugins, Theme, Project and Info. About 13 controls are
+  still greyed (Mix in buffer switch, Triple buffer, Priority, Safe overloads, Playback tracking, External
   tools, Troubleshooting and others), and 11 are only kept for now, with nothing reading them (Resampling quality, Align
   tick lengths and others); the program's choices are kept in `settings.txt` in the user folder
+- General ▸ Language ▸ Language: the interface drawn in English or Spanish, at once, no restart (the tables of
+  `crates/os-ui/assets/lang`; a label with no entry keeps its English). Labels are translated where they are drawn, so
+  an action, a file and a hit region keep their English: the Settings window, the menu bar and its menus, the dialogs,
+  the hints and the channel rack / mixer / browser labels follow the table
 - General ▸ Input ▸ Manage shortcuts: the F8 keys (browser, plugin picker, plugin database) and the audio clip
   double-click can be swapped
 - File ▸ Browser extra search folders: the folders added to the browser, renamed or replaced from here

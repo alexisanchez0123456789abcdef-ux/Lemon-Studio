@@ -547,7 +547,7 @@ fn sample_tab(ui: &mut Ui, sv: &SampleView) {
     if ui.m.plain("ts_mode") as i32 == params::STRETCH_AUTO {
         // Auto picks a method; FL shows the one in use under the box.
         let f = Font::new(11);
-        ui.c.text(f, 460.0, y(125.0), plug::FAINT, "e3 generic");
+        ui.c.text(f, 460.0, y(125.0), plug::FAINT, os_ui::lang::t("e3 generic"));
     }
 
     let fx = panel(ui, 287.0, 556.0, 162.0, 319.0, 0.0, "");
@@ -570,7 +570,7 @@ fn sample_tab(ui: &mut Ui, sv: &SampleView) {
     // A panel title like the others.
     let f = LABEL.bold();
     let lh = ui.c.line_height(f);
-    ui.c.text(f, 337.0, (y(172.0) - lh / 2.0).round(), brand::TEXT, "Precomputed effects");
+    ui.c.text(f, 337.0, (y(172.0) - lh / 2.0).round(), brand::TEXT, os_ui::lang::t("Precomputed effects"));
     if ui.st.fx_page == 0 {
         radio(ui, "fx_dc", 302.0, 199.0, "Remove DC offset");
         radio(ui, "fx_normalize", 302.0, 221.0, "Normalize");
@@ -1009,10 +1009,10 @@ fn envelope_tab(ui: &mut Ui) {
     let fr = panel(ui, 457.0, 556.0, 113.0, 310.0, 0.0, "");
     inst::panel_tab(ui.c, t, fr, 55.0, "Filter");
     let cap = plug::DIM;
-    ui.c.text(MOD_CAP, 504.0, y(131.0) - 6.0, cap, "MOD X");
+    ui.c.text(MOD_CAP, 504.0, y(131.0) - 6.0, cap, os_ui::lang::t("MOD X"));
     big_knob(ui, "f_cut", 492.5, 168.5, 0x5ea733);
     big_knob(ui, "f_res", 520.0, 233.5, 0xc8a032);
-    ui.c.text(MOD_CAP, 464.0, y(264.0) - 7.0, cap, "MOD Y");
+    ui.c.text(MOD_CAP, 464.0, y(264.0) - 7.0, cap, os_ui::lang::t("MOD Y"));
     list(ui, "f_type", 463.0, 549.0, 282.0, 302.0);
 
     root_panel(ui);

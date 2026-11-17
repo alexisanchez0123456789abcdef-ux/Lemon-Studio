@@ -119,11 +119,11 @@ pub fn paint(ui: &mut Ui, s: &State) {
         ui.c.fill_rrect(no, rb, if hov { t.menu_pop_hi } else { t.menu_pop });
         cross(ui, no, t.glyph);
         let caption = match b.target {
-            BoxTarget::Name(n) => format!("Pattern {n} name"),
-            BoxTarget::Transpose(_) => "Semitones".to_string(),
+            BoxTarget::Name(n) => format!("{} {n}", os_ui::lang::t("Pattern name")),
+            BoxTarget::Transpose(_) => os_ui::lang::t("Semitones").to_string(),
             BoxTarget::Rack(rb) => crate::rack::box_caption(s, rb),
         };
-        ui.c.text_clip(Font::new(12), x + 44.0, row + 2.0, r.right() - x - 74.0, t.glyph_dim, &caption);
+        ui.c.text_clip(Font::new(12), x + 44.0, row + 2.0, r.right() - x - 74.0, t.glyph_dim, os_ui::lang::t(&caption));
         let tab_col = match b.target {
             BoxTarget::Name(n) => Some(s.project.pattern(n).and_then(|p| p.color)),
             BoxTarget::Rack(crate::rack::RBox::Channel(r)) => Some(s.project.channels.get(r).and_then(|c| c.color)),
@@ -182,14 +182,14 @@ pub fn paint(ui: &mut Ui, s: &State) {
         ui.hit(Rect::new(0.0, 0.0, s.screen.0, s.screen.1), Action::Swallow, "");
         panel(ui, r, Color::rgb(BG));
         ui.hit(r, Action::Pat(Hit::Inside), "");
-        ui.c.text(Font::new(13), r.x + 12.0, r.y + 8.0, t.glyph_dim, "Confirm");
+        ui.c.text(Font::new(13), r.x + 12.0, r.y + 8.0, t.glyph_dim, os_ui::lang::t("Confirm"));
         // spec: ui/channel-rack.md §18 (channels), ui/pattern-menu.md (patterns)
         let msg = match &s.rack.pending_delete {
             // spec: ui/unused-channels.md §4
-            Some(rows) if s.rack.purging => format!("{} unused audio clip channel(s) are about to be deleted.", rows.len()),
-            Some(rows) if rows.len() == 1 => "The selected channel is about to be deleted.".to_string(),
-            Some(rows) => format!("The {} selected channels are about to be deleted.", rows.len()),
-            None => format!("{} is about to be deleted.", pt::name_of(s, s.pattern.max(1))),
+            Some(rows) if s.rack.purging => format!("{} {}", rows.len(), os_ui::lang::t("unused audio clip channel(s) are about to be deleted.")),
+            Some(rows) if rows.len() == 1 => os_ui::lang::t("The selected channel is about to be deleted.").to_string(),
+            Some(rows) => format!("{} {} {}", os_ui::lang::t("The"), rows.len(), os_ui::lang::t("selected channels are about to be deleted.")),
+            None => format!("{} {}", pt::name_of(s, s.pattern.max(1)), os_ui::lang::t("is about to be deleted.")),
         };
         ui.c.text_clip(font, r.x + 12.0, r.y + 40.0, r.w - 24.0, t.glyph, &msg);
         // spec: ui/settings-choices.md "Hints and warnings: Manage messages and Project data size warning (2026-10-16)"
@@ -198,8 +198,8 @@ pub fn paint(ui: &mut Ui, s: &State) {
             let br = Rect::new(r.right() - 180.0 + i as f32 * 86.0, r.bottom() - 34.0, 80.0, 24.0);
             let hov = ui.hit(br, Action::Pat(hit), label);
             ui.c.fill_rrect(br, rb, if hov { t.menu_pop_hi } else { t.menu_pop });
-            let lw = ui.c.text_width(font, label);
-            ui.c.text(font, br.x + (br.w - lw) / 2.0, br.y + 4.0, t.glyph, label);
+            let lw = ui.c.text_width(font, os_ui::lang::t(label));
+            ui.c.text(font, br.x + (br.w - lw) / 2.0, br.y + 4.0, t.glyph, os_ui::lang::t(label));
         }
     }
 }

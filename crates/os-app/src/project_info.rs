@@ -138,11 +138,11 @@ pub fn date_text(days: f64) -> Option<String> {
 pub fn spent_text(days: f64) -> String {
     let minutes = (days.max(0.0) * 1440.0 + 1e-6).floor() as u64;
     if minutes == 0 {
-        return "Less than a minute was spent working on it.".into();
+        return os_ui::lang::t("Less than a minute was spent working on it.").into();
     }
     let (h, m) = (minutes / 60, minutes % 60);
     let word = |n: u64, one: &'static str, many: &'static str| if n == 1 { one } else { many };
-    format!("Total time spent on it:  {h} {} {m} {}.", word(h, "hour", "hours"), word(m, "minute", "minutes"))
+    format!("{}  {h} {} {m} {}.", os_ui::lang::t("Total time spent on it:"), word(h, os_ui::lang::t("hour"), os_ui::lang::t("hours")), word(m, os_ui::lang::t("minute"), os_ui::lang::t("minutes")))
 }
 
 /// The footer's counts (spec: flp/events/project-info.md "Info counts").
@@ -199,14 +199,14 @@ pub fn footer(s: &State, now: Instant) -> Vec<String> {
     if let Some(date) = p.work_time.and_then(|w| date_text(w.started)) {
         let saved_by = p.saved_by.trim_matches(|c: char| c == '\0' || c.is_whitespace());
         lines.push(match saved_by {
-            "" => format!("This project was started on {date}"),
-            v => format!("This project was started on {date}, last saved in {v}"),
+            "" => format!("{} {date}", os_ui::lang::t("This project was started on")),
+            v => format!("{} {date}, {} {v}", os_ui::lang::t("This project was started on"), os_ui::lang::t("last saved in")),
         });
     }
     lines.push(spent_text(spent_days(s, now)));
     let c = counts(p);
-    lines.push(format!("Plugins: {}, Channels: {}, Mixer Tracks: {}", c.plugins, c.channels, c.mixer_tracks));
-    lines.push(format!("Arrangements: {}, PL tracks: {}, PL clips: {}, Notes: {}", c.arrangements, c.pl_tracks, c.pl_clips, c.notes));
+    lines.push(format!("{}: {}, {}: {}, {}: {}", os_ui::lang::t("Plugins"), c.plugins, os_ui::lang::t("Channels"), c.channels, os_ui::lang::t("Mixer Tracks"), c.mixer_tracks));
+    lines.push(format!("{}: {}, {}: {}, {}: {}, {}: {}", os_ui::lang::t("Arrangements"), c.arrangements, os_ui::lang::t("PL tracks"), c.pl_tracks, os_ui::lang::t("PL clips"), c.pl_clips, os_ui::lang::t("Notes"), c.notes));
     lines
 }
 

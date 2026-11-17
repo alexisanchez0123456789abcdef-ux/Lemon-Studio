@@ -76,7 +76,7 @@ pub fn install() {
     bar.addItem(&with_submenu(mtm, app_menu(mtm, &target)));
     let mut menus = Vec::new();
     for (i, m) in menus::MENUS.iter().enumerate() {
-        let title = NSString::from_str(&menus::bar_title(m.title));
+        let title = NSString::from_str(os_ui::lang::t(&menus::bar_title(m.title)));
         let menu = NSMenu::initWithTitle(NSMenu::alloc(mtm), &title);
         menu.setAutoenablesItems(false);
         menu.setDelegate(Some(ProtocolObject::from_ref(&*target)));
@@ -164,7 +164,8 @@ fn fill(target: &Target, menu: &NSMenu) {
     // Section headers (macOS 14 and later) are system ones; earlier ones are greyed-out entries.
     let headers = AnyClass::get(c"NSMenuItem").is_some_and(|c| c.class_method(sel!(sectionHeaderWithTitle:)).is_some());
     for row in &model.rows {
-        let title = NSString::from_str(&row.label.replace("...", "…"));
+        let label = row.label.replace("...", "…");
+        let title = NSString::from_str(os_ui::lang::t(&label));
         let item = match row.kind {
             Kind::Sep => NSMenuItem::separatorItem(mtm),
             Kind::Head if headers => NSMenuItem::sectionHeaderWithTitle(&title, mtm),

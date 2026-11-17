@@ -125,6 +125,16 @@ pub const NOTE_NAMES: Combo = Combo { key: "note_names", label: "Note names", ch
 /// General ▸ Language: black keys as sharps of the key below or flats of the key above (`crate::note_names`).
 pub const BLACK_NOTES: Combo = Combo { key: "black_notes", label: "Black notes", choices: &["Sharps - #", "Flats - \u{266d}"], default: 0 };
 
+/// General ▸ Language: the language the interface is drawn in, one choice per `os_ui::lang::Language` (the choice's
+/// text is the language's own name, never translated). Read by `App::apply_language` when the program starts and when
+/// it is chosen, so a change applies at once (FL needs a restart). Spec: ui/settings.md "General".
+pub const LANGUAGE: Combo = Combo {
+    key: "language",
+    label: "Language",
+    choices: &[os_ui::lang::Language::English.name(), os_ui::lang::Language::Spanish.name()],
+    default: 0,
+};
+
 /// File ▸ Backup: how often the project is backed up (`crate::backup`). Spec: ui/settings-choices.md "Backup files".
 pub const AUTOSAVE: Combo = Combo {
     key: "autosave",
@@ -646,7 +656,7 @@ pub const CHECKS: &[&Check] = &[
     &AUTO_AUDIO_CLIPS,
 ];
 /// The declared combos.
-pub const COMBOS: &[&Combo] = &[&MAIN_GUI_SCALING, &POPUPS_SCALING, &NOTE_NAMES, &BLACK_NOTES, &AUTOSAVE, &BACKUP_LOCATION, &STARTUP_PROJECT, &COLORFUL_WAVEFORMS, &ANIMATION_REFRESH_RATE, &TRANSPARENT_WINDOWS, &CURSORS_SCALING, &LEGACY_SCALING, &OPTIMIZE_FOR, &RESAMPLING_QUALITY, &PROJECT_DATA_SIZE_WARNING, &TOOLBARS_SCALING, &ASK_DATA_FOLDER, &VELOCITY_LINK, &RELEASE_LINK, &CONTROLLER_TYPE, &SYNC_TYPE, &COUNT_IN_LENGTH, &EXTERNAL_INPUT];
+pub const COMBOS: &[&Combo] = &[&MAIN_GUI_SCALING, &POPUPS_SCALING, &NOTE_NAMES, &BLACK_NOTES, &LANGUAGE, &AUTOSAVE, &BACKUP_LOCATION, &STARTUP_PROJECT, &COLORFUL_WAVEFORMS, &ANIMATION_REFRESH_RATE, &TRANSPARENT_WINDOWS, &CURSORS_SCALING, &LEGACY_SCALING, &OPTIMIZE_FOR, &RESAMPLING_QUALITY, &PROJECT_DATA_SIZE_WARNING, &TOOLBARS_SCALING, &ASK_DATA_FOLDER, &VELOCITY_LINK, &RELEASE_LINK, &CONTROLLER_TYPE, &SYNC_TYPE, &COUNT_IN_LENGTH, &EXTERNAL_INPUT];
 /// The declared combos no settings page shows (a window of their own does): General ▸ Input ▸ Manage shortcuts' rows
 /// (`crate::shortcuts`). Read by the declaration tests.
 #[cfg_attr(not(test), allow(dead_code))]
@@ -782,6 +792,12 @@ pub fn set_choice(c: &Combo, i: usize) {
     }
 }
 
+/// Draws the interface in General ▸ Language's choice (`os_ui::lang`): at the program's start and when the choice
+/// changes, so a change applies at once, no restart.
+pub fn apply_language() {
+    os_ui::lang::set(os_ui::lang::Language::from_index(index(&LANGUAGE)));
+}
+
 /// A setting kept as free text under `key`, for values found at run time (a template, a file path; `crate::templates`):
 /// `None` when it is not set or empty.
 pub fn text(key: &str) -> Option<String> {
@@ -822,7 +838,7 @@ impl App {
         if c.key == REC_WAIT.key && !on {
             self.state.rec.waiting = false;
         }
-        self.state.message = Some(format!("{}: {}", c.label, if on { "on" } else { "off" }));
+        self.state.message = Some(format!("{}: {}", os_ui::lang::t(c.label), os_ui::lang::t(if on { "on" } else { "off" })));
         self.invalidate();
     }
 
@@ -846,6 +862,10 @@ impl App {
     pub(crate) fn pref_choose(&mut self, c: &'static Combo, i: usize) -> Option<String> {
         let band = crate::views::band_h(&self.state);
         set_choice(c, i);
+        // Language applies at once: every label drawn from the next repaint on is in the language chosen.
+        if c.key == LANGUAGE.key {
+            apply_language();
+        }
         // Toolbars scaling: the workspace's top follows the band's new height, the floating windows with it (spec:
         // ui/ui-scaling.md §1).
         if c.key == TOOLBARS_SCALING.key && !self.state.toolbar.hidden {
@@ -853,7 +873,7 @@ impl App {
             crate::app::lift_windows(&mut self.state, dy);
         }
         self.invalidate();
-        Some(format!("{}: {}", c.label, choice(c)))
+        Some(format!("{}: {}", os_ui::lang::t(c.label), os_ui::lang::t(choice(c))))
     }
 }
 
@@ -923,7 +943,7 @@ main_gui_scaling = 200%
         assert_eq!(choice(&MAIN_GUI_SCALING), "125%");
         assert_eq!(find_combo("Main GUI scaling"), Some(&MAIN_GUI_SCALING));
         assert_eq!(find_check("Use the high-performance power plan"), Some(&TEST_CHECK));
-        assert_eq!((find_check("Main GUI scaling"), find_combo("Language"), find_check("")), (None, None, None));
+        assert_eq!((find_check("Main GUI scaling"), find_combo("Language"), find_check("")), (None, Some(&LANGUAGE), None));
     }
 
     /// Every declaration has its own key and label, a default among its choices, and a control of its kind with that
@@ -1007,11 +1027,11 @@ main_gui_scaling = 200%
         let mut app = App::new(None);
         app.open_settings(settings::GENERAL);
         app.paint(&mut c, None);
-        // Main GUI scaling opens its list under its box, System marked; Language is not available yet.
+        // Main GUI scaling opens its list under its box, System marked; Language works too, English marked.
         let combo = |app: &App| {
             app.hits.iter().rev().find(|h| matches!(&h.action, Action::Settings(SAct::Combo(l, ..)) if *l == MAIN_GUI_SCALING.label)).map(|h| h.rect).expect("the combo works")
         };
-        assert!(app.hits.iter().any(|h| h.action == Action::Placeholder("Language")));
+        assert!(app.hits.iter().any(|h| matches!(&h.action, Action::Settings(SAct::Combo(l, ..)) if *l == LANGUAGE.label)));
         let r = combo(&app);
         click(&mut app, &mut c, r);
         let p = app.state.playlist.popup.as_ref().expect("its menu");
@@ -1697,5 +1717,21 @@ main_gui_scaling = 200%
         set_choice(&EXTERNAL_INPUT, 0);
         app.ask_external(1);
         assert!(!app.state.dialogs.is_empty(), "Ask asks");
+    }
+
+    /// General ▸ Language: the choice draws the interface in that language from the next repaint on (no restart),
+    /// every label translated where it is drawn (`os_ui::lang`).
+    #[test]
+    fn the_language_choice_applies_at_once() {
+        let was = os_ui::lang::language();
+        set_choice(&LANGUAGE, 1);
+        apply_language();
+        assert_eq!(os_ui::lang::t("Language"), "Idioma");
+        assert_eq!(os_ui::lang::t("Display"), "Pantalla");
+        assert_eq!(os_ui::lang::t("not a label"), "not a label", "a text without an entry stays as it is");
+        set_choice(&LANGUAGE, 0);
+        apply_language();
+        assert_eq!(os_ui::lang::t("Language"), "Language");
+        os_ui::lang::set(was);
     }
 }

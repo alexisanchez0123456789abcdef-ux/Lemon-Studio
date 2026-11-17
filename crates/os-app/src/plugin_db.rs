@@ -610,7 +610,7 @@ impl Report {
     pub fn message(&self) -> String {
         let mut parts = Vec::new();
         if self.added > 0 {
-            parts.push(format!("{} new plugin{}", self.added, if self.added == 1 { "" } else { "s" }));
+            parts.push(format!("{} {} {}", self.added, os_ui::lang::t("new"), if self.added == 1 { os_ui::lang::t("plugin") } else { os_ui::lang::t("plugins") }));
         }
         if self.gone > 0 {
             parts.push(format!("{} gone", self.gone));
@@ -1015,12 +1015,17 @@ impl Db {
     /// The Scanning group's status line (§2).
     pub fn status_line(&self) -> String {
         if let Some(p) = &self.progress {
-            return if p.total == 0 { "Looking for plugin files...".into() } else { format!("Scanning {} of {}: {}", p.done, p.total, p.file) };
+            return if p.total == 0 {
+                os_ui::lang::t("Looking for plugin files...").into()
+            } else {
+                format!("{} {} {} {}: {}", os_ui::lang::t("Scanning"), p.done, os_ui::lang::t("of"), p.total, p.file)
+            };
         }
         let files = self.cache.files.len();
         let plugins = self.cache.uids().len();
         let errors = self.cache.errors();
-        let mut s = format!("{plugins} plugin{} in {files} file{}", if plugins == 1 { "" } else { "s" }, if files == 1 { "" } else { "s" });
+        let (pw, fw) = (if plugins == 1 { os_ui::lang::t("plugin") } else { os_ui::lang::t("plugins") }, if files == 1 { os_ui::lang::t("file") } else { os_ui::lang::t("files") });
+        let mut s = format!("{plugins} {pw} {} {files} {fw}", os_ui::lang::t("in"));
         if errors > 0 {
             s.push_str(&format!(", {errors} with errors"));
         }

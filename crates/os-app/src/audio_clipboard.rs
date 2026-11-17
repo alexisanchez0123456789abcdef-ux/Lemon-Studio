@@ -67,9 +67,9 @@ impl App {
         match std::fs::create_dir_all(&dir).and_then(|()| std::fs::write(&path, bytes)) {
             Ok(()) => {
                 self.add_browser_folder(dir);
-                self.state.message = Some(format!("Saved {}", path.display()));
+                self.state.message = Some(format!("{} {}", os_ui::lang::t("Saved"), path.display()));
             }
-            Err(e) => self.state.message = Some(format!("Could not write {}: {e}", path.display())),
+            Err(e) => self.state.message = Some(format!("{} {}: {e}", os_ui::lang::t("Could not write"), path.display())),
         }
         self.invalidate();
     }

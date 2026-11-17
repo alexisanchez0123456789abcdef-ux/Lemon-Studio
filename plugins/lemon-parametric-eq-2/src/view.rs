@@ -355,8 +355,8 @@ pub fn paint(c: &mut Canvas, look: &Look, vs: &ViewState) -> Vec<Hit> {
     let cap = Font::condensed(12, 0).bold();
     let cap_col = Color::rgb(0x7a7a7a);
     // Right-aligned at x ~545 (spec §3), 2 px clear of band 1's knobs (their arcs reach x 546).
-    c.text_right(cap, 543.0, FREQ_Y - 8.0, cap_col, "FREQ");
-    c.text_right(cap, 543.0, BW_Y - 8.0, cap_col, "BW");
+    c.text_right(cap, 543.0, FREQ_Y - 8.0, cap_col, os_ui::lang::t("FREQ"));
+    c.text_right(cap, 543.0, BW_Y - 8.0, cap_col, os_ui::lang::t("BW"));
     let ph = Rect::new(524.0, 289.0, 16.0, 14.0);
     let pst = st(vs, ph, Target::Phones);
     let on = flag(look.extra, params::F_SOLO_SHIFT);
@@ -383,7 +383,7 @@ pub fn paint(c: &mut Canvas, look: &Look, vs: &ViewState) -> Vec<Hit> {
     kit::triangle(c, 262.0, 324.0, 6.0, kit::Dir::Right, keq::ink(s1));
     let lin = flag(look.extra, params::F_LIN);
     let s2 = button(c, 298.0, 328.0, 15.0, Target::Lin, lin);
-    c.text_center(Font::condensed(13, 0).bold(), Rect::new(283.0, 320.0, 30.0, 16.0), keq::ink(s2), "LIN");
+    c.text_center(Font::condensed(13, 0).bold(), Rect::new(283.0, 320.0, 30.0, 16.0), keq::ink(s2), os_ui::lang::t("LIN"));
     // Bit 0 = on; the mode (bits 1..8) stays while it is off: 1 HQ+, 0 Legacy or Enhanced (flag 0x02).
     let hq = byte(look.extra, params::HQ_BYTE);
     let s3 = button(c, 337.0, 328.0, 15.0, Target::Hq, hq & 1 != 0);
@@ -393,7 +393,7 @@ pub fn paint(c: &mut Canvas, look: &Look, vs: &ViewState) -> Vec<Hit> {
         0 => "L",
         _ => "",
     };
-    let hx = c.text(Font::condensed(13, 0).bold(), 326.0, 319.0, keq::ink(s3), "HQ");
+    let hx = c.text(Font::condensed(13, 0).bold(), 326.0, 319.0, keq::ink(s3), os_ui::lang::t("HQ"));
     c.text(Font::new(8).bold(), 326.0 + hx, 327.0, keq::ink(s3), sub);
     let tok = byte(look.extra, params::TOKENS_BYTE) != 0;
     // Lit while the tokens show.
@@ -411,13 +411,13 @@ pub fn paint(c: &mut Canvas, look: &Look, vs: &ViewState) -> Vec<Hit> {
     }
     let lab = Font::condensed(11, 0).bold();
     let lab_col = Color::rgb(0x8f8f8f);
-    c.text_center(lab, Rect::new(394.0, 333.0, 60.0, 13.0), lab_col, "MONITOR");
+    c.text_center(lab, Rect::new(394.0, 333.0, 60.0, 13.0), lab_col, os_ui::lang::t("MONITOR"));
     let s6 = button(c, 467.0, 321.0, 10.0, Target::Store, false);
     kit::triangle(c, 467.0, 322.0, 6.0, kit::Dir::Down, keq::ink(s6));
     let s7 = button(c, 491.0, 321.0, 10.0, Target::Flip, false);
     kit::triangle(c, 491.0, 318.5, 5.0, kit::Dir::Up, keq::ink(s7));
     kit::triangle(c, 491.0, 324.0, 5.0, kit::Dir::Down, keq::ink(s7));
-    c.text_center(lab, Rect::new(449.0, 333.0, 60.0, 13.0), lab_col, "COMPARE");
+    c.text_center(lab, Rect::new(449.0, 333.0, 60.0, 13.0), lab_col, os_ui::lang::t("COMPARE"));
     hits
 }
 

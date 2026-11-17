@@ -31,6 +31,7 @@ pub fn bounds(s: &State) -> Rect {
 
 /// Text vertically centred on `cy`, from `x` (left), centred on it or ending at it (`align` -1, 0, 1).
 fn label(ui: &mut Ui, f: Font, x: f32, cy: f32, align: i8, col: Color, s: &str) {
+    let s = os_ui::lang::t(s);
     let lh = ui.c.line_height(f);
     let w = ui.c.text_width(f, s);
     let x = match align {

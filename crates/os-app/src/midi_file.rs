@@ -694,7 +694,10 @@ impl App {
         }
         let s = &mut self.state;
         crate::piano::center_keys(s, self.piano_grid.map_or(700.0, |g| g.h));
-        s.message = Some(format!("Imported {} ({parts} channel{})", file_name(path), if parts == 1 { "" } else { "s" }));
+        s.message = Some({
+        let ch = if parts == 1 { os_ui::lang::t("channel") } else { os_ui::lang::t("channels") };
+        format!("{} {} ({parts} {ch})", os_ui::lang::t("Imported"), file_name(path))
+    });
         self.invalidate();
     }
 
@@ -725,7 +728,7 @@ impl App {
         }
         s.piano.select(n, ch, sel);
         s.piano.dirty = true;
-        s.message = Some(format!("Imported {} into the piano roll ({} notes)", file_name(path), new.len()));
+        s.message = Some(format!("{} {} {} ({} {})", os_ui::lang::t("Imported"), file_name(path), os_ui::lang::t("into the piano roll"), new.len(), os_ui::lang::t("notes")));
         self.invalidate();
     }
 
@@ -817,9 +820,9 @@ impl App {
         match std::fs::create_dir_all(&dir).and_then(|()| std::fs::write(&path, os_smf::write(&file))) {
             Ok(()) => {
                 self.add_browser_folder(dir);
-                self.state.message = Some(format!("Saved {}", path.display()));
+                self.state.message = Some(format!("{} {}", os_ui::lang::t("Saved"), path.display()));
             }
-            Err(e) => self.state.message = Some(format!("Could not write {}: {e}", path.display())),
+            Err(e) => self.state.message = Some(format!("{} {}: {e}", os_ui::lang::t("Could not write"), path.display())),
         }
         self.invalidate();
     }

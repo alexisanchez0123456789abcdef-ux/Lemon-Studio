@@ -91,7 +91,7 @@ impl crate::app::App {
     /// Opens `url` in the default web browser, the hint bar saying so.
     pub(crate) fn open_web(&mut self, url: &str) {
         open(url);
-        self.state.message = Some(format!("Opening {url}"));
+        self.state.message = Some(format!("{} {url}", os_ui::lang::t("Opening")));
     }
 }
 

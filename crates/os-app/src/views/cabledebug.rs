@@ -32,7 +32,7 @@ pub fn paint(ui: &mut Ui, s: &State) {
     ui.c.fill_rect(PANEL, edge);
     ui.c.fill_rect(PANEL.inset(1.0), bg);
     ui.hit(PANEL, Action::Swallow, "Cable physics debug panel: drag a slider, right-click resets it");
-    ui.c.text(super::fnt(13.0).bold(), PANEL.x + 8.0, PANEL.y + 4.0, ink, "Cable physics");
+    ui.c.text(super::fnt(13.0).bold(), PANEL.x + 8.0, PANEL.y + 4.0, ink, os_ui::lang::t("Cable physics"));
     for (n, label) in ["Reset", "Save", "Close"].into_iter().enumerate() {
         let r = button(n);
         ui.c.fill_rect(r, Color::rgb(0x3d4347));

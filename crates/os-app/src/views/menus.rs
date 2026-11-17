@@ -466,18 +466,28 @@ pub const BAR_FONT: Font = Font::condensed(18, 6);
 
 /// Menu bar item layout: (x0, x1, average character width of the font). Left edges are the measured word
 /// starts. The words are as wide as the font makes them; where a text engine sets them wider than the slots
-/// were measured for, all eight are condensed one step further so that no word runs into the next.
+/// were measured for, all eight are condensed one step further so that no word runs into the next. English keeps
+/// the measured slots; another language's words are longer, so they are packed from the left edge with a gap between
+/// them, into the room before the transport.
 pub fn bar_layout(c: &mut os_ui::Canvas) -> [(f32, f32, f32); 8] {
     const X: [f32; 8] = [8.0, 35.0, 61.0, 88.0, 143.0, 176.0, 226.0, 266.0];
     const END: f32 = 300.0;
     let mut out = [(0.0, 0.0, 6.0); 8];
+    let english = os_ui::lang::language() == os_ui::lang::Language::English;
     for width in [BAR_FONT.width, 5, 4] {
         let f = Font::condensed(BAR_FONT.size, width);
         let mut fits = true;
+        let mut x = 8.0;
         for (i, m) in MENUS.iter().enumerate() {
-            let x1 = X[i] + c.text_width(f, m.title);
-            fits &= x1 + 4.0 <= X.get(i + 1).copied().unwrap_or(END);
-            out[i] = (X[i], x1, f32::from(width));
+            let w = c.text_width(f, os_ui::lang::t(m.title));
+            if english {
+                out[i] = (X[i], X[i] + w, f32::from(width));
+                fits &= X[i] + w + 4.0 <= X.get(i + 1).copied().unwrap_or(END);
+            } else {
+                out[i] = (x, x + w, f32::from(width));
+                x += w + 6.0;
+                fits &= x - 6.0 + 4.0 <= 296.0;
+            }
         }
         if fits {
             break;
@@ -504,7 +514,7 @@ pub fn works(menu: usize, item: &Item) -> bool {
 /// "Miscellaneous: seven more checks, Default template and Startup project").
 pub fn label_of(menu: usize, item: &Item) -> std::borrow::Cow<'static, str> {
     match (menu, item.label) {
-        (0, "New") => format!("New ({})", crate::templates::name()).into(),
+        (0, "New") => format!("{} ({})", os_ui::lang::t("New"), os_ui::lang::t(&crate::templates::name())).into(),
         (_, l) => l.into(),
     }
 }
@@ -826,7 +836,7 @@ pub fn paint_dropdown(ui: &mut Ui, s: &State, menu: usize, k: f32) {
         let mut need = *w;
         for it in items.iter().filter(|it| matches!(it.kind, Kind::Item) && in_menu(s, menu, it)) {
             let key = if it.shortcut.is_empty() { 0.0 } else { ui.c.text_width(f.italic(), shortcut_now(it)) + 16.0 };
-            need = need.max(20.0 + ui.c.text_width(f, &label_now(s, menu, it)) + key + if it.sub { 18.0 } else { 8.0 });
+            need = need.max(20.0 + ui.c.text_width(f, os_ui::lang::t(&label_now(s, menu, it))) + key + if it.sub { 18.0 } else { 8.0 });
         }
         if has_recent(items) {
             for r in recent.iter().filter(|r| **r != Recent::Head) {
@@ -1005,7 +1015,7 @@ fn head_row(ui: &mut Ui, rr: Rect, label: &str) {
     } else {
         ui.c.fill_rect(rr, t.menu_pop_head);
     }
-    ui.c.text(Font::new(12), rr.x + 4.0, rr.y + 1.0 + (rr.h - os_ui::kit::menu::HEAD) / 2.0, t.menu_pop_head_text, label);
+    ui.c.text(Font::new(12), rr.x + 4.0, rr.y + 1.0 + (rr.h - os_ui::kit::menu::HEAD) / 2.0, t.menu_pop_head_text, os_ui::lang::t(label));
 }
 
 /// A row under the mouse, or the ▸ row whose submenu is open.
@@ -1022,7 +1032,8 @@ fn row_text(ui: &mut Ui, rr: Rect, label: &str, key: &str, sub: bool, ok: bool, 
     let (dy, my) = ((rr.h - os_ui::kit::menu::ROW) / 2.0, rr.cy());
     let color = if ok { t.menu_pop_text } else { t.menu_pop_dim };
     let color = color.with_alpha((f32::from(color.a) * caption.1) as u8);
-    ui.c.text_clip(font, rr.x + 20.0 - caption.0, rr.y + 2.0 + dy, rr.w - 24.0, color, label);
+    // A menu entry's label is translated where it is drawn: the entry itself stays the key its action answers to.
+    ui.c.text_clip(font, rr.x + 20.0 - caption.0, rr.y + 2.0 + dy, rr.w - 24.0, color, os_ui::lang::t(label));
     let right = rr.right() - if sub { 16.0 } else { 8.0 };
     if !key.is_empty() {
         let sc = if ok { t.menu_pop_shortcut } else { t.menu_pop_dim.mix(t.menu_pop, 0.35) };
@@ -1074,6 +1085,27 @@ fn paint_recent(ui: &mut Ui, s: &State, rows: &[Recent], at: Rect, open: Option<
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    /// The bar's titles are laid out in the interface's language: in order, and inside the room before the transport
+    /// (a language's words are longer than English's).
+    #[test]
+    fn the_bar_lays_out_every_language() {
+        let Ok(mut c) = os_ui::Canvas::new(1920, 1080, 1.0) else { return };
+        let was = os_ui::lang::language();
+        for language in os_ui::lang::Language::ALL {
+            os_ui::lang::set(language);
+            let layout = bar_layout(&mut c);
+            let mut last = 0.0;
+            for (i, (x0, x1, width)) in layout.iter().enumerate() {
+                assert!(x1 > x0, "{language:?}: title {i} has no width");
+                assert!(*x0 >= last, "{language:?}: title {i} starts before the one before it");
+                assert!(*x1 <= 376.0, "{language:?}: title {i} runs into the transport at {x1}");
+                assert!(*width >= 4.0);
+                last = *x1;
+            }
+        }
+        os_ui::lang::set(was);
+    }
 
     #[test]
     fn indices() {

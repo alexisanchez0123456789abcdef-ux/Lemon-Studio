@@ -111,7 +111,7 @@ fn search(ui: &mut Ui, s: &State, keys: bool) {
     let tx = field.x + 31.0;
     let room = field.right() - 30.0 - tx;
     if p.query.is_empty() {
-        ui.c.text_clip(f, tx, ty, room, t.text_faint, "Search plugins");
+        ui.c.text_clip(f, tx, ty, room, t.text_faint, os_ui::lang::t("Search plugins"));
         if keys {
             ui.c.fill_rect(Rect::new(tx, ty + 2.0, 1.0, lh - 4.0), t.glyph);
         }

@@ -72,7 +72,7 @@ pub fn paint(ui: &mut Ui, s: &State, r: Rect, f: &FrameInfo) {
     window_body(ui, r);
     let outer = r;
     let arr = pl::arrangement_name(s);
-    let title = format!("Arranger - {arr}  \u{203a}  {}  \u{203a}", pl::source_name(s, pl::source(s)));
+    let title = format!("{} - {arr}  \u{203a}  {}  \u{203a}", os_ui::lang::t("Arranger"), pl::source_name(s, pl::source(s)));
     // The grid covers most of the window and is painted all over (rows and gaps): the frame skips it.
     let (fr, fc) = super::frame_rects(s, Win::Playlist, r);
     let cover = grid_rect(s, fr, fc);
@@ -147,7 +147,7 @@ pub fn paint(ui: &mut Ui, s: &State, r: Rect, f: &FrameInfo) {
     for (i, (icon, label)) in [(Icon::Wave, "NOTE"), (Icon::Slide, "CHAN"), (Icon::PianoRoll, "PAT")].into_iter().enumerate() {
         let cx = strip.x + 45.0 + 26.0 * i as f32;
         icons::draw(ui.c, icon, Rect::new(cx - 8.0, client.y + 3.0, 16.0, 16.0), if i == 2 { t.glyph } else { t.text_faint });
-        ui.c.text_center(Font::condensed(8, 4).bold(), Rect::new(cx - 14.0, client.y + 25.0, 28.0, 10.0), if i == 2 { t.glyph } else { t.text_faint }, label);
+        ui.c.text_center(Font::condensed(8, 4).bold(), Rect::new(cx - 14.0, client.y + 25.0, 28.0, 10.0), if i == 2 { t.glyph } else { t.text_faint }, os_ui::lang::t(label));
     }
 
     // Arrangement geometry.
@@ -741,7 +741,7 @@ fn markers_paint(ui: &mut Ui, s: &State, g: &PGeom, lane: Rect) {
         marker_glyph(ui, m.kind, x, top + 8.0);
         let tx = x + 3.0 + pl::marker_icon(m.kind).0;
         let label = crate::perform::pad_name(s, m).unwrap_or_else(|| marker_label(m));
-        ui.c.text_clip(Font::new(12), tx, lane.y + 1.0, right - tx, t.text, &label);
+        ui.c.text_clip(Font::new(12), tx, lane.y + 1.0, right - tx, t.text, os_ui::lang::t(&label));
     }
     ui.c.pop_clip();
 }
@@ -1799,7 +1799,7 @@ fn popup_list(ui: &mut Ui, items: &[pl::PItem], x: f32, y: f32, screen: (f32, f3
             } else {
                 ui.c.fill_rect(rr, t.menu_pop_head);
             }
-            ui.c.text(Font::new(12), rr.x + 4.0, rr.y + 1.0 + (rr.h - os_ui::kit::menu::HEAD) / 2.0, t.menu_pop_head_text, &it.label);
+            ui.c.text(Font::new(12), rr.x + 4.0, rr.y + 1.0 + (rr.h - os_ui::kit::menu::HEAD) / 2.0, t.menu_pop_head_text, os_ui::lang::t(&it.label));
             continue;
         }
         // Greyed out: a disabled entry, or a submenu with nothing available in it (it still opens, to show what is
@@ -1839,7 +1839,7 @@ fn popup_list(ui: &mut Ui, items: &[pl::PItem], x: f32, y: f32, screen: (f32, f3
         // At Playful the captions enter one after another; the rest of a row is there at once.
         let (left, shows) = fx.s.motion.borrow().caption(fx.slot, i);
         let color = color.with_alpha((f32::from(color.a) * shows) as u8);
-        ui.c.text_clip(font, rr.x + 20.0 - left, rr.y + 2.0 + dy, lw + 4.0, color, &it.label);
+        ui.c.text_clip(font, rr.x + 20.0 - left, rr.y + 2.0 + dy, lw + 4.0, color, os_ui::lang::t(&it.label));
         let right = rr.right() - if it.children.is_empty() { 8.0 } else { 16.0 };
         if !it.key.is_empty() {
             let sc = if live { t.menu_pop_shortcut } else { t.menu_pop_dim.mix(t.menu_pop, 0.35) };

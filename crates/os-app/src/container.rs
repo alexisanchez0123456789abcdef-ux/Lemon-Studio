@@ -1212,7 +1212,7 @@ impl App {
             CAct::Menu(i) if i < list.len() => member_ops(s, t, k, &list, i),
             CAct::Menu(_) => return,
             CAct::Add if list.len() >= MAX_MEMBERS => {
-                self.state.message = Some(format!("A container holds at most {MEMBER_IDS} effects"));
+                self.state.message = Some(format!("{} {MEMBER_IDS} {}", os_ui::lang::t("A container holds at most"), os_ui::lang::t("effects")));
                 return;
             }
             // The plugin palette, its picks going to this container's track (spec: ui/plugin-menu.md §6).

@@ -621,7 +621,7 @@ fn paint(c: &mut Canvas, st: &State) {
     if st.misc {
         match &st.info.misc {
             Some(v) => crate::misc_page::paint(c, &os_theme::current(), a.x, a.y, v, &st.misc_ui),
-            None => c.text_center(Font::new(16), a, c_grey(), "No channel settings here"),
+            None => c.text_center(Font::new(16), a, c_grey(), os_ui::lang::t("No channel settings here")),
         }
     }
 }
@@ -674,7 +674,7 @@ fn title_bar(c: &mut Canvas, st: &State, w: f32) {
     }
     // Presets box: the loaded preset's name, or "Presets" (spec: plugins/presets.md).
     c.fill_rrect(p, if lemon { 6.0 } else { 3.0 }, c_presets());
-    c.text_clip(f, p.x + 9.0, ty, p.w - 9.0 - 31.0, c_text(), st.preset.as_deref().unwrap_or("Presets"));
+    c.text_clip(f, p.x + 9.0, ty, p.w - 9.0 - 31.0, c_text(), os_ui::lang::t(st.preset.as_deref().unwrap_or("Presets")));
     icon_at(c, &tb::CARET_LEFT, p.right() - 22.2, 15.5, 18.9, c_icon());
     icon_at(c, &tb::CARET_RIGHT, p.right() - 7.8, 15.5, 18.9, c_icon());
     let mw = max_w(st);

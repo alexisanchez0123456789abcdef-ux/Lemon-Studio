@@ -66,7 +66,7 @@ pub fn paint(ui: &mut Ui, s: &State, _f: &FrameInfo) {
     let bar = Rect::new(win.x + 1.0, win.y + 1.0, win.w - 2.0, TITLE_H - 2.0);
     ui.hit(bar, Action::WinDrag(Win::Perf), "Drag to move");
     icons::draw(ui.c, Icon::Plug, Rect::new(win.x + 9.0, win.y + 7.0, 15.0, 15.0), t.glyph);
-    ui.c.text_clip(Font::new(17), win.x + 30.0, win.y + 5.0, win.w - 60.0, t.text, "Plugin performance monitor");
+    ui.c.text_clip(Font::new(17), win.x + 30.0, win.y + 5.0, win.w - 60.0, t.text, os_ui::lang::t("Plugin performance monitor"));
     let close = Rect::new(win.right() - 22.0, win.y + 6.0, 16.0, 16.0);
     let hov = ui.hit(close, Action::CloseWin(Win::Perf), "Close (the measurements are reset)");
     icons::draw(ui.c, Icon::Close, close.inset(1.5), if hov { t.tx(0xffffff) } else { t.glyph });
@@ -89,7 +89,7 @@ pub fn paint(ui: &mut Ui, s: &State, _f: &FrameInfo) {
         x += w + 40.0;
     }
     let fx = win.x + 300.0;
-    ui.c.text(f, fx, ty, t.text, "Find");
+    ui.c.text(f, fx, ty, t.text, os_ui::lang::t("Find"));
     let fbox = Rect::new(fx + 36.0, cy - 10.0, win.right() - 8.0 - (fx + 36.0), 20.0);
     let hov = ui.hit(fbox, Action::Perf(PerfAct::Find), "Find: show only the plugins whose name, patch or place has this text (Esc clears)");
     let well = if p.finding || hov { t.window_body.shade(-0.25) } else { t.window_body.shade(-0.18) };
@@ -163,7 +163,7 @@ pub fn paint(ui: &mut Ui, s: &State, _f: &FrameInfo) {
         ui.c.text_clip(f, r.x + 6.0, ty, pc.2 - 12.0, t.text, &title);
         let mut px = r.x + 6.0 + tw + 8.0;
         if row.stopped {
-            px += ui.c.text(f, px, ty, t.meter_clip, "(stopped)") + 8.0;
+            px += ui.c.text(f, px, ty, t.meter_clip, os_ui::lang::t("(stopped)")) + 8.0;
         }
         let room = r.x + pc.2 - 6.0 - px;
         if room > 12.0 {

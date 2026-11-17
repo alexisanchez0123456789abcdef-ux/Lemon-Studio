@@ -224,7 +224,7 @@ fn reduction_chip(ui: &mut Ui, look: &Look) {
     lemon::outlined(ui.c, r, 6.0, plug::FIELD_LINE, plug::FIELD);
     let lh = ui.c.line_height(HEAD);
     let ty = (r.cy() - lh / 2.0).round();
-    ui.c.text(HEAD, r.x + 8.0, ty, plug::DIM, "GR");
+    ui.c.text(HEAD, r.x + 8.0, ty, plug::DIM, os_ui::lang::t("GR"));
     let recent = &look.history[look.history.len().saturating_sub(REDUCTION_HOLD)..];
     let (s, col) = match recent.iter().map(|c| c.gain).reduce(f32::min) {
         None => ("--".to_string(), plug::FAINT),
@@ -332,7 +332,7 @@ fn page_tabs(ui: &mut Ui) {
 fn compare_buttons(ui: &mut Ui) {
     let lab = Font::condensed(11, 0).bold();
     let lh = ui.c.line_height(lab);
-    ui.c.text_right(lab, 567.0, (282.0 - lh / 2.0).round(), LABEL_INK, "COMPARE");
+    ui.c.text_right(lab, 567.0, (282.0 - lh / 2.0).round(), LABEL_INK, os_ui::lang::t("COMPARE"));
     for (cx, target) in [(584.0, Target::Store), (612.0, Target::Flip)] {
         let cy = 282.0;
         let r = Rect::new(cx - 11.0, cy - 11.0, 22.0, 22.0);

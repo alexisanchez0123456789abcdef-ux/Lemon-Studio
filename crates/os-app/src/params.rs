@@ -193,12 +193,12 @@ pub(crate) fn owner_name(s: &State, key: usize) -> String {
         if slot == crate::container::CHANNEL {
             return format!("{name} in Container - {}", crate::container::place_name(s, track, slot));
         }
-        let plugin = crate::mixer::slot_name(s, track, slot).unwrap_or_else(|| format!("Slot {}", slot + 1));
+        let plugin = crate::mixer::slot_name(s, track, slot).unwrap_or_else(|| format!("{} {}", os_ui::lang::t("Slot"), slot + 1));
         return format!("{name} in {} - {}", crate::plugins::slot_label(&plugin), crate::mixer::name(s, track));
     }
     match fx_of(key) {
         Some((track, slot)) => {
-            let plugin = crate::mixer::slot_name(s, track, slot).unwrap_or_else(|| format!("Slot {}", slot + 1));
+            let plugin = crate::mixer::slot_name(s, track, slot).unwrap_or_else(|| format!("{} {}", os_ui::lang::t("Slot"), slot + 1));
             format!("{} - {}", crate::plugins::slot_label(&plugin), crate::mixer::name(s, track))
         }
         None => {

@@ -594,7 +594,7 @@ fn toolbar(ui: &mut Ui, l: &Look, lay: &Layout) {
     let st = ui.state(ar, Target::Append, l.rec.append);
     ui.hit(ar, Target::Append);
     lemon::toggle(ui.c, 161.0, 47.0, l.rec.append, st);
-    ui.c.text(CAPTION, 170.0, 41.5, if st.hover { brand::TEXT } else { plug::DIM }, "APPEND");
+    ui.c.text(CAPTION, 170.0, 41.5, if st.hover { brand::TEXT } else { plug::DIM }, os_ui::lang::t("APPEND"));
     // When and For.
     let wr = Rect::new(188.0, 11.0, 66.0, 20.0);
     let st = ui.state(wr, Target::When, false);
@@ -603,7 +603,7 @@ fn toolbar(ui: &mut Ui, l: &Look, lay: &Layout) {
     let when = state::WHEN_NAMES[l.rec.when.min(3) as usize].to_uppercase();
     ui.c.text_clip(LABEL, wr.x + 6.0, wr.y + 4.0, wr.w - 16.0, brand::TEXT, &when);
     caret(ui.c, wr, plug::DIM);
-    ui.c.text(CAPTION, 257.0, 16.0, plug::DIM, "FOR");
+    ui.c.text(CAPTION, 257.0, 16.0, plug::DIM, os_ui::lang::t("FOR"));
     let mr = MAX_SEL;
     let st = ui.state(mr, Target::Max, false);
     ui.hit(mr, Target::Max);
@@ -720,7 +720,7 @@ fn info_row(ui: &mut Ui, l: &Look, lay: &Layout) {
     field(ui, 119.0, "TEMPO", &tempo, brand::TEXT);
     // FREE stays in its column, before TITLE's separator (narrowed, then cut, when long).
     let room = 193.0 - 2.0 - 162.0;
-    ui.c.text(CAPTION, 162.0, cap_y, plug::FAINT, "FREE");
+    ui.c.text(CAPTION, 162.0, cap_y, plug::FAINT, os_ui::lang::t("FREE"));
     let f = ui.c.fit_font(VALUE, &l.free, room);
     ui.c.text_clip(f, 162.0, val_y, room, brand::TEXT, &l.free);
     // Length, at the right: "LENGTH", then the time format's name over the value.
@@ -730,13 +730,13 @@ fn info_row(ui: &mut Ui, l: &Look, lay: &Layout) {
     ui.c.text_right(CAPTION, lw, cap_y, plug::FAINT, unit);
     let unit_w = ui.c.text_width(CAPTION, unit);
     let len_x = lw - unit_w - 10.0 - ui.c.text_width(CAPTION, "LENGTH");
-    ui.c.text(CAPTION, len_x, cap_y, plug::FAINT, "LENGTH");
+    ui.c.text(CAPTION, len_x, cap_y, plug::FAINT, os_ui::lang::t("LENGTH"));
     let len = time_text(if fmt == state::TIME_AUTO { state::TIME_MSM } else { fmt }, l.shown.frames() as f64, rate, s.tempo, 1.0);
     ui.c.text_right(VALUE, lw, val_y, brand::TEXT, &len);
     // Title ("RECORDING" in red while armed), and the hint where no host shows it.
     let title_x = 198.0;
     let (title, col) = if l.armed { ("RECORDING".to_string(), RECORD) } else { (l.doc.title(), brand::TEXT) };
-    ui.c.text(CAPTION, title_x, cap_y, plug::FAINT, "TITLE");
+    ui.c.text(CAPTION, title_x, cap_y, plug::FAINT, os_ui::lang::t("TITLE"));
     let title_end = if l.hosted { len_x - 10.0 } else { (title_x + 150.0).min(len_x - 10.0) };
     let title = elide(ui.c, TITLE, &title, title_end - title_x);
     ui.c.text_clip(TITLE, title_x, val_y - 1.0, title_end - title_x, col, &title);
@@ -773,7 +773,7 @@ fn wave(ui: &mut Ui, l: &Look, lay: &Layout) {
     let doc = l.doc;
     if n == 0 && !l.armed {
         // Near the bottom, where Edison has it: 16 px over the wave area's bottom (y 421 at the default size).
-        ui.c.text_center(SMALL, Rect::new(wr.x, wr.bottom() - 26.0, wr.w, 20.0), plug::FAINT, "Click to load a sample");
+        ui.c.text_center(SMALL, Rect::new(wr.x, wr.bottom() - 26.0, wr.w, 20.0), plug::FAINT, os_ui::lang::t("Click to load a sample"));
         return;
     }
     let (start, per_px) = span(doc, n, lane.w);
@@ -824,7 +824,7 @@ fn wave(ui: &mut Ui, l: &Look, lay: &Layout) {
         let x = fx(doc.sample.downbeat as f64).round();
         if x >= lane.x && x <= lane.right() {
             ui.c.fill_rect(Rect::new(x, lane.y, 1.0, lane.h), LOOP.with_alpha(150));
-            ui.c.text(SMALL, x + 3.0, lane.bottom() - 26.0, LOOP, "Downbeat");
+            ui.c.text(SMALL, x + 3.0, lane.bottom() - 26.0, LOOP, os_ui::lang::t("Downbeat"));
         }
     }
     // The waveform (the spectrogram is drawn under the selection and the grid).
@@ -907,7 +907,7 @@ fn wave(ui: &mut Ui, l: &Look, lay: &Layout) {
                 ui.c.fill_rect(Rect::new(x0, lane.y, 1.0, wr.bottom() - lane.y - 1.0), LOOP.with_alpha(120));
                 ui.c.fill_rect(Rect::new(x1 - 1.0, lane.y, 1.0, wr.bottom() - lane.y - 1.0), LOOP.with_alpha(120));
                 ui.c.fill_rect(fr, LOOP);
-                ui.c.text(SMALL, x0 + 4.0, y - 2.0, Color::rgb(0xffffff), "Loop");
+                ui.c.text(SMALL, x0 + 4.0, y - 2.0, Color::rgb(0xffffff), os_ui::lang::t("Loop"));
                 ui.hit(fr, Target::LoopFlag);
             }
         }
@@ -1094,7 +1094,7 @@ fn stretch_panel(ui: &mut Ui, a: &AmpUi, st: &Stretch, lay: &Layout) {
     ui.hit(p, Target::AmpPanel);
     lemon::outlined(ui.c, p.outset(1.0), 11.0, Color::rgb(0x111111), plug::PANEL_LINE);
     lemon::plug_panel(ui.c, p);
-    ui.c.text(TITLE, p.x + 12.0, p.y + 7.0, brand::TEXT, "Time stretch / pitch shift");
+    ui.c.text(TITLE, p.x + 12.0, p.y + 7.0, brand::TEXT, os_ui::lang::t("Time stretch / pitch shift"));
     lemon::plug_well(ui.c, Rect::new(p.x + 8.0, p.y + 30.0, p.w - 16.0, p.h - 74.0), 7.0);
     for (ctl, r) in parts {
         let t = Target::Amp(ctl);
@@ -1102,7 +1102,7 @@ fn stretch_panel(ui: &mut Ui, a: &AmpUi, st: &Stretch, lay: &Layout) {
         let s = ui.state(r, t, false);
         if ctl == AmpCtl::Preserve {
             lemon::toggle(ui.c, r.x + 7.0, r.cy(), st.preserve, s);
-            ui.c.text(CAPTION, r.x + 18.0, r.y + 3.5, if s.hover { brand::TEXT } else { plug::DIM }, "FORMANT PRESERVATION");
+            ui.c.text(CAPTION, r.x + 18.0, r.y + 3.5, if s.hover { brand::TEXT } else { plug::DIM }, os_ui::lang::t("FORMANT PRESERVATION"));
             continue;
         }
         let (v, cap, val) = match ctl {
@@ -1137,7 +1137,7 @@ fn drum_panel(ui: &mut Ui, a: &AmpUi, ds: &DrumStretch, lay: &Layout) {
     ui.hit(p, Target::AmpPanel);
     lemon::outlined(ui.c, p.outset(1.0), 11.0, Color::rgb(0x111111), plug::PANEL_LINE);
     lemon::plug_panel(ui.c, p);
-    ui.c.text(TITLE, p.x + 12.0, p.y + 7.0, brand::TEXT, "Drum(loop) stretch");
+    ui.c.text(TITLE, p.x + 12.0, p.y + 7.0, brand::TEXT, os_ui::lang::t("Drum(loop) stretch"));
     lemon::plug_well(ui.c, Rect::new(p.x + 8.0, p.y + 30.0, p.w - 16.0, p.h - 74.0), 7.0);
     for (ctl, r) in parts {
         let t = Target::Amp(ctl);
@@ -1154,7 +1154,7 @@ fn drum_panel(ui: &mut Ui, a: &AmpUi, ds: &DrumStretch, lay: &Layout) {
             }
             AmpCtl::Filling => {
                 let col = ui.button(r, t, false, ds.tails);
-                ui.c.text_center(CAPTION, r, col, &format!("FILL: {}", ds.fill.name().to_uppercase()));
+                ui.c.text_center(CAPTION, r, col, &format!("{}: {}", os_ui::lang::t("FILL"), os_ui::lang::t(ds.fill.name()).to_uppercase()));
             }
             _ => {
                 let (v, cap, val) = if ctl == AmpCtl::Time {
@@ -1186,7 +1186,7 @@ fn env_panel(ui: &mut Ui, a: &AmpUi, e: &EnvDlg, lay: &Layout) {
     ui.hit(p, Target::AmpPanel);
     lemon::outlined(ui.c, p.outset(1.0), 11.0, Color::rgb(0x111111), plug::PANEL_LINE);
     lemon::plug_panel(ui.c, p);
-    ui.c.text(TITLE, p.x + 12.0, p.y + 7.0, brand::TEXT, e.tool.name());
+    ui.c.text(TITLE, p.x + 12.0, p.y + 7.0, brand::TEXT, os_ui::lang::t(e.tool.name()));
     lemon::plug_well(ui.c, Rect::new(p.x + 8.0, p.y + 30.0, p.w - 16.0, p.h - 74.0), 7.0);
     let (ca, cb) = e.tool.captions();
     let (ta, tb) = e.texts();
@@ -1222,7 +1222,7 @@ fn reverb_panel(ui: &mut Ui, a: &AmpUi, r: &Reverb, lay: &Layout) {
     ui.hit(p, Target::AmpPanel);
     lemon::outlined(ui.c, p.outset(1.0), 11.0, Color::rgb(0x111111), plug::PANEL_LINE);
     lemon::plug_panel(ui.c, p);
-    ui.c.text(TITLE, p.x + 12.0, p.y + 7.0, brand::TEXT, "Convolution reverb");
+    ui.c.text(TITLE, p.x + 12.0, p.y + 7.0, brand::TEXT, os_ui::lang::t("Convolution reverb"));
     lemon::plug_well(ui.c, Rect::new(p.x + 8.0, p.y + 30.0, p.w - 16.0, p.h - 74.0), 7.0);
     for (ctl, rr) in parts {
         let t = Target::Amp(ctl);
@@ -1291,7 +1291,7 @@ fn restore_panel(ui: &mut Ui, a: &AmpUi, lay: &Layout) {
             None => (dv.mix * 2.0 - 1.0, false, format!("{:.0}%", dv.mix * 100.0)),
         };
         lemon::dial(ui.c, r.cx(), r.cy(), r.w / 2.0, 4.0, (v + 1.0) / 2.0, centred, brand::MAIN, s);
-        ui.c.text_center(CAPTION, Rect::new(r.x - 20.0, r.y - 15.0, r.w + 40.0, 12.0), plug::DIM, "MIX");
+        ui.c.text_center(CAPTION, Rect::new(r.x - 20.0, r.y - 15.0, r.w + 40.0, 12.0), plug::DIM, os_ui::lang::t("MIX"));
         ui.c.text_center(CAPTION, Rect::new(r.x - 30.0, r.bottom() + 4.0, r.w + 60.0, 12.0), brand::TEXT, &val);
     }
     panel_buttons(ui, a, p);
@@ -1400,7 +1400,7 @@ fn spectral_panel(ui: &mut Ui, a: &AmpUi, lay: &Layout) {
     ui.hit(bx, t);
     if a.clean.is_some() {
         if !ui.st.profile {
-            ui.c.text_center(LABEL, bx, plug::DIM, "Noise profile required: select noise only, then ACQUIRE (Alt+U)");
+            ui.c.text_center(LABEL, bx, plug::DIM, os_ui::lang::t("Noise profile required: select noise only, then ACQUIRE (Alt+U)"));
         }
     } else {
         let smooth = a.eq.is_none_or(|e| e.smooth);
@@ -1431,12 +1431,12 @@ fn spectral_panel(ui: &mut Ui, a: &AmpUi, lay: &Layout) {
             }
             AmpCtl::Acquire => {
                 let col = ui.button(r, t, false, true);
-                ui.c.text_center(LABEL, r, col, "ACQUIRE");
+                ui.c.text_center(LABEL, r, col, os_ui::lang::t("ACQUIRE"));
             }
             AmpCtl::Mode => {
                 let cl = a.clean.unwrap_or_default();
                 let col = ui.button(r, t, false, cl.declip);
-                ui.c.text_center(CAPTION, r, col, &format!("MODE: {}", cl.mode.name().to_uppercase()));
+                ui.c.text_center(CAPTION, r, col, &format!("{}: {}", os_ui::lang::t("MODE"), os_ui::lang::t(cl.mode.name()).to_uppercase()));
             }
             _ => {
                 ui.hit(r, t);
@@ -1490,7 +1490,7 @@ fn amp_panel(ui: &mut Ui, a: &AmpUi, lay: &Layout) {
     ui.hit(p, Target::AmpPanel);
     lemon::outlined(ui.c, p.outset(1.0), 11.0, Color::rgb(0x111111), plug::PANEL_LINE);
     lemon::plug_panel(ui.c, p);
-    ui.c.text(TITLE, p.x + 12.0, p.y + 7.0, brand::TEXT, "Amp");
+    ui.c.text(TITLE, p.x + 12.0, p.y + 7.0, brand::TEXT, os_ui::lang::t("Amp"));
     lemon::plug_well(ui.c, Rect::new(p.x + 8.0, p.y + 30.0, p.w - 16.0, p.h - 74.0), 7.0);
     for (ctl, r) in parts {
         let t = Target::Amp(ctl);
@@ -1501,11 +1501,11 @@ fn amp_panel(ui: &mut Ui, a: &AmpUi, lay: &Layout) {
                 let v = if ctl == AmpCtl::Pan { a.amp.pan } else { a.amp.sep };
                 lemon::dial(ui.c, r.cx(), r.cy(), r.w / 2.0, 4.0, (v + 1.0) / 2.0, true, brand::MAIN, st);
                 if ctl == AmpCtl::Sep {
-                    ui.c.text_center(CAPTION, Rect::new(r.x - 30.0, r.bottom() + 4.0, r.w + 60.0, 12.0), plug::DIM, "STEREO SEP");
+                    ui.c.text_center(CAPTION, Rect::new(r.x - 30.0, r.bottom() + 4.0, r.w + 60.0, 12.0), plug::DIM, os_ui::lang::t("STEREO SEP"));
                 }
             }
             AmpCtl::Law => {
-                ui.c.text_right(CAPTION, r.x - 5.0, r.y + 5.0, plug::DIM, "PANNING");
+                ui.c.text_right(CAPTION, r.x - 5.0, r.y + 5.0, plug::DIM, os_ui::lang::t("PANNING"));
                 lemon::field(ui.c, r, st);
                 let s = if a.amp.law == Law::Circular { "CIRCULAR" } else { "TRIANGULAR" };
                 ui.c.text_clip(LABEL, r.x + 6.0, r.y + 4.0, r.w - 16.0, brand::TEXT, s);

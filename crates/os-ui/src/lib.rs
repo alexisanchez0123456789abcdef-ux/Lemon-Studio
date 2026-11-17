@@ -11,6 +11,7 @@
 mod cache;
 mod glyph;
 pub mod kit;
+pub mod lang;
 pub mod tabler;
 mod text;
 

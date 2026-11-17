@@ -87,7 +87,7 @@ pub(super) fn frame(ui: &mut Ui, r: Rect, title: &str) {
     }
     let f = Font::new(13);
     let lh = ui.c.line_height(f);
-    ui.c.text_clip(f, r.x + if lemon { 11.0 } else { 7.0 }, (r.y + 1.0 + (CAP_H - lh) / 2.0).round(), r.w - 40.0, t.text, title);
+    ui.c.text_clip(f, r.x + if lemon { 11.0 } else { 7.0 }, (r.y + 1.0 + (CAP_H - lh) / 2.0).round(), r.w - 40.0, t.text, os_ui::lang::t(title));
     hit(ui, Rect::new(r.x, r.y, r.w - 30.0, CAP_H), DHit::Caption, "Drag to move");
     let x = Rect::new(r.right() - 26.0, r.y + 3.0, 21.0, 21.0);
     let hov = super::close_button(ui, x, x, Action::Dlg(DHit::Close), "Close (Esc)");
@@ -269,6 +269,8 @@ pub(super) fn button(ui: &mut Ui, b: Rect, label: &str, main: bool, hov: bool, d
         if hov { t.glyph } else { t.text }
     };
     let f = Font::new(13);
+    // The button's word in the interface's language (the accelerators below follow it).
+    let label = os_ui::lang::t(label);
     let tw = ui.c.text_width(f, label);
     let lh = ui.c.line_height(f);
     let (x, y) = ((b.x + (b.w - tw) / 2.0).round(), (b.cy() - lh / 2.0).round());
@@ -303,12 +305,12 @@ fn sig_box(ui: &mut Ui, s: &State, m: &Modal, f: &SigForm) {
     for (i, (label, value)) in labels.into_iter().zip([f.num, f.den]).enumerate() {
         let den = i == 1;
         let cy = r.y + if den { 75.0 } else { 49.0 };
-        ui.c.text(font, r.x + 12.0, (cy - lh / 2.0).round(), t.text, label);
+        ui.c.text(font, r.x + 12.0, (cy - lh / 2.0).round(), t.text, os_ui::lang::t(label));
         let b = Rect::new(r.right() - 12.0 - box_w, (cy - 10.0).round(), box_w, 20.0);
         let hov = hit(ui, b, DHit::SigValue(den), if den { "Denominator: click to choose" } else { "Numerator: click to choose" });
         kit::combo(ui.c, t, b, &value.to_string(), font, kit::State::new(hov, open == Some(den), false));
     }
-    let bw = (ui.c.text_width(font, "Accept") + 28.0).max(BTN_W).round();
+    let bw = (ui.c.text_width(font, os_ui::lang::t("Accept")) + 28.0).max(BTN_W).round();
     let b = Rect::new(r.right() - 12.0 - bw, r.y + 105.0, bw, BTN_H);
     let act = Action::Dlg(DHit::Accept);
     let down = ui.down(b, &act);
@@ -332,12 +334,12 @@ fn markers_box(ui: &mut Ui, s: &State, m: &Modal, f: &crate::perform::MarkerForm
     for (i, (label, value)) in labels.into_iter().zip([f.count, f.spacing]).enumerate() {
         let spacing = i == 1;
         let cy = r.y + if spacing { 75.0 } else { 49.0 };
-        ui.c.text(font, r.x + 12.0, (cy - lh / 2.0).round(), t.text, label);
+        ui.c.text(font, r.x + 12.0, (cy - lh / 2.0).round(), t.text, os_ui::lang::t(label));
         let b = Rect::new(r.right() - 12.0 - box_w, (cy - 10.0).round(), box_w, 20.0);
         let hov = hit(ui, b, DHit::MarkerValue(spacing), if spacing { "Spacing in bars: click to choose" } else { "Marker count: click to choose" });
         kit::combo(ui.c, t, b, &value.to_string(), font, kit::State::new(hov, open, false));
     }
-    let bw = (ui.c.text_width(font, "Accept") + 28.0).max(BTN_W).round();
+    let bw = (ui.c.text_width(font, os_ui::lang::t("Accept")) + 28.0).max(BTN_W).round();
     let b = Rect::new(r.right() - 12.0 - bw, r.y + 105.0, bw, BTN_H);
     let act = Action::Dlg(DHit::Accept);
     let down = ui.down(b, &act);
@@ -397,7 +399,7 @@ fn file_box(ui: &mut Ui, s: &State, m: &Modal, f: &FileDlg) {
     let font = Font::new(13);
     let lh = ui.c.line_height(font);
     let label = if f.mode == Mode::Folder { "Folder" } else { "File name" };
-    ui.c.text(font, l.panel.x + 10.0, (l.name_y + 13.0 - lh / 2.0).round(), t.text, label);
+    ui.c.text(font, l.panel.x + 10.0, (l.name_y + 13.0 - lh / 2.0).round(), t.text, os_ui::lang::t(label));
     field(ui, l.name, &f.name, f.focus == Focus::Name, DHit::NameField, "");
     if let Some(c) = l.combo {
         let hov = hit(ui, c, DHit::Filter, "The type of file listed");
@@ -461,7 +463,7 @@ fn shortcuts_box(ui: &mut Ui, s: &State, m: &Modal, f: &crate::shortcuts::Form) 
             let open = f.open == Some(row);
             let hov = hit(ui, b, DHit::Shortcut(row), ROWS[row].label);
             kit::combo(ui.c, t, b, f.text(row), font, kit::State::new(hov, open, false));
-            ui.c.text(font, b.right() + 10.0, (b.cy() - lh / 2.0).round(), t.text, ROWS[row].label);
+            ui.c.text(font, b.right() + 10.0, (b.cy() - lh / 2.0).round(), t.text, os_ui::lang::t(ROWS[row].label));
             if open {
                 open_box = Some((row, b));
             }
@@ -524,6 +526,7 @@ fn shortcut_list(ui: &mut Ui, f: &crate::shortcuts::Form, row: usize, b: Rect, d
 pub(super) fn section(ui: &mut Ui, p: Rect, title: &str) {
     let t = ui.t;
     let f = Font::new(13).bold();
+    let title = os_ui::lang::t(title);
     if lemon(ui) {
         lk::outlined(ui.c, p, lk::r_panel(t) - 2.0, t.s(PANEL_LINE), t.s(PANEL));
         ui.c.text(f, p.x + 10.0, p.y + 6.0, t.accent, title);

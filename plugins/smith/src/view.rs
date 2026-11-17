@@ -250,7 +250,7 @@ impl Ui<'_, '_> {
     }
     /// Text centred on a point.
     fn label(&mut self, f: Font, cx: f32, cy: f32, col: Color, s: &str) {
-        self.c.text_center(f, Rect::new(cx - 60.0, cy - 8.0, 120.0, 16.0), col, s);
+        self.c.text_center(f, Rect::new(cx - 60.0, cy - 8.0, 120.0, 16.0), col, os_ui::lang::t(s));
     }
     /// Text from `x` on the line `cy`.
     fn left(&mut self, f: Font, x: f32, cy: f32, col: Color, s: &str) -> f32 {
@@ -1125,7 +1125,7 @@ fn info(ui: &mut Ui) {
     let mid = emblem(ui, w / 2.0, h / 2.0 - 45.0, 0.5, Font::condensed(32, 0).bold(), 9.0);
     let v = format!("Version {}", ui.m.version);
     ui.c.text_center(LABEL, Rect::new(0.0, mid.bottom() + 8.0, w, 16.0), DIM, &v);
-    ui.c.text_center(LABEL, Rect::new(0.0, mid.bottom() + 26.0, w, 16.0), DIM, "Lemon Studio's additive synthesizer");
-    ui.c.text_center(SMALL, Rect::new(0.0, h - 30.0, w, 16.0), FAINT, "Click to return");
+    ui.c.text_center(LABEL, Rect::new(0.0, mid.bottom() + 26.0, w, 16.0), DIM, os_ui::lang::t("Lemon Studio's additive synthesizer"));
+    ui.c.text_center(SMALL, Rect::new(0.0, h - 30.0, w, 16.0), FAINT, os_ui::lang::t("Click to return"));
     ui.hit(Rect::new(0.0, 0.0, w, h), Target::Cover);
 }

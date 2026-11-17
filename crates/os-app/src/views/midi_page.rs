@@ -164,13 +164,13 @@ pub fn paint_row(ui: &mut Ui, s: &State, m: MRow, g: Rect, x0: f32, y: f32, h: f
                     let b = Rect::new(x0, y + 3.0, 46.0, 21.0);
                     let hov = ui.hit(b, act(MAct::Offset(o)), "Midi master clock sync offset (milliseconds; wheel or drag, right-click: reset)");
                     value_red(ui, b, &v);
-                    ui.c.text(f, b.right() + 8.0, ty, if hov { t.glyph } else { t.text }, "Master sync offset (milliseconds)");
+                    ui.c.text(f, b.right() + 8.0, ty, if hov { t.glyph } else { t.text }, os_ui::lang::t("Master sync offset (milliseconds)"));
                 }
                 Offset::External => {
                     let b = Rect::new(g.right() - 58.0, y + 3.0, 48.0, 21.0);
                     let hov = ui.hit(b, act(MAct::Offset(o)), "Midi external clock sync offset (milliseconds; wheel or drag, right-click: reset)");
                     value_red(ui, b, &v);
-                    ui.c.text_right(f, b.x - 8.0, ty, if hov { t.glyph } else { t.text }, "External sync offset (milliseconds)");
+                    ui.c.text_right(f, b.x - 8.0, ty, if hov { t.glyph } else { t.text }, os_ui::lang::t("External sync offset (milliseconds)"));
                 }
             }
         }
@@ -203,7 +203,7 @@ pub fn paint_row(ui: &mut Ui, s: &State, m: MRow, g: Rect, x0: f32, y: f32, h: f
             let hov = ui.hit(b, act(MAct::ExtSync(b.x, b.bottom())), "Device whose MIDI clock drives playback");
             let v = cfg::ext_sync().unwrap_or_else(|| "Off".into());
             kit::combo(ui.c, t, b, &v, f, kit::State::hover(hov));
-            ui.c.text(f, b.right() + 8.0, ty, if hov { t.glyph } else { t.text }, "External clock sync");
+            ui.c.text(f, b.right() + 8.0, ty, if hov { t.glyph } else { t.text }, os_ui::lang::t("External clock sync"));
         }
         MRow::Status => {
             let text = if p.status.is_empty() { "Status: off" } else { &p.status };
@@ -228,7 +228,7 @@ fn list(ui: &mut Ui, b: Rect, title: &'static str, rows: &[(String, String, bool
     ui.c.text(f, b.x + 6.0, b.y + 2.0, t.text_dim, title);
     let top = b.y + 2.0 + LIST_HEAD;
     if rows.is_empty() {
-        ui.c.text(f, b.x + 8.0, top + 1.0, t.text_dim, "(no devices)");
+        ui.c.text(f, b.x + 8.0, top + 1.0, t.text_dim, os_ui::lang::t("(no devices)"));
     }
     for (i, (name, info, on)) in rows.iter().take(n).enumerate() {
         let rr = Rect::new(b.x + 2.0, top + i as f32 * ROW_H, b.w - 4.0, ROW_H);
@@ -285,7 +285,7 @@ fn port_box(ui: &mut Ui, g: Rect, y: f32, v: &str, a: MAct, hint: &'static str, 
     }
     value_red(ui, b, v);
     let ty = (b.cy() - ui.c.line_height(f) / 2.0).round();
-    ui.c.text_right(f, b.x - 8.0, ty, t.text, "Port");
+    ui.c.text_right(f, b.x - 8.0, ty, t.text, os_ui::lang::t("Port"));
     if !enabled {
         let lw = ui.c.text_width(f, "Port");
         grey(ui, Rect::span(b.x - 8.0 - lw, b.right(), b.y, b.bottom()));

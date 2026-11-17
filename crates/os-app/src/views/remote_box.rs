@@ -34,7 +34,7 @@ pub fn paint(ui: &mut Ui, s: &State, b: &LinkBox) {
     let dim = t.text_dim;
     // Title bar.
     let all = !b.all.is_empty();
-    ui.c.text(f.bold(), r.x + 10.0, r.y + 7.0, t.text, if all { "Link all parameters" } else { "Remote control settings" });
+    ui.c.text(f.bold(), r.x + 10.0, r.y + 7.0, t.text, os_ui::lang::t(if all { "Link all parameters" } else { "Remote control settings" }));
     let x = Rect::new(r.right() - 24.0, r.y + 4.0, 20.0, 20.0);
     let hov = super::close_button(ui, x, x, Action::Remote(RAct::Close), "Close (Esc)");
     ui.c.icon(&os_ui::tabler::X, x.inset(3.0), if hov { t.tx(0xffffff) } else { t.text });
@@ -75,7 +75,7 @@ pub fn paint(ui: &mut Ui, s: &State, b: &LinkBox) {
     let mode = Rect::new(r.x + 20.0, gy + 88.0, 90.0, 21.0);
     let hov = hit(ui, mode, RAct::Mode, "How to treat a note or button link (click for the next)");
     combo(ui, mode, b.mode.name(), hov);
-    ui.c.text(f, mode.right() + 8.0, mode.y + 3.0, t.text, "Mode");
+    ui.c.text(f, mode.right() + 8.0, mode.y + 3.0, t.text, os_ui::lang::t("Mode"));
 
     // Mapping formula.
     let gy = r.y + 184.0;

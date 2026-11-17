@@ -1122,7 +1122,7 @@ mod tests {
         l.pick(&MenuReq::Param("post".into()), Cmd::Reset("post".into()), 0.0, 0.0);
         assert_eq!(l.vals.plain("post"), 128.0);
         l.typed("post", "-6");
-        assert_eq!(l.vals.text("post"), "-6.0dB");
+        assert_eq!(l.vals.text(os_ui::lang::t("post")), "-6.0dB");
         // A threshold is never silent: "-inf" changes nothing.
         l.typed("threshold", "-inf");
         assert_eq!(l.vals.plain("threshold"), 100.0);
@@ -1226,7 +1226,7 @@ mod tests {
         let v = (lo..=hi).find(|&v| v != spec.settings[k].start && (spec.parse)(k, &(spec.text)(k, v)) != Some(v)).unwrap();
         let mut l = logic(spec);
         l.vals.edit_plain("threshold", v as f32);
-        let t = l.vals.text("threshold");
+        let t = l.vals.text(os_ui::lang::t("threshold"));
         l.entered("threshold", &t, &t);
         assert_eq!(l.vals.plain("threshold"), v as f32);
     }

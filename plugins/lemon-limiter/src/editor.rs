@@ -1130,7 +1130,7 @@ mod tests {
             l.delta(0.0, -1.0, Mods::default());
         }
         assert_eq!(l.vals.plain("att"), 2115.0);
-        assert_eq!(l.hint, format!("Limiter attack time: {}\tupdated on release", l.vals.text("att")));
+        assert_eq!(l.hint, format!("Limiter attack time: {}\tupdated on release", l.vals.text(os_ui::lang::t("att"))));
         l.up(Btn::Left);
         assert!(!l.shared.attack_held.load(Ordering::Acquire));
         assert_eq!(l.params.v(LIM_ATT), 2115);

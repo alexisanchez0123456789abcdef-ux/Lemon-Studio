@@ -690,7 +690,7 @@ fn velocity_panel(ui: &mut Ui, s: &State, l: &Layout, g: &Geom, notes: &[Note], 
         i += 1;
     }
     columns(ui, g, p, &bands, bar_line(t));
-    ui.c.text(Font::new(16), p.x + 7.0, p.y + 2.0, t.text_faint.shade(-0.35), lane.name());
+    ui.c.text(Font::new(16), p.x + 7.0, p.y + 2.0, t.text_faint.shade(-0.35), os_ui::lang::t(lane.name()));
 
     if lane.is_channel() {
         control_bars(ui, s, g, p, lane, ch);
@@ -800,8 +800,8 @@ fn lane_menu(ui: &mut Ui, s: &State, l: &Layout, k: f32) {
         ui.c.fill_rect(Rect::new(x, body.y, w, HEAD), t.menu_pop_head);
         ui.c.text(Font::new(12), x + 4.0, body.y + 1.0, t.menu_pop_head_text, text);
     };
-    head(ui, body.x, w0, "Note properties");
-    head(ui, body.x + w0 + 2.0, w1, "Channel controls");
+    head(ui, body.x, w0, os_ui::lang::t("Note properties"));
+    head(ui, body.x + w0 + 2.0, w1, os_ui::lang::t("Channel controls"));
     ui.c.fill_rect(Rect::new(body.x + w0, body.y, 2.0, body.h), t.menu_pop_border);
     for (i, lane) in Lane::ALL.iter().enumerate() {
         // Note properties fill the left column, channel controls the right one.
@@ -813,6 +813,6 @@ fn lane_menu(ui: &mut Ui, s: &State, l: &Layout, k: f32) {
         if ui.hit(rr, Action::PianoLanePick(i), lane.menu_name()) || *lane == s.piano.lane {
             ui.c.fill_rect(rr, t.menu_pop_hi);
         }
-        ui.c.text(font, rr.x + 20.0, rr.y + 2.0, t.menu_pop_text, lane.menu_name());
+        ui.c.text(font, rr.x + 20.0, rr.y + 2.0, t.menu_pop_text, os_ui::lang::t(lane.menu_name()));
     }
 }

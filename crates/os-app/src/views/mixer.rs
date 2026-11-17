@@ -403,7 +403,7 @@ fn title_tools(ui: &mut Ui, s: &State, r: Rect) {
     let lb = Rect::new(r.x + 130.0 + px, r.y + 2.0, 50.0, 20.0);
     let hov = ui.hit(lb, Action::Mix(MHit::Layout), "Mixer layout");
     let ink = ui.hover_ink(hov, lb, ui.t.tx(0xb8c4cb), ui.t.tx(0xffffff));
-    ui.c.text(Font::new(17), r.x + 134.0 + px, r.y + 2.0, ink, "Wide");
+    ui.c.text(Font::new(17), r.x + 134.0 + px, r.y + 2.0, ink, os_ui::lang::t("Wide"));
 }
 
 fn mix(a: Color, b: Color, t: f32) -> Color {
@@ -801,9 +801,9 @@ fn slot_panel(ui: &mut Ui, s: &State, r: Rect) {
     let n = s.selected_mixer;
     let track = s.project.mixer.iter().find(|m| m.index == n);
     let title = match track.and_then(|m| m.name.clone()) {
-        Some(nm) => format!("Mixer - {nm}"),
-        None if n == 0 => "Mixer - Master".into(),
-        None => format!("Mixer - Bus {n}"),
+        Some(nm) => format!("{} - {nm}", os_ui::lang::t("Mixer")),
+        None if n == 0 => format!("{} - {}", os_ui::lang::t("Mixer"), os_ui::lang::t("Master")),
+        None => format!("{} - {} {n}", os_ui::lang::t("Mixer"), os_ui::lang::t("Bus")),
     };
     ui.c.fill_rect(Rect::new(r.x, r.y, r.w, 23.0), t.window_title);
     ui.c.text_clip(Font::new(17), r.x + 1.0, r.y + 2.0, r.w - 70.0, ui.t.tx(0xd4dade), &title);
@@ -856,7 +856,7 @@ fn slot_panel(ui: &mut Ui, s: &State, r: Rect) {
         let k = i as u8;
         let plugin = mx::slot_name(s, n, k);
         let fs = (18.0 * kp.max(0.62)).round() as u16;
-        let hint = format!("FX slot {} options", i + 1);
+        let hint = format!("{} {} {}", os_ui::lang::t("FX slot"), i + 1, os_ui::lang::t("options"));
         let ha = ui.hit(Rect::new(row.x, row.y, 19.0, row.h), Action::Mix(MHit::SlotArrow(k)), hint.clone());
         let hn = ui.hit(Rect::new(row.x + 19.0, row.y, row.w - 64.0, row.h), Action::Mix(MHit::SlotName(k)), hint);
         let hov = ha || hn;
@@ -884,7 +884,7 @@ fn slot_panel(ui: &mut Ui, s: &State, r: Rect) {
         turned_chevron(ui, row.x + 10.0, row.cy(), turn * PI / 2.0, ui.t.tx(0xc4ccd0).mix(ui.t.tx(0xffffff), arrow));
         let (f, name, ink) = match &plugin {
             Some(p) => (Font::new(fs), p.to_string(), ui.t.tx(0xc9d0d4)),
-            None => (Font::new(fs).italic(), format!("Slot {}", i + 1), ui.t.s(0x50575b)),
+            None => (Font::new(fs).italic(), format!("{} {}", os_ui::lang::t("Slot"), i + 1), ui.t.s(0x50575b)),
         };
         // Lemon centres the name's capitals on the row, level with the chevron, knob and LED: the baseline sits half a
         // cap height (the face's is about 0.72 of its size) under the middle, measured on the face drawn (the italic
@@ -961,7 +961,7 @@ fn slot_panel(ui: &mut Ui, s: &State, r: Rect) {
     }
     let ly = eq.bottom() + 8.0;
     if knobs {
-        ui.c.text(Font::new(17), r.x + 4.0, ly, ui.t.tx(0xa9b2b7), "Equalizer");
+        ui.c.text(Font::new(17), r.x + 4.0, ly, ui.t.tx(0xa9b2b7), os_ui::lang::t("Equalizer"));
     }
     for row in 0..2 {
         if !knobs {

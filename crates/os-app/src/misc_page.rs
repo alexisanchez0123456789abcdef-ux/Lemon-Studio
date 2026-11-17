@@ -846,7 +846,7 @@ fn headers(c: &mut Canvas, t: &Palette, v: &MiscVals, ui: &MiscUi) {
         let col = if on { t.a(0xffa830) } else if st.hover { t.tx(0xffffff) } else { t.tx(0xd2d8dc) };
         c.text(inst::LABEL, x, ty, col, s);
     }
-    c.text(tf, 497.0 + dx(), ty, title_col, "Tracking");
+    c.text(tf, 497.0 + dx(), ty, title_col, os_ui::lang::t("Tracking"));
     // Arpeggiator: direction marks, the active one on a darker cell (Lemon: Lemon Sampler's LFO shape buttons).
     let dir = v.get(M::ArpDir).round() as usize;
     let my = 196.5 + dy();
@@ -890,13 +890,13 @@ fn headers(c: &mut Canvas, t: &Palette, v: &MiscVals, ui: &MiscUi) {
             }
         }
     }
-    c.text(tf, 205.0 + dx(), ty2, title_col, "Arpeggiator");
+    c.text(tf, 205.0 + dx(), ty2, title_col, os_ui::lang::t("Arpeggiator"));
     // Echo delay: ▸ then the title.
     let mut g = Glyph::new();
     let (ax, ay) = (330.0 + dx(), 196.5 + dy());
     g.polygon(&[(ax - 2.0, ay - 4.0), (ax + 2.5, ay), (ax - 2.0, ay + 4.0)]);
     c.glyph(if lemon { plug::DIM } else { t.tx(0xb4bfc7) }, &g);
-    c.text(tf, 338.0 + dx(), ty2, title_col, "Echo delay / fat mode");
+    c.text(tf, 338.0 + dx(), ty2, title_col, os_ui::lang::t("Echo delay / fat mode"));
 }
 
 /// FL's number box: a rounded grey block, brightest across its middle, with the value right-aligned (or `---`) and

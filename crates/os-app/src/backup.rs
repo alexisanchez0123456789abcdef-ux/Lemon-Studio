@@ -133,7 +133,7 @@ impl App {
                 // A project loading or an export rendering: at a later tick.
                 None => return,
                 Some(Err(e)) => {
-                    self.state.message = Some(format!("Backup failed: {e}"));
+                    self.state.message = Some(format!("{}: {e}", os_ui::lang::t("Backup failed")));
                     self.invalidate();
                 }
                 Some(Ok(_)) => {}

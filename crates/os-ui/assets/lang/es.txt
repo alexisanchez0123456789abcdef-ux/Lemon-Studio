@@ -1,0 +1,1344 @@
+# Lemon Studio - tabla de espanol
+# Formato: texto en ingles <TAB> traduccion espanola, una por linea.
+# Escapes: \t, \n y \\ (barra invertida + letra); una linea que empieza por # es un comentario.
+# La clave es el texto exacto que el codigo dibuja en ingles (una etiqueta, una entrada de menu, una sugerencia).
+# Una linea nueva con el mismo texto lo sustituye.
+#
+(Settings > General > Updates); a build from source never goes online.	(Ajustes > General > Actualizaciones); una compilación desde el código fuente nunca se conecta.
+(generic controller)	(controlador genérico)
+(none)	(ninguno)
+(not found)	(no encontrado)
+1 bar	1 compás
+1.5GB	1,5 GB
+100MB (default)	100 MB (predeterminado)
+128-point sinc	sinc de 128 puntos
+16-point sinc	sinc de 16 puntos
+1GB	1 GB
+2 bars	2 compases
+2-point linear	lineal de 2 puntos
+24-point sinc	sinc de 24 puntos
+250MB	250 MB
+256-point sinc	sinc de 256 puntos
+32-point sinc	sinc de 32 puntos
+500MB	500 MB
+50MB	50 MB
+512-point sinc	sinc de 512 puntos
+6-point Hermite	Hermite de 6 puntos
+64-point sinc	sinc de 64 puntos
+A digital audio workstation written in Rust.	Una estación de audio digital escrita en Rust.
+ASIO® output: the ASIO SDK by Steinberg Media Technologies GmbH (GPL version 3).	Salida ASIO®: el SDK de ASIO de Steinberg Media Technologies GmbH (GPL versión 3).
+Add folder...	Añadir carpeta...
+Adjustments	Ajustes
+Advanced	Avanzado
+Align tick lengths	Alinear la duración de los ticks
+Alternate meter scale	Escala alternativa del medidor
+Alternate undo mode	Modo de deshacer alternativo
+Always save to the global folder	Guardar siempre en la carpeta global
+Animation refresh rate	Frecuencia de actualización de las animaciones
+Animations	Animaciones
+Arranger	Organizador
+Ask	Preguntar
+Ask for data folder	Preguntar por la carpeta de datos
+Ask what to record	Preguntar qué grabar
+Associate project files with application	Asociar los archivos de proyecto con la aplicación
+Attention	Atención
+Audio (armed mixer tracks)	Audio (pistas de mezcla activadas)
+Audio and automation clips use note colors	Los clips de audio y automatización usan los colores de las notas
+Audio recording	Grabación de audio
+Author	Autor
+Auto accept detected controller	Aceptar automáticamente el controlador detectado
+Auto close	Cierre automático
+Auto keep long audio on disk	Mantener el audio largo en el disco
+Auto zoom in piano roll	Zoom automático en el piano roll
+Auto-bypass when silent	Bypass automático al silencio
+Auto-collapse empty channels	Contraer automáticamente los canales vacíos
+Auto-create audio clips	Crear clips de audio automáticamente
+Automatic crossfades	Fundidos cruzados automáticos
+Automatically check for updates	Buscar actualizaciones automáticamente
+Automatically download program updates	Descargar automáticamente las actualizaciones del programa
+Automation	Automatización
+Autosave	Guardado automático
+Avoid dropouts under load	Evitar cortes con carga
+Backup	Copia de seguridad
+Beats per bar	Pulsos por compás
+Black notes	Notas negras
+Blend recorded notes	Mezclar las notas grabadas
+Browser extra search folders	Carpetas de búsqueda adicionales del navegador
+Browser preview track	Pista de preescucha del navegador
+Buffer length	Longitud del búfer
+Check for updates	Buscar actualizaciones
+Choose where to store project data	Elige dónde guardar los datos del proyecto
+Click-and-hold gestures	Gestos de pulsar y mantener
+Color map	Mapa de color
+Colorful waveforms	Formas de onda en color
+Combine formats of the same plugin	Combinar los formatos de un mismo plugin
+Comments	Comentarios
+Controller type	Tipo de controlador
+Copy used samples into the project folder	Copiar las muestras usadas a la carpeta del proyecto
+Copy used samples to the project folder	Copiar las muestras usadas a la carpeta del proyecto
+Copyright (C) 2026 ItsAlphaNeon and the Lemon Studio contributors.	Copyright (C) 2026 ItsAlphaNeon y los colaboradores de Lemon Studio.
+Count-in	Cuenta previa
+Count-in length	Duración de la cuenta previa
+Create automation clips at the playback position	Crear clips de automatización en la posición de reproducción
+Cursors scaling	Escala de los cursores
+Data folder	Carpeta de datos
+Default template	Plantilla predeterminada
+Denominator	Denominador
+Disable computer keyboard priority by default	Desactivar por defecto la prioridad del teclado del ordenador
+Disarm on stop	Desarmar al detener
+Display	Pantalla
+Don't ask	No preguntar
+Don't limit windows to screen	No limitar las ventanas a la pantalla
+Don't warn me	No avisarme
+Empty	Vacío
+Empty project	Proyecto vacío
+Enable automatic crossfades in new projects	Activar los fundidos cruzados automáticos en proyectos nuevos
+Exclusive	Exclusivo
+Exclusive (ALSA directly, past the sound server)	Exclusivo (ALSA directamente, sin el servidor de sonido)
+Exclusive (Lemon Studio alone, smaller buffers)	Exclusivo (solo Lemon Studio, búferes más pequeños)
+Experimental: host installed native plugins	Experimental: alojar los plugins nativos instalados
+Experimental: real native plugins instead of Lemon recreations	Experimental: plugins nativos reales en lugar de las recreaciones de Lemon
+External input question	Pregunta de entrada externa
+External sync	Sincronización externa
+External tools	Herramientas externas
+Extra cores only when needed	Núcleos extra solo cuando hagan falta
+FL Studio factory content folder	Carpeta de contenido de fábrica de FL Studio
+Fast fade for choke groups	Fundido rápido para los grupos de corte
+Fast sample preview	Preescucha rápida de muestras
+File	Archivo
+Fix text	Corregir el texto
+Fonts: Cuprum (SIL Open Font License). Icons: Tabler Icons (MIT).	Tipografías: Cuprum (SIL Open Font License). Iconos: Tabler Icons (MIT).
+Force refreshes	Forzar actualizaciones
+Frequently (every 5 minutes & before risky operations)	Con frecuencia (cada 5 minutos y antes de operaciones arriesgadas)
+Genre	Género
+Germanic	Germánico
+Hide plugin window strip by default	Ocultar por defecto la tira de ventanas de plugins
+High visibility	Alta visibilidad
+Highest	La más alta
+Hints and warnings	Sugerencias y avisos
+Horizontal scrolling speed	Velocidad de desplazamiento horizontal
+Info	Información
+Input	Entrada
+Input device	Dispositivo de entrada
+Instrument muting MIDI channel	Canal MIDI de silenciado de instrumentos
+JACK (the JACK server's rate and buffer length)	JACK (la frecuencia y la longitud de búfer del servidor JACK)
+Keep the record source	Mantener la fuente de grabación
+Language	Idioma
+Last used project	Último proyecto usado
+Legacy scaling	Escala heredada
+Lemon Studio has no MIDI scripts	Lemon Studio no tiene scripts MIDI
+Lemon Studio needs no account.	Lemon Studio no necesita ninguna cuenta.
+Lemon Studio plays as a JACK client at the server's rate and buffer length (set them in the server, e.g. qjackctl); its ports connect to the system playback and capture ports. With no JACK server running it plays as in shared mode.	Lemon Studio reproduce como cliente JACK con la frecuencia y la longitud de búfer del servidor (configúralas en el servidor, por ejemplo en qjackctl); sus puertos se conectan a los puertos de reproducción y captura del sistema. Sin un servidor JACK en ejecución reproduce como en modo compartido.
+Less smooth	Menos suave
+Licence	Licencia
+Licence: GNU General Public License, version 3 (the ASIO SDK it includes is version 3 only).	Licencia: GNU General Public License, versión 3 (el SDK de ASIO que incluye es solo la versión 3).
+Licence: GNU General Public License, version 3 or later.	Licencia: GNU General Public License, versión 3 o posterior.
+Limit the number of open plugin editors	Limitar el número de editores de plugins abiertos
+Link note on velocity to	Vincular la nota al pulsar la velocidad a
+Link release velocity to	Vincular la velocidad de liberación a
+Load theme...	Cargar tema...
+Location	Ubicación
+Loop record	Grabación en bucle
+MIDI clock	Reloj MIDI
+MTC 24 fps	MTC 24 fps
+MTC 25 fps	MTC 25 fps
+MTC 29.97 fps (drop)	MTC 29,97 fps (con descarte)
+MTC 29.97 fps (non-drop)	MTC 29,97 fps (sin descarte)
+MTC 30 fps (drop)	MTC 30 fps (con descarte)
+MTC 30 fps (non-drop)	MTC 30 fps (sin descarte)
+Main	Principal
+Main GUI scaling	Escala de la interfaz principal
+Manage messages	Gestionar los mensajes
+Manage plugins	Gestionar los plugins
+Manage shortcuts	Gestionar los atajos
+Maximum	Máximo
+Maximum undo levels	Niveles máximos de deshacer
+Metronome track	Pista del metrónomo
+Miscellaneous	Varios
+Mix at buffer boundaries	Mezclar en los límites del búfer
+Mixer	Mezclador
+Mode	Modo
+Mode: for Windows devices (an ASIO driver plays on its own terms)	Modo: para dispositivos de Windows (un controlador ASIO reproduce según sus propias reglas)
+Monophonic painting in piano roll	Dibujo monofónico en el piano roll
+Move undone recordings to the trash	Mover a la papelera las grabaciones deshechas
+Multi-button mouse	Ratón de varios botones
+Multi-touch monitor	Monitor multitáctil
+Multiband	Multibanda
+Multithreaded instrument processing	Procesamiento de instrumentos multihilo
+Multithreaded mixer processing	Procesamiento del mezclador multihilo
+Name	Nombre
+Name channels after their sample or plugin	Nombrar los canales según su muestra o plugin
+Name effect slots after their plugin	Nombrar las ranuras de efectos según su plugin
+Never (just remind every 10 minutes)	Nunca (solo recordar cada 10 minutos)
+No ASIO driver is installed. For lower latency, install one (ASIO4ALL is free), then reopen Settings.	No hay ningún controlador ASIO instalado. Para tener menos latencia, instala uno (ASIO4ALL es gratuito) y vuelve a abrir Ajustes.
+No registration and no usage data. Release builds ask GitHub for updates	Sin registro y sin datos de uso. Las compilaciones de versión preguntan a GitHub por actualizaciones
+Note end time	Hora de fin de la nota
+Note names	Nombres de las notas
+Note start time	Hora de inicio de la nota
+Notes	Notas
+Numerator	Numerador
+Occasionally (every 10 minutes)	De vez en cuando (cada 10 minutos)
+Off	Desactivado
+Omni preview MIDI channel	Canal MIDI de preescucha omni
+On	Activado
+On startup, when starting a new project and when saving unsaved projects	Al iniciar, al empezar un proyecto nuevo y al guardar proyectos sin guardar
+Only when recording	Solo al grabar
+Open detached plugins with the main window	Abrir los plugins flotantes con la ventana principal
+Open new plugin windows floating	Abrir las ventanas nuevas de plugins flotando
+Optimize for	Optimizar para
+Options	Opciones
+Output	Salida
+Output device	Dispositivo de salida
+Output devices	Dispositivos de salida
+Panning law	Ley de paneo
+Pencil	Lápiz
+Performance mode MIDI channel	Canal MIDI del modo interpretación
+Play truncated notes in clips	Reproducir las notas cortadas en los clips
+Play truncated notes on transport	Reproducir las notas cortadas al usar el transporte
+Playback tracking	Seguimiento de la reproducción
+Plugins	Plugins
+Pop-ups scaling	Escala de las ventanas emergentes
+Priority	Prioridad
+Project	Proyecto
+Project credits	Créditos del proyecto
+Project data size warning	Aviso de tamaño de los datos del proyecto
+Quantize	Cuantizar
+Rarely (every 15 minutes)	Rara vez (cada 15 minutos)
+Read sample root note	Leer la nota raíz de la muestra
+Read sample tempo information	Leer la información de tempo de la muestra
+Recording filter	Filtro de grabación
+Recording starts playback	La grabación inicia la reproducción
+Recordings go to the project's data folder's Recorded folder, else the user folder's:	Las grabaciones van a la carpeta Recorded de la carpeta de datos del proyecto o, si no hay, a la de la carpeta del usuario:
+Redo	Rehacer
+Refresh device list	Actualizar la lista de dispositivos
+Regularly (every 5 minutes)	Con regularidad (cada 5 minutos)
+Release	Liberación
+Rename	Renombrar
+Rename the current project	Renombrar el proyecto actual
+Repair optional features	Reparar las funciones opcionales
+Resampling quality	Calidad de remuestreo
+Rescan all	Volver a escanear todo
+Rescan plugins with errors	Volver a escanear los plugins con errores
+Reset	Restablecer
+Reset browser cache	Restablecer la caché del navegador
+Reset factory content folder	Restablecer la carpeta de contenido de fábrica
+Reset plugins on transport	Reiniciar los plugins al usar el transporte
+Reset time spent on project	Restablecer el tiempo dedicado al proyecto
+Respect recording filter	Respetar el filtro de grabación
+Restore previous state after solo	Restaurar el estado anterior tras el solo
+Right button clears steps	El botón derecho borra los pasos
+Sample rate (Hz)	Frecuencia de muestreo (Hz)
+Samples	Muestras
+Save preset...	Guardar preajuste...
+Save to the project data folder if there is one	Guardar en la carpeta de datos del proyecto si existe
+Scan for new plugins	Buscar plugins nuevos
+Scan for new plugins at startup	Buscar plugins nuevos al iniciar
+Scanning	Escaneando
+Search folders	Carpetas de búsqueda
+Select a directory	Seleccionar un directorio
+Select first channel with notes when the pattern changes	Seleccionar el primer canal con notas al cambiar de patrón
+Select linked controls automatically	Seleccionar automáticamente los controles vinculados
+Set FL Studio factory content folder...	Establecer la carpeta de contenido de fábrica de FL Studio...
+Set as	Establecer como
+Set as time division	Establecer como división temporal
+Set as time signature	Establecer como compás
+Set data folder...	Establecer la carpeta de datos...
+Set start values automatically	Establecer los valores iniciales automáticamente
+Shared	Compartido
+Shared (other programs play too)	Compartido (otros programas también reproducen)
+Sharps - #	Sostenidos - #
+Show ASIO panel	Mostrar el panel de ASIO
+Show ASIO panel: the ASIO driver's own settings, while one is open	Mostrar el panel de ASIO: los ajustes propios del controlador ASIO, mientras haya uno abierto
+Show help in a web browser	Mostrar la ayuda en un navegador web
+Show info on opening	Mostrar la información al abrir
+Show recent changes at the top	Mostrar los cambios recientes arriba
+Show startup splash screen	Mostrar la pantalla de inicio
+Show undo history in the browser when undoing changes	Mostrar el historial de deshacer en el navegador al deshacer cambios
+Silent startup	Inicio silencioso
+Skins	Aspectos
+Small scrollbars in editors	Barras de desplazamiento pequeñas en los editores
+Smooth	Suave
+Smoothing	Suavizado
+Soft takeover	Toma suave del control
+Solfege (do, re, mi, ...)	Solfeo (do, re, mi, ...)
+Song marker jump MIDI channel	Canal MIDI de salto al marcador de la canción
+Source code	Código fuente
+Start on input	Empezar con la entrada
+Startup project	Proyecto de inicio
+Steps per beat	Pasos por pulso
+Sustain pedal releases notes	El pedal de sostenido suelta las notas
+Swap mouse buttons for drawing	Intercambiar los botones del ratón al dibujar
+Switch to External input only	Cambiar a entrada externa solamente
+Synchronization type	Tipo de sincronización
+System	Sistema
+The FL Studio installation folder that projects' factory samples are read from	La carpeta de instalación de FL Studio de la que se leen las muestras de fábrica de los proyectos
+The app bundle declares .flp files; the system's Open with settings decide	El paquete de la aplicación declara los archivos .flp; los ajustes «Abrir con» del sistema deciden
+The input device is chosen on the Audio page.	El dispositivo de entrada se elige en la página Audio.
+The project data folder has been changed. What do you want to do with the current project?	La carpeta de datos del proyecto ha cambiado. ¿Qué quieres hacer con el proyecto actual?
+The system's Open with settings decide which program opens .flp files	Los ajustes «Abrir con» del sistema deciden qué programa abre los archivos .flp
+Themes	Temas
+Thick lines	Líneas gruesas
+Threaded project sample loading	Carga de muestras del proyecto en hilos
+Time settings	Ajustes de tiempo
+Timebase (PPQ)	Base de tiempo (PPQ)
+Title	Título
+Toggle on release	Conmutar al soltar
+Toolbars scaling	Escala de las barras de herramientas
+Transparent menus	Menús transparentes
+Transparent windows	Ventanas transparentes
+Triple buffer	Triple búfer
+Troubleshooting	Solución de problemas
+Ultrasmooth	Ultrasuave
+Undo	Deshacer
+Undo history	Historial de deshacer
+Undo knob tweaks	Deshacer los ajustes de los mandos
+Update MIDI scripts	Actualizar los scripts MIDI
+Update languages	Actualizar los idiomas
+Updates	Actualizaciones
+Use the FL Studio installation found on this computer	Usar la instalación de FL Studio encontrada en este ordenador
+Use the high-performance power plan	Usar el plan de energía de alto rendimiento
+User data folder	Carpeta de datos del usuario
+Velocity	Velocidad
+Vertical scrolling speed	Velocidad de desplazamiento vertical
+Very frequently (every minute & before risky operations)	Muy a menudo (cada minuto y antes de operaciones arriesgadas)
+Web link	Enlace web
+Website	Sitio web
+What should be done with the samples used in this project?	¿Qué se debe hacer con las muestras usadas en este proyecto?
+When saving unsaved projects only	Solo al guardar proyectos sin guardar
+When should the program ask you to select a data folder for a project	Cuándo debe preguntarte el programa por la carpeta de datos de un proyecto
+When starting a new project and when saving unsaved projects	Al empezar un proyecto nuevo y al guardar proyectos sin guardar
+When starting a new project only	Solo al empezar un proyecto nuevo
+Wiki	Wiki
+of the GNU General Public License, version 3 or (at your option) any later version.	de la GNU General Public License, versión 3 o (a tu elección) cualquier versión posterior.
+the default device	el dispositivo predeterminado
+Settings	Ajustes
+General	General
+Audio	Audio
+Recording	Grabación
+Theme	Tema
+Debug	Depuración
+About	Acerca de
+MIDI input / output devices	Dispositivos de entrada y salida MIDI
+Audio devices / mixer	Dispositivos de audio y mezclador
+Recording options	Opciones de grabación
+System / miscellaneous	Sistema y varios
+Files & folders	Archivos y carpetas
+Plugin manager	Gestor de plugins
+Look and feel	Aspecto
+Current project	Proyecto actual
+Debugging log	Registro de depuración
+Input / output	Entrada y salida
+Status	Estado
+Close	Cerrar
+Fold	Contraer
+Unfold	Desplegar
+This option	Esta opción
+Status bar	Barra de estado
+Pattern: play the current pattern	Patrón: reproducir el patrón actual
+Song: play the arrangement	Canción: reproducir el arreglo
+About Lemon Studio	Acerca de Lemon Studio
+Accept	Aceptar
+Add a channel	Añadir un canal
+Add a new track after the selected track	Añadir una pista nueva después de la pista seleccionada
+Add more tracks	Añadir más pistas
+Apply tempo: tapped tempos set the project tempo	Aplicar tempo: los tempos marcados fijan el tempo del proyecto
+Arrangements (switch, add, clone, rename, delete)	Arreglos (cambiar, añadir, clonar, renombrar, eliminar)
+Arranger options	Opciones del organizador
+Audio input source	Fuente de entrada de audio
+Audio output target	Destino de salida de audio
+Back to the colours from before the picker opened	Volver a los colores de antes de abrir el selector
+Browser options	Opciones del navegador
+Browser: drag to resize, double-click for the default width	Navegador: arrastra para cambiar el ancho, doble clic para el ancho predeterminado
+Cable physics debug panel: drag a slider, right-click resets it	Panel de depuración de la física de cables: arrastra un control, clic derecho lo restablece
+Cancel	Cancelar
+Change the text colour so it reads on every surface	Cambiar el color del texto para que se lea en todas las superficies
+Channel display filter (PgUp/PgDn)	Filtro de visualización de canales (PgUp/PgDn)
+Channel options	Opciones del canal
+Clear the search	Borrar la búsqueda
+Click to change	Clic para cambiar
+Click to close	Clic para cerrar
+Click: plugin window, Shift+click: rename, right-click: channel menu	Clic: ventana del plugin, Shift+clic: renombrar, clic derecho: menú del canal
+Close (Esc)	Cerrar (Esc)
+Close (puts the notes back)	Cerrar (devuelve las notas)
+Close (the measurements are reset)	Cerrar (se restablecen las medidas)
+Close without renaming (Esc)	Cerrar sin renombrar (Esc)
+Collapse / expand the group	Contraer o desplegar el grupo
+Collapsed channel - Alt+U expands all	Canal contraído; Alt+U los despliega todos
+Device whose MIDI clock drives playback	Dispositivo cuyo reloj MIDI controla la reproducción
+Display PPI: drag, or turn the mouse wheel	PPI de la pantalla: arrastra o gira la rueda del ratón
+Done: the toolbar keeps this layout	Listo: la barra de herramientas conserva esta disposición
+Double-click: open the plugin's window	Doble clic: abrir la ventana del plugin
+Drag to move	Arrastra para mover
+Drag to resize	Arrastra para cambiar el tamaño
+Drag to resize channel buttons	Arrastra para cambiar el tamaño de los botones del canal
+Drag: move the play start - right-drag: select a time range	Arrastra: mueve el inicio de reproducción; arrastra con el botón derecho: selecciona un intervalo de tiempo
+Edit mapping curve	Editar la curva de correspondencia
+Event editor: click to bring it in front	Editor de eventos: clic para traerlo al frente
+Event editor: drag to select a stretch of time	Editor de eventos: arrastra para seleccionar un tramo de tiempo
+Event editor: left drag draws, right drag draws a line	Editor de eventos: arrastrar con el botón izquierdo dibuja; con el derecho, una línea
+Event panel: choose which note property to edit	Panel de eventos: elige qué propiedad de las notas editar
+Event panel: drag to resize, double-click to hide or show	Panel de eventos: arrastra para cambiar el tamaño, doble clic para ocultarlo o mostrarlo
+Event panel: drag to set this property of notes	Panel de eventos: arrastra para fijar esta propiedad de las notas
+Find: show only the plugins whose name, patch or place has this text (Esc clears)	Buscar: muestra solo los plugins cuyo nombre, patch o ubicación contenga este texto (Esc borra)
+Find: type to keep the plugins whose name, vendor or file contain the text (Esc clears)	Buscar: escribe para quedarte con los plugins cuyo nombre, fabricante o archivo contengan el texto (Esc borra)
+Group arpeggiated notes	Agrupar las notas arpegiadas
+Hue	Matiz
+Import the file with these settings (Enter)	Importar el archivo con estos ajustes (Enter)
+Instrument rack	Rack de instrumentos
+Instrument rack - drag to move	Rack de instrumentos: arrastra para mover
+Interactive step sequencer / piano roll overview	Secuenciador de pasos interactivo / vista general del piano roll
+Keep the spacing of the note starts	Mantener el espaciado de los inicios de las notas
+Keyboard	Teclado
+Listed when a plugin is found in several formats	Se lista cuando un plugin aparece en varios formatos
+Locked to its clips: Draw and Paint place this source (TOOLS: Unlock all tracks)	Bloqueado a sus clips: Dibujar y Pintar colocan esta fuente (TOOLS: desbloquear todas las pistas)
+Logo - drag onto the palette to take it off	Logotipo: arrástralo fuera de la paleta para quitarlo
+Loop mode	Modo de bucle
+Loop starter	Inicio del bucle
+MP3 music genres	Géneros musicales MP3
+Menu: open, levels, move, remove	Menú: abrir, niveles, mover, quitar
+Midi external clock sync offset (milliseconds; wheel or drag, right-click: reset)	Desfase de sincronización del reloj MIDI externo (milisegundos; rueda o arrastre, clic derecho: restablecer)
+Midi master clock sync offset (milliseconds; wheel or drag, right-click: reset)	Desfase de sincronización del reloj MIDI maestro (milisegundos; rueda o arrastre, clic derecho: restablecer)
+Mixer layout	Disposición del mezclador
+Mixer options	Opciones del mezclador
+Monitor debug panel: drag a slider, right-click resets it	Panel de depuración del monitor: arrastra un control, clic derecho lo restablece
+Multi-touch control	Control multitáctil
+Mute / solo	Silenciar / solo
+Mute / solo  (ctrl)0..9	Silenciar / solo  (ctrl)0..9
+Mute / solo  (shift/ctrl+)0..9	Silenciar / solo  (shift/ctrl+)0..9
+Mute all audio during first taps (during playback)	Silenciar todo el audio durante los primeros toques (durante la reproducción)
+Mute now, for a few bars (during playback)	Silenciar ahora, durante unos compases (durante la reproducción)
+Mute track (right-click / Ctrl+click: solo)	Silenciar la pista (clic derecho / Ctrl+clic: solo)
+Name suggestions	Sugerencias de nombre
+New pattern (find first / next empty)	Patrón nuevo (buscar el primero / el siguiente vacío)
+New pattern (find first empty)	Patrón nuevo (buscar el primero vacío)
+No device selected	Ningún dispositivo seleccionado
+Note color	Color de la nota
+Nudge tempo to align time (Left / pitch bend)	Ajustar el tempo para alinear el tiempo (izquierda / pitch bend)
+Nudge tempo to align time (Right / pitch bend)	Ajustar el tempo para alinear el tiempo (derecha / pitch bend)
+Ok with this ticked turns this message off (Manage messages)	Con esto marcado, este mensaje deja de aparecer (Gestionar mensajes)
+Oscilloscope / spectrum analyzer (click to switch)	Osciloscopio / analizador de espectro (clic para cambiar)
+Output level (peak L / R)	Nivel de salida (pico L / R)
+Pattern length	Duración del patrón
+Pattern options	Opciones del patrón
+Piano roll preview - click to open the Piano roll	Vista previa del piano roll: haz clic para abrirlo
+Piano roll view options	Opciones de vista del piano roll
+Piano roll: click to add a note, drag a note to move it or its end to resize, right-click to delete	Piano roll: clic para añadir una nota, arrastra una nota para moverla o su extremo para cambiar su duración, clic derecho para borrar
+Pick this colour	Elegir este color
+Play / pause pattern	Reproducir o pausar el patrón
+Plugin library (Shift+F8)	Biblioteca de plugins (Shift+F8)
+Presets	Preajustes
+Range: click or drag, the nearer end follows	Intervalo: haz clic o arrastra; el extremo más cercano te sigue
+Remove this folder	Quitar esta carpeta
+Resynchronize to taps	Resincronizar con los toques
+Reverse polarity	Invertir la polaridad
+Row - drag onto the other row to swap them	Fila: arrástrala sobre la otra fila para intercambiarlas
+Saturation (left to right) and brightness (bottom to top)	Saturación (de izquierda a derecha) y brillo (de abajo arriba)
+Scroll	Desplazar
+Scroll the keyboard	Desplazar el teclado
+Search by name, vendor, category or format (Esc clears)	Buscar por nombre, fabricante, categoría o formato (Esc borra)
+Search the browser (Enter = find next, Esc = clear)	Buscar en el navegador (Enter = buscar el siguiente, Esc = borrar)
+Select (Up/Down)	Seleccionar (arriba/abajo)
+Select clip source (right-click for its menu)	Seleccionar la fuente del clip (clic derecho para su menú)
+Select pattern	Seleccionar patrón
+Select what is included when recording audio	Elegir qué se incluye al grabar audio
+Set loop point	Fijar el punto de bucle
+Set the colour	Fijar el color
+Shape	Forma
+Song position (right-drag: time selection)	Posición de la canción (arrastrar con el botón derecho: selección de tiempo)
+Song position: the arranger is empty	Posición de la canción: el organizador está vacío
+Sort by this column	Ordenar por esta columna
+Step - click or drag to paint (left / right)	Paso: haz clic o arrastra para pintar (izquierdo / derecho)
+Step parameters (Ctrl+K)	Parámetros del paso (Ctrl+K)
+Swap left & right channels	Intercambiar los canales izquierdo y derecho
+Tags	Etiquetas
+Tap me, or press any key on your MIDI keyboard	Tócame, o pulsa cualquier tecla de tu teclado MIDI
+Tempo (drag up/down: the whole number, or the decimal place the drag starts on)	Tempo (arrastra arriba/abajo: el número entero o el decimal donde empieza el arrastre)
+The colour before: click to go back to it	El color anterior: haz clic para volver a él
+The toolbar presets, Save preset as... and Delete preset	Los preajustes de la barra, Guardar preajuste como... y Eliminar preajuste
+Time marker (click: song position, drag moves, right-click: menu)	Marcador de tiempo (clic: posición de la canción; arrastrar: mueve; clic derecho: menú)
+Track (double-click: rename, right-click: menu, Shift+wheel: move)	Pista (doble clic: renombrar; clic derecho: menú; Shift+rueda: mover)
+Track audio input	Entrada de audio de la pista
+Track inspector	Inspector de pistas
+Transpose: click or drag, the key becomes C5	Transportar: haz clic o arrastra; la tonalidad pasa a C5
+Type, Enter accepts, Esc cancels	Escribe; Enter acepta, Esc cancela
+Use this name	Usar este nombre
+View extra volume / stereo properties	Ver propiedades adicionales de volumen y estéreo
+View waveforms (Alt+W)	Ver las formas de onda (Alt+W)
+What happens to the note lengths	Qué ocurre con la duración de las notas
+Write the sequence to the channel's steps (Enter)	Escribir la secuencia en los pasos del canal (Enter)
+log: End's speed reached along an exponential curve	log: la velocidad final se alcanza siguiendo una curva exponencial
+EDIT	EDITAR
+ADD	AÑADIR
+PATTERNS	PATRONES
+VIEW	VER
+TOOLS	HERRAMIENTAS
+HELP	AYUDA
+About...	Acerca de...
+Arrange windows	Organizar las ventanas
+Audio clip	Clip de audio
+Audio settings	Ajustes de audio
+Automation clip	Clip de automatización
+Automation for the most recent parameter	Automatización del parámetro más reciente
+Background	Fondo
+Beat	Pulso
+Browse all installed plugins	Explorar todos los plugins instalados
+Browse plugin library	Explorar la biblioteca de plugins
+Browse presets	Explorar los preajustes
+Browser	Navegador
+Browser find...	Buscar en el navegador...
+By vendor	Por fabricante
+Cancel recording	Cancelar la grabación
+Categories	Categorías
+Change color...	Cambiar el color...
+Chord progression tool...	Herramienta de progresiones de acordes...
+Clip palette	Paleta de clips
+Clone	Clonar
+Close all plugin windows	Cerrar todas las ventanas de plugins
+Close all unfocused windows	Cerrar todas las ventanas sin foco
+Close all windows	Cerrar todas las ventanas
+Computer MIDI keyboard	Teclado MIDI del ordenador
+Control builder	Constructor de controles
+Delete	Eliminar
+Delete preset	Eliminar preajuste
+Diagnostics	Diagnóstico
+Effect	Efecto
+Effects in use	Efectos en uso
+Enable MIDI master sync	Activar la sincronización MIDI maestra
+Enable MIDI output	Activar la salida MIDI
+Enable MIDI remote control	Activar el control remoto MIDI
+Exit	Salir
+Export MIDI...	Exportar MIDI...
+Export MP3...	Exportar MP3...
+Export audio...	Exportar audio...
+File settings	Ajustes de archivos
+General settings	Ajustes generales
+Help index	Índice de la ayuda
+Import	Importar
+Insert one	Insertar uno
+Instruments in use	Instrumentos en uso
+Keyboard shortcuts	Atajos de teclado
+Layer	Capa
+Lemon Studio website	Sitio web de Lemon Studio
+Lock all tracks to their clips	Bloquear todas las pistas a sus clips
+MIDI file...	Archivo MIDI...
+MIDI settings	Ajustes MIDI
+Middle unit	Unidad central
+More plugins...	Más plugins...
+Most recent	Más reciente
+Move down	Bajar
+Move up	Subir
+New	Nuevo
+New empty pattern...	Patrón vacío nuevo...
+New from template	Nuevo desde plantilla
+Next empty pattern (unnamed)	Siguiente patrón vacío (sin nombre)
+Next empty pattern...	Siguiente patrón vacío...
+Open in project browser	Abrir en el explorador del proyecto
+Open...	Abrir...
+Pattern	Patrón
+Patterns	Patrones
+Piano roll	Piano roll
+Plugin library	Biblioteca de plugins
+Plugin palette	Paleta de plugins
+Plugin performance monitor	Monitor de rendimiento de plugins
+Project general settings	Ajustes generales del proyecto
+Project info	Información del proyecto
+Random color	Color aleatorio
+Remote control	Control remoto
+Remove unused audio clips	Quitar los clips de audio sin usar
+Rename and colour...	Renombrar y colorear...
+Render and replace...	Renderizar y reemplazar...
+Render as audio clip...	Renderizar como clip de audio...
+Render to audio clip	Renderizar a clip de audio
+Report a bug	Informar de un error
+Rescan plugins (fast)	Volver a escanear plugins (rápido)
+Reset empty tracks	Restablecer las pistas vacías
+Restore backup...	Restaurar copia de seguridad...
+Sampler	Sampler
+Save	Guardar
+Save as template...	Guardar como plantilla...
+Save as...	Guardar como...
+Save new version	Guardar una versión nueva
+Save preset as...	Guardar preajuste como...
+Save to new project folder...	Guardar en una carpeta de proyecto nueva...
+Script output	Salida del script
+Second most recent	El segundo más reciente
+Select in arranger	Seleccionar en el organizador
+Select unused instruments	Seleccionar los instrumentos sin usar
+Set time signature...	Establecer el compás...
+Set up for live performance	Preparar para interpretación en directo
+Simple	Simple
+Split by instrument	Dividir por instrumento
+Step	Paso
+Stop sound	Detener el sonido
+Tap tempo	Marcar el tempo
+Theme settings	Ajustes del tema
+Toolbars	Barras de herramientas
+Touch controller	Controlador táctil
+Transpose...	Transportar...
+Tutorials	Tutoriales
+Unlock all tracks from their clips	Desbloquear todas las pistas de sus clips
+User presets	Preajustes del usuario
+What's new	Novedades
+Don't show	No mostrar
+Folder	Carpeta
+Import every track, or only this one	Importar todas las pistas, o solo esta
+Show channel settings	Mostrar los ajustes del canal
+Show clip properties	Mostrar las propiedades del clip
+Show every time	Mostrar siempre
+Show plugin library	Mostrar la biblioteca de plugins
+Show when necessary	Mostrar cuando sea necesario
+The data folder's new name	El nombre nuevo de la carpeta de datos
+The files' name (each format adds its extension)	El nombre de los archivos (cada formato añade su extensión)
+The folder shown: type a path and press Enter to go there	La carpeta mostrada: escribe una ruta y pulsa Enter para ir
+The instrument the new channels play	El instrumento que tocan los canales nuevos
+The project's new name	El nombre nuevo del proyecto
+Toggle browser	Mostrar u ocultar el navegador
+Toggle plugin picker	Mostrar u ocultar el selector de plugins
+Toggle project picker	Mostrar u ocultar el selector de proyectos
+Yes	Sí
+Ok	Aceptar
+Open	Abrir
+File name	Nombre del archivo
+New folder	Carpeta nueva
+Overwrite	Sobrescribir
+Retry	Reintentar
+Discard	Descartar
+Don't save	No guardar
+Denominator: click to choose	Denominador: haz clic para elegir
+Numerator: click to choose	Numerador: haz clic para elegir
+Spacing in bars: click to choose	Espaciado en compases: haz clic para elegir
+Marker count: click to choose	Número de marcadores: haz clic para elegir
+Channel rack	Rack de canales
+PAT	PAT
+SONG	CANCIÓN
+NOTE	NOTA
+CHAN	CAN
+Arranger - 	Organizador - 
+Advanced fill	Relleno avanzado
+All	Todo
+Arm disk recording	Armar la grabación en disco
+Built-in	Integrado
+Bus	Bus
+Channel controls	Controles del canal
+Channel presets	Preajustes de canales
+Collapse structure (Ctrl+Up)	Contraer la estructura (Ctrl+Arriba)
+Controls with a start value	Controles con valor inicial
+Date	Fecha
+Delete (D): click or swipe to delete notes	Borrar (D): haz clic o desliza para borrar notas
+Drag and drop	Arrastrar y soltar
+Draw (P)	Dibujar (P)
+Effects	Efectos
+Equalizer	Ecualizador
+Expand folders	Expandir las carpetas
+Factory	De fábrica
+Favorites	Favoritos
+Fill type	Tipo de relleno
+Generators	Generadores
+History	Historial
+Installed	Instalados
+Instruments	Instrumentos
+Interval	Intervalo
+Last reset	Último restablecimiento
+Less	Menos
+Level scale	Escala de nivel
+More	Más
+My projects	Mis proyectos
+Native	Nativo
+No favorites yet: right-click a	Aún no hay favoritos: haz clic derecho en un
+No matches	Sin coincidencias
+No matches yet (indexing folders)	Aún no hay coincidencias (indexando carpetas)
+Note flags	Marcas de las notas
+Note properties	Propiedades de las notas
+Paint (B): drag to paint notes along the row	Pintar (B): arrastra para pintar notas a lo largo de la fila
+Paint and add	Pintar y añadir
+Path	Ruta
+Piano roll options	Opciones del piano roll
+Playback (Y): drag to hear the notes under the line	Reproducción (Y): arrastra para oír las notas bajo la línea
+Plugin presets	Preajustes de plugins
+Preview	Vista previa
+Project data	Datos del proyecto
+Random	Aleatorio
+Red from	Rojo desde
+Reread structure (Ctrl+R)	Volver a leer la estructura (Ctrl+R)
+Rotate left	Girar a la izquierda
+Rotate right	Girar a la derecha
+Scale and chord helpers	Ayudas de escalas y acordes
+Scroll the lane down	Desplazar el carril hacia abajo
+Scroll the lane up	Desplazar el carril hacia arriba
+Search box on top	Cuadro de búsqueda arriba
+Select (E): drag a box to select notes, Ctrl adds	Seleccionar (E): arrastra un recuadro para seleccionar notas; Ctrl añade
+Sequence	Secuencia
+Sequence length	Longitud de la secuencia
+Shift+drop	Shift+soltar
+Shown while held	Se muestra mientras se mantiene
+Size	Tamaño
+Slice (C): drag a line to cut notes	Cortar (C): arrastra una línea para cortar notas
+Step count	Número de pasos
+Step parameters	Parámetros del paso
+TAGS	ETIQUETAS
+Target channel (wheel: channels with notes; right-click: settings)	Canal destino (rueda: canales con notas; clic derecho: ajustes)
+Title-bar icons	Iconos de la barra de título
+Undo (Ctrl+Z)	Deshacer (Ctrl+Z)
+Unsorted	Sin clasificar
+Volume	Volumen
+Wide	Ancho
+Yellow from	Amarillo desde
+route to this track	enrutar a esta pista
+file or a plugin, tick Favorite	archivo o un plugin y marca Favorito
+Master	Master
+Generator	Generador
+Sample	Muestra
+Mixer track	Pista de mezcla
+Panning	Paneo
+Pitch	Tono
+Absolute	Absoluto
+Absolute pattern	Patrón absoluto
+Accept the arpeggio	Aceptar el arpegio
+Accept the change	Aceptar el cambio
+Accept the strum	Aceptar el rasgueo
+Alternate direction	Dirección alterna
+Alternate direction: every second chord strums the other way	Dirección alterna: cada segundo acorde se rasguea al revés
+Apply tempo	Aplicar tempo
+Before	Antes
+Bipolar	Bipolar
+Bipolar: move the levels both ways (off: one way, the knob's)	Bipolar: mueve los niveles en ambos sentidos (desactivado: en uno, el del mando)
+Center	Centro
+Chop chords	Cortar acordes
+Chop chords: notes still held where others start are cut there	Cortar acordes: las notas aún mantenidas donde empiezan otras se cortan ahí
+Chords	Acordes
+Draw	Dibujar
+Draw (left: freehand, right: line)	Dibujar (izquierdo: a mano alzada, derecho: línea)
+Duration	Duración
+End	Fin
+End: strum the note ends	Fin: rasguear el final de las notas
+End: the values reached at the end of the pattern	Fin: los valores alcanzados al final del patrón
+Erase	Borrar
+Erase events	Borrar eventos
+Event editor	Editor de eventos
+Event editor menu	Menú del editor de eventos
+Events	Eventos
+Events - LFO	Eventos - LFO
+Events - level scaling	Eventos - escala de niveles
+Flip horizontally	Voltear horizontalmente
+Flip vertically	Voltear verticalmente
+Gate	Puerta
+Glue same notes	Pegar notas iguales
+Glue same notes: touching notes of one key become one	Pegar notas iguales: las notas contiguas de una tecla se vuelven una
+Group notes	Agrupar notas
+Group the pieces of each note	Agrupar las piezas de cada nota
+Hide this section (it still applies)	Ocultar esta sección (sigue aplicándose)
+Insert flam before original drum	Insertar el flam antes del golpe original
+Interpolate (left: straight, right: smooth)	Interpolar (izquierdo: recto, derecho: suave)
+Key: the lowest key's name	Tono: el nombre de la tecla más grave
+Key: the scale's first note	Tono: la primera nota de la escala
+Keys	Teclas
+LFO applied	LFO aplicado
+Length	Longitud
+Levels	Niveles
+Levels: randomize the notes' levels	Niveles: aleatoriza los niveles de las notas
+Load a chopping pattern	Cargar un patrón de corte
+Load a pattern file	Cargar un archivo de patrón
+Load a quantize template	Cargar una plantilla de cuantización
+Mirror the notes in pitch	Reflejar las notas en altura
+Mirror the notes in time	Reflejar las notas en el tiempo
+Mouse on the keyboard	Ratón en el teclado
+Multiply	Multiplicar
+Mute	Silenciar
+Name the data folder as the project	Nombrar la carpeta de datos como el proyecto
+Next	Siguiente
+No events for this control in this pattern: draw some	No hay eventos de este control en este patrón: dibuja algunos
+Octave	Octava
+Octave down	Bajar una octava
+Octave up	Subir una octava
+Offset	Desfase
+Paint	Pintar
+Paint (draw ignoring the snap)	Pintar (dibuja sin ajuste)
+Pattern direction: Normal, Flip or Alternate	Dirección del patrón: normal, volteado o alterno
+Pattern: write new notes over the pattern	Patrón: escribe notas nuevas sobre el patrón
+Period	Periodo
+Period: the stretch of time each cut repeats over	Periodo: el tramo de tiempo en que se repite cada corte
+Phase	Fase
+Piano roll - LFO	Piano roll - LFO
+Piano roll - arpeggiator	Piano roll - arpegiador
+Piano roll - chopper	Piano roll - cortador
+Piano roll - claw machine	Piano roll - máquina de garra
+Piano roll - flamer	Piano roll - flamer
+Piano roll - level scaling	Piano roll - escala de niveles
+Piano roll - quantizer	Piano roll - cuantizador
+Piano roll - randomizer	Piano roll - aleatorizador
+Piano roll - score flipper	Piano roll - volteador de partitura
+Piano roll - strumizer	Piano roll - strumizer
+Piano roll LFO	LFO del piano roll
+Piano roll chop	Corte del piano roll
+Piano roll claw machine	Máquina de garra del piano roll
+Piano roll flam	Flam del piano roll
+Piano roll flip	Volteo del piano roll
+Piano roll level scaling	Escala de niveles del piano roll
+Piano roll limit	Límite del piano roll
+Piano roll quantize	Cuantizar del piano roll
+Piano roll randomize	Aleatorizar del piano roll
+Pick a pattern	Elegir un patrón
+Pick a template	Elegir una plantilla
+Population	Población
+Preserve end	Conservar el fin
+Preserve end: keep the note ends where they are	Conservar el fin: mantiene los finales de las notas donde están
+Preserve start times	Conservar los inicios
+Previous	Anterior
+Random portamento	Portamento aleatorio
+Random portamento: some new notes get their portamento switch	Portamento aleatorio: algunas notas nuevas reciben su interruptor de portamento
+Range	Rango
+Range direction: Normal, Flip or Alternate	Dirección del rango: normal, volteado o alterno
+Remove notes left shorter than a 24th of a beat	Quitar las notas que quedan más cortas que un 24avo de pulso
+Remove short notes	Quitar las notas cortas
+Rename the data folder too	Renombrar también la carpeta de datos
+Rename the project (Enter)	Renombrar el proyecto (Enter)
+Repeat the pattern from the song's start (off: from each note's start)	Repetir el patrón desde el inicio de la canción (desactivado: desde el inicio de cada nota)
+Reset before processing	Restablecer antes de procesar
+Reset before processing: start from a new note's levels	Restablecer antes de procesar: parte de los niveles de una nota nueva
+Reset every control	Restablecer todos los controles
+STRENGTH	INTENSIDAD
+Scale: the keys the new notes take	Escala: las teclas que toman las notas nuevas
+Scale: the notes move to its keys	Escala: las notas se mueven a sus teclas
+Scales	Escalas
+Seed	Semilla
+Select	Seleccionar
+Select a stretch of time	Seleccionar un tramo de tiempo
+Sensitivity	Sensibilidad
+Show this section	Mostrar esta sección
+Snap	Ajuste
+Snap: where a note halfway between two keys goes	Ajuste: adónde va una nota a mitad entre dos teclas
+Speed	Velocidad
+Stack	Apilar
+Start	Inicio
+Start time	Inicio
+Start: strum the note starts and velocities	Inicio: rasguea los inicios y las velocidades de las notas
+Strength	Intensidad
+Stretch the rest of each period over the cut	Estirar el resto de cada periodo sobre el corte
+Stretch to compensate	Estirar para compensar
+Sync	Sincronizar
+TAP	TAP
+TENSION	TENSIÓN
+Template	Plantilla
+Tension	Tensión
+Time	Tiempo
+Time dist	Dist. temporal
+Time mul	Mult. temporal
+Trash every	Descartar cada
+Trash every: the part of each period cut out	Descartar cada: la parte de cada periodo que se recorta
+Trigger ahead	Disparar antes
+Trigger ahead: the strum ends on the chord's start	Disparar antes: el rasgueo termina al empezar el acorde
+Value	Valor
+Variation	Variación
+Where the pattern restarts: Time, Block or Chord	Dónde se reinicia el patrón: tiempo, bloque o acorde
+Wrap: keys above the range go to its bottom, keys below to its top	Envolver: las teclas por encima del rango van a su base y las de abajo, a su cima
+Zoom	Zoom
+Zoom (Z; click: in, drag: on the stretch, right-click: out)	Zoom (Z; clic: acercar, arrastrar: sobre el tramo, clic derecho: alejar)
+chopped	cortado
+claw machine applied	máquina de garra aplicada
+flammed	con flam
+flipped	volteado
+just pushed	recién movido
+levels scaled	niveles escalados
+limited	limitado
+quantized	cuantizado
+randomized	aleatorizado
+Pattern name	Nombre del patrón
+Semitones	Semitonos
+Confirm	Confirmar
+The file goes from your themes folder.	El archivo viene de tu carpeta de temas.
+Revert	Revertir
+Text is hard to read on some surfaces with these colours.	El texto es difícil de leer en algunas superficies con estos colores.
+ASIO is a registered trademark of	ASIO es una marca registrada de
+Steinberg Media Technologies GmbH.	Steinberg Media Technologies GmbH.
+(no folders)	(sin carpetas)
+Preferred format	Formato preferido
+Find	Buscar
+Master sync offset (milliseconds)	Desfase de sincronización maestro (milisegundos)
+External sync offset (milliseconds)	Desfase de sincronización externo (milisegundos)
+External clock sync	Sincronización de reloj externo
+(no devices)	(sin dispositivos)
+Port	Puerto
+Tracking	Seguimiento
+Arpeggiator	Arpegiador
+Echo delay / fat mode	Eco / modo fat
+Done	Listo
+Link all parameters	Vincular todos los parámetros
+Remote control settings	Ajustes del control remoto
+(stopped)	(detenido)
+No channel settings here	Aquí no hay ajustes de canal
+on	activado
+off	desactivado
+A/B	A/B
+ACQUIRE	ADQUIRIR
+Amp	Amp
+APPEND	AÑADIR
+Citrus: block diagram	Citrus: diagrama de bloques
+Click to load a sample	Haz clic para cargar una muestra
+Click to return	Haz clic para volver
+COARSE	GRUESO
+COMPARE	COMPARAR
+Convolution reverb	Reverb por convolución
+CUSTOM SHAPE	FORMA PERSONALIZADA
+DETUNE	DESAFINADO
+Downbeat	Tiempo fuerte
+Drum(loop) stretch	Estiramiento de batería (bucle)
+e3 generic	e3 genérico
+filter	filtro
+FINE	FINO
+FOR	PARA
+FORMANT PRESERVATION	PRESERVACIÓN DE FORMANTES
+FREE	LIBRE
+FREQ	FREC
+HOLD	MANTENER
+IN	ENT
+Lemon Studio's additive synthesizer	Sintetizador aditivo de Lemon Studio
+Lemon Studio's multiband maximiser	Maximizador multibanda de Lemon Studio
+Lemon Studio's pattern-controlled multi-filter	Multifiltro controlado por patrón de Lemon Studio
+Lemon Studio's six-operator synthesizer	Sintetizador de seis operadores de Lemon Studio
+LENGTH	DURACIÓN
+Level scaling	Escala de niveles
+LOAD	CARGAR
+Loop	Bucle
+MIX	MEZCLA
+MONITOR	MONITOR
+Noise profile required: select noise only, then ACQUIRE (Alt+U)	Se necesita el perfil de ruido: selecciona solo el ruido y pulsa ADQUIRIR (Alt+U)
+OUT	SAL
+PANNING	PANEO
+PHASE OFS	DESFASE DE FASE
+Played as one period of the oscillator	Se reproduce como un periodo del oscilador
+post	post
+Precomputed effects	Efectos precalculados
+STEREO SEP	SEP. ESTÉREO
+threshold	umbral
+Time stretch / pitch shift	Estiramiento de tiempo / cambio de tono
+TITLE	TÍTULO
+AM OSC 3	OSC AM 3
+CHORUS	CORO
+COLOR	COLOR
+CURVE	CURVA
+Click removal	Quitar clics
+Envelope	Envolvente
+FLAT	PLANO
+Fine tune	Afinación fina
+Global	Global
+OVERSAMPLING	SOBREMUESTREO
+PHASE RAND	FASE ALEAT.
+SATURATION	SATURACIÓN
+SEND	ENVÍO
+Tempo	Tempo
+WAVESHAPER	MODELADOR DE ONDA
+Attack	Ataque
+Decay	Caída
+Sustain	Sostenido
+Cutoff	Corte
+Resonance	Resonancia
+Drive	Excitación
+Gain	Ganancia
+Threshold	Umbral
+Ratio	Relación
+Knee	Codo
+Lookahead	Anticipación
+Makeup	Compensación
+Band	Banda
+Freq	Frec
+Width	Anchura
+Depth	Profundidad
+Rate	Velocidad
+Feedback	Realimentación
+Dry	Seco
+Wet	Húmedo
+Tune	Afinación
+Detune	Desafinado
+Spread	Dispersión
+Amount	Cantidad
+Type	Tipo
+Bypass	Omisión
+Mono	Mono
+Stereo	Estéreo
+Filter	Filtro
+Level	Nivel
+Cents	Centésimas
+Voices	Voces
+Unison	Unísono
+Fade	Fundido
+Delay	Retardo
+Predelay	Pre-retardo
+Damping	Amortiguación
+Diffusion	Difusión
+Tone	Tono
+Link	Vincular
+Enable	Activar
+not found: default device	no encontrado: dispositivo predeterminado
+Default	Predeterminado
+no output device	sin dispositivo de salida
+no input device	sin dispositivo de entrada
+blocks of	bloques de
+open at	abierto a
+opens with the first note or Play	se abre con la primera nota o al reproducir
+No dropouts so far.	Aún no hay cortes.
+Dropouts so far	Cortes hasta ahora
+device blocks the engine could not fill in time; a longer buffer helps	bloques del dispositivo que el motor no pudo rellenar a tiempo; un búfer más largo ayuda
+buffer	búfer
+Driver	Controlador
+Device	Dispositivo
+Smallest	El más pequeño
+Device default	Predeterminado del dispositivo
+Other programs can't play on	Otros programas no pueden reproducir en
+while Lemon Studio has it open.	mientras Lemon Studio lo tiene abierto.
+while Lemon Studio has it open through ALSA (it lets go once nothing plays).	mientras Lemon Studio lo tiene abierto por ALSA (lo suelta cuando nada suena).
+frames	tramas
+This project was started on	Este proyecto se inició el
+last saved in	guardado por última vez en
+Channels	Canales
+Mixer Tracks	Pistas de mezcla
+Arrangements	Arreglos
+PL tracks	Pistas de la lista
+PL clips	Clips de la lista
+Less than a minute was spent working on it.	Se dedicó menos de un minuto.
+Total time spent on it:	Tiempo total dedicado:
+hour	hora
+hours	horas
+minute	minuto
+minutes	minutos
+unused audio clip channel(s) are about to be deleted.	canal(es) de clip de audio sin usar están a punto de borrarse.
+The selected channel is about to be deleted.	El canal seleccionado está a punto de borrarse.
+The	Los
+selected channels are about to be deleted.	canales seleccionados están a punto de borrarse.
+is about to be deleted.	está a punto de borrarse.
+No folder	No se encontró la carpeta
+was not found	no se encontró
+Made	Creada
+Could not make a folder	No se pudo crear la carpeta
+Edit	Editar
+Add	Añadir
+View	Ver
+Tools	Herramientas
+Help	Ayuda
+Cable physics	Física de cables
+Monitor debug	Depuración del monitor
+Search plugins	Buscar plugins
+(drag or scroll; middle click: the theme's own value)	(arrastra o usa la rueda; clic central: el valor propio del tema)
+REC IN	GRAB. ENT
+(unknown vendor)	(fabricante desconocido)
+Add channel	Añadir canal
+Add effect to container	Añadir efecto al contenedor
+Add instrument to container	Añadir instrumento al contenedor
+Add the notes to the channel's notes in the pattern, or replace them	Añadir las notas a las del canal en el patrón, o reemplazarlas
+Align all channel editors	Alinear todos los editores de canal
+All of the channels are about to be turned into MIDI Out channels in order to allow output to a MIDI file.	Todos los canales se convertirán en canales MIDI Out para permitir la salida a un archivo MIDI.
+Always show advanced controls	Mostrar siempre los controles avanzados
+Assign to audio track(s)	Asignar a pista(s) de audio
+Assign to instrument track	Asignar a pista de instrumento
+Auto scrolling	Desplazamiento automático
+Auto switch display filter	Cambiar automáticamente el filtro de visualización
+Blend with existing data	Mezclar con los datos existentes
+Burn MIDI	Grabar MIDI a disco
+Capture MIDI	Capturar MIDI
+Capture MIDI into pattern	Capturar MIDI en el patrón
+Change click removal of selected channels to	Cambiar la eliminación de clics de los canales seleccionados a
+Channel mute / solo	Silenciar / solo del canal
+Channel type	Tipo de canal
+Choose what to do with created project files	Elegir qué hacer con los archivos creados del proyecto
+Chord progression	Progresión de acordes
+Clean up	Limpiar
+Clean up and save	Limpiar y guardar
+Clear log	Borrar el registro
+Clip end	Fin del clip
+Create	Crear
+Create automation clip	Crear clip de automatización
+Create the new project	Crear el proyecto nuevo
+Delete channel	Eliminar canal
+Delete pattern	Eliminar patrón
+Drag to scroll - right-drag resizes the previews	Arrastra para desplazar; con el botón derecho cambias el tamaño de las vistas previas
+Drag to zoom - the other end stays put	Arrastra para hacer zoom; el otro extremo se queda quieto
+Effect color in container	Color del efecto en el contenedor
+Effect icon in container	Icono del efecto en el contenedor
+Effect level in container	Nivel del efecto en el contenedor
+Effect name in container	Nombre del efecto en el contenedor
+Effect slot	Ranura de efectos
+Enabled	Activado
+Event editor edit	Edición del editor de eventos
+Export	Exportar
+Export audio	Exportar audio
+Export zipped project...	Exportar proyecto comprimido...
+Focus selected channel on playback	Enfocar el canal seleccionado al reproducir
+Grouped clips move together	Los clips agrupados se mueven juntos
+Import MIDI data	Importar datos MIDI
+Import MIDI file	Importar archivo MIDI
+Information...	Información...
+Initialized control	Control inicializado
+Insert mixer track	Insertar pista del mezclador
+Instrument tracks are not for audio clips	Las pistas de instrumento no son para clips de audio
+Into workspace	A la zona de trabajo
+Lemon Studio project	Proyecto de Lemon Studio
+Load channel sample(s)	Cargar muestra(s) del canal
+Load channel state	Cargar estado del canal
+Main snap / quantization / step edit step (Backspace: snap on / off)	Paso del ajuste / cuantización / edición por pasos (Backspace: ajuste activado/desactivado)
+Menus of detached plugin windows on Linux (dock the window)	Menús de las ventanas de plugin separadas en Linux (acopla la ventana)
+Metronome	Metrónomo
+Mixer routing	Enrutamiento del mezclador
+Mixer track audio input / output	Entrada / salida de audio de la pista del mezclador
+Mixer track volume	Volumen de la pista del mezclador
+Move effect in container	Mover el efecto en el contenedor
+Multi MIDI learn	Aprendizaje MIDI múltiple
+Mute removed steps	Silenciar los pasos eliminados
+Name and location	Nombre y ubicación
+New project	Proyecto nuevo
+Open capture in audio editor	Abrir la captura en el editor de audio
+Other	Otro
+Pattern time signature	Compás del patrón
+Playlist track mode	Modo de pista de la lista
+Plugin parameter	Parámetro del plugin
+Plugin preset	Preajuste del plugin
+Plugin windows on this system	Ventanas de plugins de este sistema
+Project settings	Ajustes del proyecto
+Quick record	Grabación rápida
+Recent projects	Proyectos recientes
+Recorded items	Elementos grabados
+Remember my choice	Recordar mi elección
+Remove all audio editor instances	Quitar todas las instancias del editor de audio
+Remove effect from container	Quitar el efecto del contenedor
+Remove start value	Quitar el valor inicial
+Rename project	Renombrar el proyecto
+Render and replace	Renderizar y reemplazar
+Render as audio clip	Renderizar como clip de audio
+Render to wave file	Renderizar a archivo WAV
+Rendered	Renderizado
+Replace channel	Reemplazar canal
+Replace effect in container	Reemplazar el efecto en el contenedor
+Retro audio capture	Captura de audio retro
+Sample start offset	Desfase del inicio de la muestra
+Save MIDI clipboard to browser	Guardar el portapapeles MIDI en el navegador
+Save as	Guardar como
+Save audio clipboard to browser	Guardar el portapapeles de audio en el navegador
+Save to new project folder	Guardar en una carpeta de proyecto nueva
+Select a project folder...	Seleccionar una carpeta de proyecto...
+Select or create a project folder	Selecciona o crea una carpeta de proyecto
+Set all audio clip channels to	Poner todos los canales de clip de audio en
+Set all plugin windows to	Poner todas las ventanas de plugins en
+Set as song start value	Establecer como valor inicial de la canción
+Set keyboard focus of all plugins to	Poner el foco del teclado de todos los plugins en
+Set the project name	Poner el nombre del proyecto
+Set to default project root folder	Usar la carpeta raíz predeterminada de proyectos
+Set up for MIDI export	Preparar para exportar MIDI
+Show a mute button on the piano roll preview	Mostrar un botón de silencio en la vista previa del piano roll
+Show complete piano roll preview	Mostrar la vista previa completa del piano roll
+Simulated	Simulado
+Skip	Omitir
+Skip to regular file browser	Ir al explorador de archivos normal
+Snap panel: click turns snapping on / off (Backspace)	Panel de ajuste: un clic activa o desactiva el ajuste (Backspace)
+Song info	Información de la canción
+Step edit	Edición por pasos
+Step seq edit	Edición del secuenciador de pasos
+Swap A / B	Intercambiar A / B
+Switch auto-bypass for all plugins	Activar o desactivar el bypass automático de todos los plugins
+Switch selected audio clip channels to	Cambiar los canales de clip de audio seleccionados a
+The project will be tweaked for best results in a live performance situation (no undo).	El proyecto se ajustará para obtener los mejores resultados en directo (sin deshacer).
+Time signature	Compás
+Track latency	Latencia de la pista
+Turn into automation clip	Convertir en clip de automatización
+Unassign audio track(s)	Desasignar pista(s) de audio
+Unzipped projects	Proyectos descomprimidos
+User	Usuario
+WASAPI exclusive	WASAPI exclusivo
+Which channels to import?	¿Qué canales importar?
+Which tracks to import?	¿Qué pistas importar?
+Widen the window or lower Toolbars scaling	Ensancha la ventana o baja la escala de las barras
+Windows opens .flp files with another program: choose Lemon Studio under Open with ▸ Choose another app	Windows abre los archivos .flp con otro programa: elige Lemon Studio en Abrir con ▸ Elegir otra aplicación
+Wrap all in container	Envolver todo en un contenedor
+Wrap in container	Envolver en un contenedor
+files created for this project to the folder	archivos creados para este proyecto a la carpeta
+a parameter	un parámetro
+b parameter	parámetro b
+c parameter	parámetro c
+Attack shape	Forma del ataque
+Attack time	Tiempo de ataque
+Balance	Balance
+Band count	Número de bandas
+Band pass	Paso de banda
+Band width	Ancho de banda
+Bass multiplier	Multiplicador de graves
+Bits reduction	Reducción de bits
+Carrier added noise high-pass	Paso alto del ruido añadido
+Carrier added noise level	Nivel del ruido añadido
+Carrier input	Entrada de la portadora
+Carrier pass-through level	Nivel de paso de la portadora
+Carrier pass-through low-pass	Paso bajo de la portadora
+Comp attack time	Tiempo de ataque del compresor
+Comp curve	Curva del compresor
+Comp knee	Codo del compresor
+Comp ratio	Relación del compresor
+Comp release time	Tiempo de liberación del compresor
+Comp RMS window	Ventana RMS del compresor
+Comp threshold	Umbral del compresor
+Crossover	Cruce
+Cutoff frequency	Frecuencia de corte
+Decay time	Tiempo de caída
+Delay time R/L offset	Desfase de tiempo de retardo I/D
+Delay type	Tipo de retardo
+Diffusion level	Nivel de difusión
+Diffusion spread	Dispersión de la difusión
+Distortion	Distorsión
+Distortion knee	Codo de la distorsión
+Distortion symmetry	Simetría de la distorsión
+Distortion type	Tipo de distorsión
+Dry level	Nivel seco
+Early reflection level	Nivel de reflexiones tempranas
+Feedback cutoff	Corte de la realimentación
+Feedback level	Nivel de realimentación
+Feedback resonance	Resonancia de la realimentación
+Filter mode	Modo del filtro
+High cut	Corte de agudos
+High damping	Amortiguación de agudos
+High pass	Paso alto
+Hold mode	Modo de retención
+Hold time	Tiempo de retención
+Input wet	Entrada húmeda
+Inversion	Inversión
+Keep pitch	Mantener el tono
+L/R interlaced input	Entrada entrelazada I/D
+LFO base	Base del LFO
+LFO phase	Fase del LFO
+LFO shape	Forma del LFO
+LFO speed	Velocidad del LFO
+LFO tension	Tensión del LFO
+LFO volume	Volumen del LFO
+Limiter attack curve	Curva de ataque del limitador
+Limiter attack time	Tiempo de ataque del limitador
+Limiter ceiling	Techo del limitador
+Limiter peak window	Ventana de picos del limitador
+Limiter release curve	Curva de liberación del limitador
+Limiter release time	Tiempo de liberación del limitador
+Low cut	Corte de graves
+Low pass	Paso bajo
+Mix	Mezcla
+Mod Depth	Profundidad de la modulación
+Mod Speed	Velocidad de la modulación
+Modulation cutoff	Corte de la modulación
+Modulation rate	Velocidad de la modulación
+Modulation time	Tiempo de la modulación
+Modulator input	Entrada del modulador
+Modulator pass-through high-pass	Paso alto del modulador
+Modulator pass-through level	Nivel de paso del modulador
+Noise gain	Ganancia del ruido
+Noise release time	Tiempo de liberación del ruido
+Noise threshold	Umbral del ruido
+Order	Orden
+Output dry	Salida seca
+Output tone	Tono de salida
+Output wet	Salida húmeda
+Pan	Paneo
+Peak base	Base del pico
+Peak decay	Caída del pico
+Peak tension	Tensión del pico
+Peak volume	Volumen del pico
+Phase offset	Desfase de fase
+Phase offset placement	Ubicación del desfase de fase
+Post gain	Ganancia posterior
+Pre amp	Preamp
+Processing	Procesamiento
+Ramp controllers	Controladores de rampa
+Rate reduction	Reducción de velocidad
+Release shape	Forma de la liberación
+Release time	Tiempo de liberación
+Room size	Tamaño de la sala
+Soft saturation threshold	Umbral de saturación suave
+Split balance	Balance de la división
+Split frequency	Frecuencia de la división
+Stereo separation	Separación estéreo
+Stereo spread	Dispersión estéreo
+Tempo sync	Sincronización con el tempo
+Time smooth	Suavizado temporal
+Wet level	Nivel húmedo
+X 2	X 2
+settings	ajustes
+FILL	RELLENO
+MODE	MODO
+(no name)	(sin nombre)
+Opened	Abierto
+Could not open	No se pudo abrir
+Save failed	Error al guardar
+Lemon Sampler did not take	Lemon Sampler no aceptó
+Added	Añadido
+hosted	alojado
+plugin	plugin
+Plugin	Plugin
+Could not load theme	No se pudo cargar el tema
+Audio input	Entrada de audio
+the skin's own colours	los colores propios del aspecto
+Target mixer track	Pista del mezclador destino
+Channel button width	Ancho de los botones del canal
+Computer keyboard octave	Octava del teclado del ordenador
+Toolbar preset	Preajuste de la barra
+Saved	Guardado
+Could not write	No se pudo escribir
+Backup failed	Error en la copia de seguridad
+Browser: added	Navegador: añadido
+Browser index: the folders hold more than	El índice del navegador: las carpetas superan las
+entries; a search finds the first ones	entradas; la búsqueda encuentra las primeras
+A container holds at most	Un contenedor admite como máximo
+effects	efectos
+Opening	Abriendo
+Imported	Importado
+channel	canal
+channels	canales
+into the piano roll	en el piano roll
+notes	notas
+latency	latencia
+Track	Pista
+FILE	ARCHIVO
+OPTIONS	OPCIONES
+Define 1 inch / 2.54 cm or set display's PPI	Define 1 pulgada / 2,54 cm o fija las PPI de la pantalla
+Playful	Juguetón
+Polished	Pulido
+Subtle	Sutil
+PPI/advised scaling:	PPI/ajuste recomendado:
+Line	Línea
+Cell	Celda
+1/6 step	1/6 de paso
+1/4 step	1/4 de paso
+1/3 step	1/3 de paso
+1/2 step	1/2 de paso
+1/6 beat	1/6 de pulso
+1/4 beat	1/4 de pulso
+1/3 beat	1/3 de pulso
+1/2 beat	1/2 de pulso
+Bar	Compás
+Filter cutoff	Corte del filtro
+Filter resonance	Resonancia del filtro
+Fine pitch	Afinación fina
+Repeat	Repetición
+Channel panning	Paneo del canal
+Channel volume	Volumen del canal
+Channel pitch	Tono del canal
+Note velocity	Velocidad de la nota
+Note pan	Paneo de la nota
+Note release	Liberación de la nota
+Note filter cutoff frequency	Frecuencia de corte del filtro de la nota
+Note filter resonance (Q)	Resonancia del filtro de la nota (Q)
+Note fine pitch	Afinación fina de la nota
+Note repeat	Repetición de la nota
+Slot	Ranura
+FX slot	Ranura FX
+options	opciones
+(no plugins)	(sin plugins)
+(no plugin matches)	(ningún plugin coincide)
+plugins	plugins
+of	de
+in	en
+file	archivo
+files	archivos
+instruments	instrumentos
+patterns	patrones
+mixer tracks	pistas de mezcla
+Instruments listed	Instrumentos listados
+effects listed	efectos listados
+Looking for plugin files...	Buscando archivos de plugins...
+new	nuevos
+It is free software: you can redistribute it and/or modify it under the terms	Es software libre: puedes redistribuirlo y/o modificarlo bajo los términos
+It comes with ABSOLUTELY NO WARRANTY. Licence: https://www.gnu.org/licenses/	Se ofrece SIN NINGUNA GARANTÍA. Licencia: https://www.gnu.org/licenses/
+Built from its source code: it doesn't update itself (git pull, then build it again).	Compilado desde su código fuente: no se actualiza solo (git pull y vuelve a compilarlo).
+A nightly build of main. It updates itself from the nightly releases.	Una compilación nightly de main. Se actualiza desde las versiones nightly.
+It updates itself from the	Se actualiza desde las versiones
+Show	Mostrar
+Vendor	Fabricante

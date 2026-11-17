@@ -1537,6 +1537,8 @@ pub struct App {
 /// Window-level requests the shell must carry out after an event.
 impl App {
     pub fn new(path: Option<PathBuf>) -> App {
+        // General ▸ Language: the interface is drawn in the language kept from the last run.
+        crate::prefs::apply_language();
         // Each test's app looks for missing samples only in its own project's folders, never another test's.
         #[cfg(test)]
         os_engine::sample::set_thread_search_folders(Vec::new());
@@ -1855,7 +1857,7 @@ impl App {
                 crate::project_info::opened(s);
                 crate::rack::from_model(s);
                 s.file = Some(file);
-                s.message = Some(format!("Opened {}", path.display()));
+                s.message = Some(format!("{} {}", os_ui::lang::t("Opened"), path.display()));
                 crate::templates::remember(&path);
                 crate::recent::add(&path);
                 s.path = Some(path);
@@ -1885,7 +1887,7 @@ impl App {
                 self.state.playlist.wave_wait = true;
                 self.invalidate();
             }
-            Err(e) => self.state.message = Some(format!("Could not open {}: {e}", path.display())),
+            Err(e) => self.state.message = Some(format!("{} {}: {e}", os_ui::lang::t("Could not open"), path.display())),
         }
     }
 
@@ -2068,7 +2070,7 @@ impl App {
             match os_flp::project::create(&first) {
                 Ok(f) => f,
                 Err(e) => {
-                    s.message = Some(format!("Save failed: {e}"));
+                    s.message = Some(format!("{}: {e}", os_ui::lang::t("Save failed")));
                     return None;
                 }
             }
@@ -2808,7 +2810,7 @@ impl App {
             // A row hosted this tick already started from its channel's sample.
             let new = self.plugins.sampler_path(row).as_deref() != Some(path.as_str());
             if !self.plugins.set_sampler(row, new.then_some(path.as_str()), &set) {
-                self.state.message = Some(format!("Lemon Sampler did not take {path}"));
+                self.state.message = Some(format!("{} {path}", os_ui::lang::t("Lemon Sampler did not take")));
                 self.invalidate();
             }
         }
@@ -2830,7 +2832,7 @@ impl App {
                     self.transport.set_instruments(self.plugins.instruments());
                     self.state.piano.dirty = true;
                     let format = self.plugins.descriptor(row).map_or("", |d| crate::plugins::format_name(d.format));
-                    self.state.message = Some(format!("Added {name} (hosted {format} plugin)"));
+                    self.state.message = Some(format!("{} {name} ({} {format} {})", os_ui::lang::t("Added"), os_ui::lang::t("hosted"), os_ui::lang::t("plugin")));
                     self.state.pending_open = Some(row);
                 }
                 Err(e) => self.state.message = Some(format!("Plugin: {e}")),
@@ -2852,7 +2854,7 @@ impl App {
                         self.select_window_track(row);
                     }
                     Err(e) => {
-                        self.state.message = Some(format!("Plugin: {e}"));
+                        self.state.message = Some(format!("{}: {e}", os_ui::lang::t("Plugin")));
                         self.invalidate();
                     }
                 }
@@ -4328,7 +4330,7 @@ impl App {
             }
         }
         if let Some(e) = self.transport.take_error() {
-            self.state.message = Some(format!("Audio: {e}"));
+            self.state.message = Some(format!("{}: {e}", os_ui::lang::t("Audio")));
             self.invalidate();
         }
         self.follow_device();
@@ -5202,7 +5204,7 @@ impl App {
                 self.sync_preset();
                 self.state.message = Some(if to_citrus { format!("Theme: {name} (Citrus skin)") } else { format!("Theme: {name}") });
             }
-            Err(e) => self.state.message = Some(format!("Could not load theme {name}: {e}")),
+            Err(e) => self.state.message = Some(format!("{} {name}: {e}", os_ui::lang::t("Could not load theme"))),
         }
         self.invalidate();
     }
@@ -5309,16 +5311,16 @@ impl App {
         let listed = if cfg.asio_driver().is_some() { &drivers } else { &devices };
         st.device = match &cfg.device {
             Some(d) if listed.contains(d) => d.clone(),
-            Some(d) => format!("{d} (not found: default device)"),
-            None => format!("Default ({})", default.as_deref().unwrap_or("no output device")),
+            Some(d) => format!("{d} ({})", os_ui::lang::t("not found: default device")),
+            None => format!("{} ({})", os_ui::lang::t("Default"), default.as_deref().map(os_ui::lang::t).unwrap_or(os_ui::lang::t("no output device"))),
         };
         st.devices = devices;
         st.asio_drivers = drivers;
         let (inputs, default_input) = if cfg.asio_driver().is_some() { (Vec::new(), None) } else { crate::audio_cfg::input_devices(&cfg) };
         st.input = match &cfg.input {
             Some(d) if inputs.contains(d) => d.clone(),
-            Some(d) => format!("{d} (not found: default device)"),
-            None => format!("Default ({})", default_input.as_deref().unwrap_or("no input device")),
+            Some(d) => format!("{d} ({})", os_ui::lang::t("not found: default device")),
+            None => format!("{} ({})", os_ui::lang::t("Default"), default_input.as_deref().map(os_ui::lang::t).unwrap_or(os_ui::lang::t("no input device"))),
         };
         st.inputs = inputs;
         // What the Windows device offers for short buffers (spec: audio/wasapi-low-latency.md 4.3).
@@ -5341,17 +5343,17 @@ impl App {
             // An ASIO driver's blocks are its buffer (spec: audio/devices.md, "Status lines"), as are those of a device in
             // exclusive mode (audio/wasapi-low-latency.md 4.6).
             Some(o) if o.host == ASIO || o.host == WASAPI_EXCLUSIVE => {
-                let blocks = o.fixed.map_or(String::new(), |b| format!(", blocks of {}", views::settings::buffer_text(b, o.rate)));
-                format!("Status: {} open at {} Hz{blocks} ({})", o.name, o.rate, o.host)
+                let blocks = o.fixed.map_or(String::new(), |b| format!(", {} {}", os_ui::lang::t("blocks of"), views::settings::buffer_text(b, o.rate)));
+                format!("{}: {} {} {} Hz{blocks} ({})", os_ui::lang::t("Status"), o.name, os_ui::lang::t("open at"), o.rate, o.host)
             }
             Some(o) => {
                 let rate = o.rate;
                 let block = match tp.block() {
                     0 => String::new(),
-                    b => format!(", blocks of {}", views::settings::buffer_text(b, rate)),
+                    b => format!(", {} {}", os_ui::lang::t("blocks of"), views::settings::buffer_text(b, rate)),
                 };
-                let buffer = o.fixed.map_or(String::new(), |b| format!(", buffer {}", views::settings::buffer_text(b, rate)));
-                format!("Status: {} open at {rate} Hz{block}{buffer} ({})", o.name, o.host)
+                let buffer = o.fixed.map_or(String::new(), |b| format!(", {} {}", os_ui::lang::t("buffer"), views::settings::buffer_text(b, rate)));
+                format!("{}: {} {} {rate} Hz{block}{buffer} ({})", os_ui::lang::t("Status"), o.name, os_ui::lang::t("open at"), o.host)
             }
             None => {
                 let cfg = &self.state.settings.audio;
@@ -5362,12 +5364,12 @@ impl App {
                 } else {
                     crate::audio_cfg::host_name(cfg)
                 };
-                format!("Status: opens with the first note or Play ({host})")
+                format!("{}: {} ({host})", os_ui::lang::t("Status"), os_ui::lang::t("opens with the first note or Play"))
             }
         };
         let second = match tp.underruns() {
-            0 => "No dropouts so far.".to_string(),
-            n => format!("Dropouts so far: {n} (device blocks the engine could not fill in time; a longer buffer helps)"),
+            0 => os_ui::lang::t("No dropouts so far.").to_string(),
+            n => format!("{}: {n} ({})", os_ui::lang::t("Dropouts so far"), os_ui::lang::t("device blocks the engine could not fill in time; a longer buffer helps")),
         };
         let st = &mut self.state.settings;
         let changed = st.status[0] != first || st.status[1] != second || (&st.driver, st.asio_open, &st.instead) != (&driver, asio_open, &instead);
@@ -5507,7 +5509,7 @@ impl App {
         if input {
             // The output plays on; the mixer's input stream moves to the new device (`OutputDevice::sync_inputs`).
             self.audio_page();
-            self.state.message = Some(format!("Audio input: {}", self.state.settings.input));
+            self.state.message = Some(format!("{}: {}", os_ui::lang::t("Audio input"), self.state.settings.input));
             return self.invalidate();
         }
         if let Some(rate) = Transport::device_rate() {
@@ -5516,7 +5518,7 @@ impl App {
         self.transport.reopen();
         self.audio_page();
         let st = &self.state.settings;
-        self.state.message = Some(format!("Audio: {}, {} Hz", st.device, st.rate.unwrap_or(0)));
+        self.state.message = Some(format!("{}: {}, {} Hz", os_ui::lang::t("Audio"), st.device, st.rate.unwrap_or(0)));
         self.invalidate();
     }
 
@@ -5789,7 +5791,7 @@ impl App {
                 self.state.fl_text = None;
                 self.state.theme_base = None;
                 self.sync_preset();
-                self.state.message = Some(format!("Theme: {} (the skin's own colours)", self.design().name()));
+                self.state.message = Some(format!("{}: {} ({})", os_ui::lang::t("Theme"), self.design().name(), os_ui::lang::t("the skin's own colours")));
             }
             SAct::Preset(i) => {
                 if let Some((name, text)) = st.themes.get(i).cloned() {
@@ -5804,7 +5806,7 @@ impl App {
                         let _ = std::fs::write(d.join("current.flstheme"), &text);
                     }
                     self.sync_preset();
-                    self.state.message = Some(format!("Theme: {name}"));
+                    self.state.message = Some(format!("{}: {name}", os_ui::lang::t("Theme")));
                 }
             }
             SAct::Button("Load theme...") => self.theme_dialog(),
@@ -6121,7 +6123,7 @@ impl App {
                         self.channel_control(ch, ChannelControl::Track, |c| c.mixer_track = v);
                         self.state.piano.dirty = true;
                     }
-                    self.hint = Cow::Owned(format!("Target mixer track: {}", views::rack::insert_name(v)));
+                    self.hint = Cow::Owned(format!("{}: {}", os_ui::lang::t("Target mixer track"), views::rack::insert_name(v)));
                     let r = self.hits.iter().rev().find(|h| h.action == Action::RackMixer(ch)).map(|h| h.rect);
                     match r {
                         Some(r) => self.damage_rect(r.outset(2.0)),
@@ -6153,7 +6155,7 @@ impl App {
                     let w = p0 as f32 / 100.0 * crate::rack::NAME_W + (x - x0);
                     let pct = (w / crate::rack::NAME_W * 100.0).round().clamp(crate::rack::NAME_PCT_MIN as f32, crate::rack::NAME_PCT_MAX as f32) as u32;
                     crate::rack::relayout(&mut self.state, |s| s.rack.name_pct = pct);
-                    self.hint = Cow::Owned(format!("Channel button width: {pct}%"));
+                    self.hint = Cow::Owned(format!("{}: {pct}%", os_ui::lang::t("Channel button width")));
                     self.invalidate();
                 }
                 Drag::RackLen { y0, v0 } => {
@@ -6305,7 +6307,7 @@ impl App {
                     // Rounded to the box's thousandths, so repeated steps don't drift.
                     let t = self.set_tempo(((t0 + f64::from(y0 - y).round() * step) * 1000.0).round() / 1000.0);
                     self.record_control(&Action::Tempo);
-                    self.hint = Cow::Owned(format!("Tempo {t:.3} BPM"));
+                    self.hint = Cow::Owned(format!("{} {t:.3} BPM", os_ui::lang::t("Tempo")));
                     self.damage_band(TEMPO_RECT);
                     self.damage_band(HINT_RECT);
                 }
@@ -7938,7 +7940,7 @@ impl App {
                 if let Some(now) = self.state.project.channels.get(i).map(|c| c.mixer_track) {
                     let v = (i32::from(now) + d).clamp(0, i32::from(max)) as u16;
                     self.channel_control(i, ChannelControl::Track, |c| c.mixer_track = v);
-                    self.hint = Cow::Owned(format!("Target mixer track: {}", views::rack::insert_name(v)));
+                    self.hint = Cow::Owned(format!("{}: {}", os_ui::lang::t("Target mixer track"), views::rack::insert_name(v)));
                     self.state.piano.dirty = true;
                 }
                 return None;
@@ -8392,7 +8394,7 @@ impl App {
         if matches!(code, KeyCode::NumpadAdd | KeyCode::NumpadSubtract) {
             let d = if code == KeyCode::NumpadAdd { 1 } else { -1 };
             self.typing_octave = (self.typing_octave + d).clamp(-4, 5);
-            self.state.message = Some(format!("Computer keyboard octave {:+}", self.typing_octave));
+            self.state.message = Some(format!("{} {:+}", os_ui::lang::t("Computer keyboard octave"), self.typing_octave));
             self.invalidate();
             return true;
         }
@@ -9933,7 +9935,7 @@ impl App {
         match l {
             Some(l) => {
                 self.set_toolbar_layout(l);
-                self.state.message = Some(format!("Toolbar preset: {}", self.state.bar.name()));
+                self.state.message = Some(format!("{}: {}", os_ui::lang::t("Toolbar preset"), self.state.bar.name()));
             }
             None => self.state.message = Some("The toolbar preset could not be read".into()),
         }

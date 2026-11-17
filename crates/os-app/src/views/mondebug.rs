@@ -33,7 +33,7 @@ pub fn paint(ui: &mut Ui, s: &State) {
     ui.c.fill_rect(PANEL, edge);
     ui.c.fill_rect(Rect::new(PANEL.x + 1.0, PANEL.y + 1.0, PANEL.w - 2.0, PANEL.h - 2.0), bg);
     ui.hit(PANEL, Action::Swallow, "Monitor debug panel: drag a slider, right-click resets it");
-    ui.c.text(super::fnt(13.0).bold(), PANEL.x + 8.0, PANEL.y + 4.0, ink, "Monitor debug");
+    ui.c.text(super::fnt(13.0).bold(), PANEL.x + 8.0, PANEL.y + 4.0, ink, os_ui::lang::t("Monitor debug"));
     for (n, label) in ["Reset", "Save", "Close"].into_iter().enumerate() {
         let r = button(n);
         ui.c.fill_rect(r, Color::rgb(0x3d4347));

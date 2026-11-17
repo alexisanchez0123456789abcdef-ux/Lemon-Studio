@@ -61,6 +61,7 @@ fn led(ui: &mut Ui, cx: f32, cy: f32, on: bool, hover: bool, off: bool) {
 
 /// Text vertically centred on `cy` from `x` (or centred on `x` when `center`).
 fn label(ui: &mut Ui, f: Font, x: f32, cy: f32, center: bool, col: Color, s: &str) {
+    let s = os_ui::lang::t(s);
     let lh = ui.c.line_height(f);
     let y = (cy - lh / 2.0).round();
     let x = if center { (x - ui.c.text_width(f, s) / 2.0).round() } else { x };

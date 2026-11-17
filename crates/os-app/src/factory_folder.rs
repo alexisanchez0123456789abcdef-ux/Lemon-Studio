@@ -71,7 +71,7 @@ impl App {
                 self.plugins.load_sample(row, &crate::plugins::resolve_sample(path));
             }
         }
-        self.state.message = Some(format!("FL Studio factory content folder: {}", path_text()));
+        self.state.message = Some(format!("{}: {}", os_ui::lang::t("FL Studio factory content folder"), path_text()));
         self.invalidate();
     }
 }

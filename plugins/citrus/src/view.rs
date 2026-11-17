@@ -215,7 +215,7 @@ impl Ui<'_> {
     }
     /// Text centred on a point.
     fn label(&mut self, f: Font, cx: f32, cy: f32, col: Color, s: &str) {
-        self.c.text_center(f, Rect::new(cx - 60.0, cy - 8.0, 120.0, 16.0), col, s);
+        self.c.text_center(f, Rect::new(cx - 60.0, cy - 8.0, 120.0, 16.0), col, os_ui::lang::t(s));
     }
 }
 
@@ -910,7 +910,7 @@ fn effects(ui: &mut Ui) {
     value_box(ui, Field::S(16), Rect::new(55.0, 61.0, 24.0, 20.0), &ord);
     lamp(ui, Target::Inert("Chorus"), false, 76.0, foot, "", false);
     let lh = ui.c.line_height(SMALL);
-    ui.c.text_right(SMALL, 66.0, (foot - lh / 2.0).round(), OFF, "CHR");
+    ui.c.text_right(SMALL, 66.0, (foot - lh / 2.0).round(), OFF, os_ui::lang::t("CHR"));
     for (k, x, l) in [(17, 96.0, "DP"), (18, 118.0, "SP"), (19, 140.0, "DL"), (20, 162.0, "SR"), (21, 184.0, "CR"), (22, 206.0, "VL")] {
         slider(ui, Field::S(k), x, t0, t1, l);
     }
@@ -1175,7 +1175,7 @@ fn scale_dialog(ui: &mut Ui, v: [f32; 4]) {
     ui.hit(Rect::new(0.0, 0.0, W as f32, H as f32), Target::Dialog);
     ui.c.fill_rect(Rect::new(0.0, 0.0, W as f32, H as f32), BG.with_alpha(110));
     panel(ui, SCALE_DLG);
-    ui.c.text(LABEL.bold(), SCALE_DLG.x + 10.0, SCALE_DLG.y + 6.0, TEXT, "Level scaling");
+    ui.c.text(LABEL.bold(), SCALE_DLG.x + 10.0, SCALE_DLG.y + 6.0, TEXT, os_ui::lang::t("Level scaling"));
     for k in 0..4 {
         let (lo, hi) = SCALE_RANGE[k];
         let n = (v[k] - lo) / (hi - lo);
@@ -1478,8 +1478,8 @@ fn info(ui: &mut Ui) {
     emblem(ui, mid, Font::condensed(32, 0).bold(), 9.0);
     let v = format!("Version {}", ui.m.version);
     ui.c.text_center(LABEL, Rect::new(0.0, mid.bottom() + 8.0, w, 16.0), DIM, &v);
-    ui.c.text_center(LABEL, Rect::new(0.0, mid.bottom() + 26.0, w, 16.0), DIM, "Lemon Studio's six-operator synthesizer");
-    ui.c.text_center(SMALL, Rect::new(0.0, h - 30.0, w, 16.0), FAINT, "Click to return");
+    ui.c.text_center(LABEL, Rect::new(0.0, mid.bottom() + 26.0, w, 16.0), DIM, os_ui::lang::t("Lemon Studio's six-operator synthesizer"));
+    ui.c.text_center(SMALL, Rect::new(0.0, h - 30.0, w, 16.0), FAINT, os_ui::lang::t("Click to return"));
     ui.hit(Rect::new(0.0, 0.0, w, h), Target::Cover);
 }
 
@@ -1502,7 +1502,7 @@ fn arrow(ui: &mut Ui, x0: f32, y0: f32, x1: f32, y1: f32) {
 /// unison and output gains, then the effects bus (chorus, delays, reverb) and the equaliser.
 fn diagram(ui: &mut Ui) {
     let (w, h) = ui.c.size();
-    ui.c.text_center(Font::new(14).bold(), Rect::new(0.0, 16.0, w, 20.0), TEXT, "Citrus: block diagram");
+    ui.c.text_center(Font::new(14).bold(), Rect::new(0.0, 16.0, w, 20.0), TEXT, os_ui::lang::t("Citrus: block diagram"));
     let top = 70.0;
     let ops: Vec<Rect> = (0..6).map(|k| block(ui, 30.0, top + 38.0 * k as f32, 90.0, &format!("Operator {}", k + 1))).collect();
     let mat = block(ui, 180.0, top + 85.0, 120.0, "Matrix (FM / RM, pan)");
@@ -1533,7 +1533,7 @@ fn diagram(ui: &mut Ui) {
     arrow(ui, rv.cx(), rv.y, eq.cx(), eq.bottom());
     let main = block(ui, 760.0, top + 40.0, 70.0, "Out");
     arrow(ui, eq.right(), eq.cy(), main.x, main.cy());
-    ui.c.text_center(SMALL, Rect::new(0.0, h - 30.0, w, 16.0), FAINT, "Click to return");
+    ui.c.text_center(SMALL, Rect::new(0.0, h - 30.0, w, 16.0), FAINT, os_ui::lang::t("Click to return"));
     ui.hit(Rect::new(0.0, 0.0, w, h), Target::Cover);
 }
 

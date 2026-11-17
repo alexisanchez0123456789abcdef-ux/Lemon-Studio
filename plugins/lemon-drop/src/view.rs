@@ -298,7 +298,7 @@ pub fn hint(st: &State, c: Ctl, target: usize) -> String {
         Ctl::Sat => format!("Saturation: {v}"),
         Ctl::Object => format!("Object opacity: {v}"),
         Ctl::Opacity => format!("Colour opacity: {v}"),
-        Ctl::Tab(m) => format!("{} settings", m.name()),
+        Ctl::Tab(m) => format!("{} {}", os_ui::lang::t(m.name()), os_ui::lang::t("settings")),
         Ctl::Auto => "Auto visual mode: the meter when the display is tall, the oscilloscope when it is wide".into(),
         Ctl::ScopeLength | Ctl::SpecLength | Ctl::VecLength => {
             format!("Update (block length): {}", ms(v))
@@ -536,7 +536,7 @@ pub fn paint_panel(c: &mut Canvas, st: &State, ui: &Ui) {
             }
             Kind::Text => {
                 lemon::field(c, r, look);
-                c.text(SMALL, r.x + 6.0, r.y + 2.0, plug::DIM, "Title");
+                c.text(SMALL, r.x + 6.0, r.y + 2.0, plug::DIM, os_ui::lang::t("Title"));
                 c.text_clip(LABEL, r.x + 36.0, r.y + 1.0, r.w - 42.0, brand::TEXT, &st.title_text());
             }
             Kind::Button => {
@@ -549,7 +549,7 @@ pub fn paint_panel(c: &mut Canvas, st: &State, ui: &Ui) {
                 let look = Look { on, ..look };
                 let col = lemon::plug_button(c, r, 5.0, look);
                 if let Ctl::Tab(m) = ctl {
-                    c.text_center(LABEL, r, col, m.name());
+                    c.text_center(LABEL, r, col, os_ui::lang::t(m.name()));
                 }
             }
             Kind::Area => {}

@@ -50,7 +50,7 @@ pub fn set(v: u16) {
 
 /// The ruler's second line: "(N PPI/advised scaling: S%)", S being the display's own scale.
 pub fn label(n: u16, display_scale: f32) -> String {
-    format!("({n} PPI/advised scaling: {}%)", (display_scale * 100.0).round() as i64)
+    format!("({n} {} {}%)", os_ui::lang::t("PPI/advised scaling:"), (display_scale * 100.0).round() as i64)
 }
 
 /// The PPI after the mouse moved `dx` logical pixels from where the ruler was pressed (at `n0`) on a canvas at

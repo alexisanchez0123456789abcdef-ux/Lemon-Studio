@@ -457,13 +457,13 @@ fn osc_page(ui: &mut Ui) {
         let ty = (cap_y - lh / 2.0).round();
         let gap = 251.0 - 236.0 - 7.0;
         let wl = ui.c.text_width(CAP, "PHASE OFS");
-        ui.c.text(CAP, (251.0 - gap - wl).round(), ty, ink, "PHASE OFS");
+        ui.c.text(CAP, (251.0 - gap - wl).round(), ty, ink, os_ui::lang::t("PHASE OFS"));
         bowtie(ui.c, 251.0, cap_y, ink);
-        ui.c.text(CAP, 251.0 + gap, ty, ink, "DETUNE");
+        ui.c.text(CAP, 251.0 + gap, ty, ink, os_ui::lang::t("DETUNE"));
         let wc = ui.c.text_width(CAP, "COARSE");
-        ui.c.text(CAP, (342.0 - wc / 2.0).round(), ty, ink, "COARSE");
+        ui.c.text(CAP, (342.0 - wc / 2.0).round(), ty, ink, os_ui::lang::t("COARSE"));
         let wf = ui.c.text_width(CAP, "FINE");
-        ui.c.text(CAP, (405.0 - wf / 2.0).round(), ty, ink, "FINE");
+        ui.c.text(CAP, (405.0 - wf / 2.0).round(), ty, ink, os_ui::lang::t("FINE"));
         let mid = ((342.0 + wc / 2.0) + (405.0 - wf / 2.0)) / 2.0;
         icon(ui.c, &tb::PIANO, mid.round(), cap_y, 14.0, ink);
         bowtie(ui.c, 467.0, cap_y, ink);
@@ -646,14 +646,14 @@ fn envelope_page(ui: &mut Ui) {
     let fr = panel(ui, 457.0, 556.0, 113.0, 310.0);
     inst::panel_tab(ui.c, t, fr, 55.0, "Filter");
     let cap = plug::DIM;
-    ui.c.text(MOD_CAP, 504.0, y(131.0) - 6.0, cap, "MOD X");
+    ui.c.text(MOD_CAP, 504.0, y(131.0) - 6.0, cap, os_ui::lang::t("MOD X"));
     big_knob(ui, "cutoff", 492.5, 168.5, 0x5ea733);
     big_knob(ui, "resonance", 520.0, 233.5, 0xc8a032);
-    ui.c.text(MOD_CAP, 464.0, y(264.0) - 7.0, cap, "MOD Y");
+    ui.c.text(MOD_CAP, 464.0, y(264.0) - 7.0, cap, os_ui::lang::t("MOD Y"));
     let r = rr(463.0, 549.0, 282.0, 302.0);
     let target = Target::List("filter".into());
     let st = ui.state(r, &target);
-    let s = ui.m.text("filter");
+    let s = ui.m.text(os_ui::lang::t("filter"));
     inst::list_box(ui.c, t, r, &s, st);
     ui.hit(r, target);
 }
@@ -814,9 +814,9 @@ fn sample_page(ui: &mut Ui) {
     lemon::plug_panel(ui.c, card);
     let s = &ui.st.sample;
     let lh = ui.c.line_height(MOD_CAP);
-    ui.c.text(MOD_CAP, 18.0, (y(96.0) - lh / 2.0).round(), plug::DIM, "CUSTOM SHAPE");
+    ui.c.text(MOD_CAP, 18.0, (y(96.0) - lh / 2.0).round(), plug::DIM, os_ui::lang::t("CUSTOM SHAPE"));
     let lh = ui.c.line_height(CAP);
-    ui.c.text_right(CAP, 549.0, (y(96.0) - lh / 2.0).round(), plug::DIM, "Played as one period of the oscillator");
+    ui.c.text_right(CAP, 549.0, (y(96.0) - lh / 2.0).round(), plug::DIM, os_ui::lang::t("Played as one period of the oscillator"));
     let g = sample_graph();
     inst::graph_bg(ui.c, g);
     let cy = g.y + ((g.h - 1.0) / 2.0).floor() + 0.5;

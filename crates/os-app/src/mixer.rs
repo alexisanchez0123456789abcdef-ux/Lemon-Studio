@@ -969,7 +969,7 @@ pub(crate) fn set_latency(s: &mut State, t: u16, input: bool, ms: f32) {
         }
         changed(s);
     });
-    s.message = Some(format!("{} - {} latency: {}", name(s, t), if input { "Input" } else { "Track" }, latency_text(ms)));
+    s.message = Some(format!("{} - {} {}: {}", name(s, t), os_ui::lang::t(if input { "Input" } else { "Track" }), os_ui::lang::t("latency"), latency_text(ms)));
 }
 
 /// The undo step of a latency setting.
@@ -2561,7 +2561,7 @@ impl App {
                         if let Some(m) = track_mut(&mut self.state, track) {
                             m.slots[usize::from(slot)] = None;
                         }
-                        self.state.message = Some(format!("Effect: {e}"));
+                        self.state.message = Some(format!("{}: {e}", os_ui::lang::t("Effect")));
                     }
                 },
                 FxReq::Toggle { track, slot } => {

@@ -310,7 +310,7 @@ impl App {
             // is ticked; the old folder and file stay. Don't save to the folder: the folder only (Lemon Studio rule).
             (DThen::Changed(dir), _) => {
                 self.set_data_folder(&dir);
-                self.state.message = Some(format!("Data folder: {}", dir.display()));
+                self.state.message = Some(format!("{}: {}", os_ui::lang::t("Data folder"), dir.display()));
                 if yes {
                     if crate::prefs::check(&crate::prefs::COPY_USED_SAMPLES) {
                         self.copy_used_samples();

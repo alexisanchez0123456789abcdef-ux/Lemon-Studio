@@ -177,7 +177,7 @@ impl App {
         let s = &mut self.state;
         if s.browser_index.poll() {
             if s.browser_index.cut() {
-                s.message = Some(format!("Browser index: the folders hold more than {} entries; a search finds the first ones", crate::browser_index::MAX_ENTRIES));
+                s.message = Some(format!("{} {} {}", os_ui::lang::t("Browser index: the folders hold more than"), crate::browser_index::MAX_ENTRIES, os_ui::lang::t("entries; a search finds the first ones")));
             }
             if !s.browser_search.is_empty() {
                 s.browser_scroll = s.browser_scroll.min(view::max_scroll(s));
@@ -691,7 +691,7 @@ impl App {
         s.browser_open.insert(key.clone());
         select(s, &key);
         reveal(s);
-        s.message = Some(format!("Browser: added {}", path.display()));
+        s.message = Some(format!("{} {}", os_ui::lang::t("Browser: added"), path.display()));
         self.invalidate();
     }
 

@@ -141,7 +141,7 @@ pub fn paint(c: &mut Canvas, st: &State, a: &Analyzer, area: Rect, ptr: Pointer)
         hint(c, st, a, inn, mode, x, y);
     }
     if ptr.held {
-        c.text_right(Font::new(9), inn.right() - 8.0, inn.bottom() - 16.0, color(st, LABELS, 1.0), "HOLD");
+        c.text_right(Font::new(9), inn.right() - 8.0, inn.bottom() - 16.0, color(st, LABELS, 1.0), os_ui::lang::t("HOLD"));
     }
     c.pop_clip();
     if st.glow && st.background {
@@ -629,10 +629,10 @@ fn vector(c: &mut Canvas, st: &State, a: &Analyzer, r: Rect, fade: f32) {
         }
     }
     let f = Font::new(9);
-    c.text(f, r.x + r.w * 0.12, r.y + 8.0, lab, "+ L");
-    c.text_right(f, r.right() - r.w * 0.12, r.y + 8.0, lab, "+ R");
-    c.text(f, r.x + r.w * 0.12, r.bottom() - 20.0, lab, "- R");
-    c.text_right(f, r.right() - r.w * 0.12, r.bottom() - 20.0, lab, "- L");
+    c.text(f, r.x + r.w * 0.12, r.y + 8.0, lab, os_ui::lang::t("+ L"));
+    c.text_right(f, r.right() - r.w * 0.12, r.y + 8.0, lab, os_ui::lang::t("+ R"));
+    c.text(f, r.x + r.w * 0.12, r.bottom() - 20.0, lab, os_ui::lang::t("- R"));
+    c.text_right(f, r.right() - r.w * 0.12, r.bottom() - 20.0, lab, os_ui::lang::t("- L"));
     let pts: Vec<(f32, f32)> = a.lissajous(st).iter().map(|&(s, m)| (cx + s * r.w / 2.0, cy - m * r.h / 2.0)).collect();
     if pts.len() < 2 {
         return;

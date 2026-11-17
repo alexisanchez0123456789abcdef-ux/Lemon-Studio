@@ -203,7 +203,7 @@ impl Ui<'_> {
         Look { hover: self.hot(r, t), pressed: self.st.pressed.as_ref() == Some(t), on: false, disabled: false }
     }
     fn label(&mut self, f: Font, cx: f32, cy: f32, col: Color, s: &str) {
-        self.c.text_center(f, Rect::new(cx - 60.0, cy - 8.0, 120.0, 16.0), col, s);
+        self.c.text_center(f, Rect::new(cx - 60.0, cy - 8.0, 120.0, 16.0), col, os_ui::lang::t(s));
     }
     fn shown(&self) -> usize {
         self.m.st.shown().min(BANDS - 1)
@@ -364,7 +364,7 @@ fn header(ui: &mut Ui) {
                 ui.c.fill_polygon(&[(x - 3.5, y), (x + 3.5, y), (x, y + 3.5)], ink);
                 ui.c.fill_rect(Rect::new(x - 4.5, y + 4.5, 9.0, 1.5), ink);
             }
-            1 => ui.c.text_center(Font::new(8).bold(), r, ink, "A/B"),
+            1 => ui.c.text_center(Font::new(8).bold(), r, ink, os_ui::lang::t("A/B")),
             2 => ui.c.fill_polygon(&[(x - 4.5, y - 2.0), (x + 4.5, y - 2.0), (x, y + 3.0)], ink),
             _ => ui.c.text_center(Font::new(13).bold(), r, ink, "?"),
         }
@@ -432,8 +432,8 @@ fn curve_view(ui: &mut Ui) {
     let (x0, y0) = (place_to_x(0.5).round(), level_to_y(0.5).round());
     ui.c.fill_rect(Rect::new(x0, r.y + 1.0, 1.0, r.h - 2.0), plug::TICK);
     ui.c.fill_rect(Rect::new(r.x + 1.0, y0, r.w - 2.0, 1.0), plug::TICK);
-    ui.c.text(SMALL, r.x + 7.0, r.y + 5.0, FAINT, "OUT");
-    ui.c.text_right(SMALL, r.right() - 7.0, r.bottom() - 16.0, FAINT, "IN");
+    ui.c.text(SMALL, r.x + 7.0, r.y + 5.0, FAINT, os_ui::lang::t("OUT"));
+    ui.c.text_right(SMALL, r.right() - 7.0, r.bottom() - 16.0, FAINT, os_ui::lang::t("IN"));
     let b = ui.shown();
     let m = ui.m.st.map(b).clone();
     let ink = BAND_COLORS[b];
@@ -733,7 +733,7 @@ fn info(ui: &mut Ui) {
     let mid = emblem(ui, w / 2.0, h / 2.0 - 45.0, true, Font::condensed(32, 0).bold(), 9.0);
     let v = format!("Version {}", ui.m.version);
     ui.c.text_center(LABEL, Rect::new(0.0, mid.bottom() + 8.0, w, 16.0), DIM, &v);
-    ui.c.text_center(LABEL, Rect::new(0.0, mid.bottom() + 26.0, w, 16.0), DIM, "Lemon Studio's multiband maximiser");
-    ui.c.text_center(SMALL, Rect::new(0.0, h - 30.0, w, 16.0), FAINT, "Click to return");
+    ui.c.text_center(LABEL, Rect::new(0.0, mid.bottom() + 26.0, w, 16.0), DIM, os_ui::lang::t("Lemon Studio's multiband maximiser"));
+    ui.c.text_center(SMALL, Rect::new(0.0, h - 30.0, w, 16.0), FAINT, os_ui::lang::t("Click to return"));
     ui.hit(Rect::new(0.0, 0.0, w, h), Target::Cover);
 }

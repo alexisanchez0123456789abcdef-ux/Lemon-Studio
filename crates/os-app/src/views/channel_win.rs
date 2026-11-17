@@ -80,7 +80,7 @@ pub fn paint(ui: &mut Ui, s: &State, _f: &FrameInfo) {
     let f = Font::new(15);
     for (i, (k, v)) in lines.iter().enumerate() {
         let ly = body.y + 10.0 + 22.0 * i as f32;
-        ui.c.text(f, body.x + 12.0, ly, t.text_dim, k);
+        ui.c.text(f, body.x + 12.0, ly, t.text_dim, os_ui::lang::t(k));
         ui.c.text_clip(f, body.x + 100.0, ly, body.w - 180.0, t.text, v);
     }
     let (vol, pan) = (KnobId::ChanVol(s.plugin_channel), KnobId::ChanPan(s.plugin_channel));
@@ -97,7 +97,7 @@ fn knob(ui: &mut Ui, s: &State, id: KnobId, cx: f32, cy: f32, caption: &str) {
     let t = ui.t;
     ui.hit(Rect::new(cx - 14.0, cy - 14.0, 28.0, 28.0), Action::Knob(id), s.knob_text(id));
     ball_knob(ui, cx, cy, 12.0, s.knob_at(id, cx, cy, 14.0));
-    ui.c.text_center(Font::new(13), Rect::new(cx - 30.0, cy + 14.0, 60.0, 14.0), t.text_dim, caption);
+    ui.c.text_center(Font::new(13), Rect::new(cx - 30.0, cy + 14.0, 60.0, 14.0), t.text_dim, os_ui::lang::t(caption));
 }
 
 /// A switch drawn as an LED with its label; a click flips it (`Action::Knob` on a two-position LFO or MIDI Out control).
@@ -106,7 +106,7 @@ fn switch(ui: &mut Ui, s: &State, id: KnobId, x: f32, cy: f32, label: &str) {
     let w = 20.0 + ui.c.text_width(Font::new(13), label);
     ui.hit(Rect::new(x, cy - 9.0, w, 18.0), Action::Knob(id), s.knob_text(id));
     led(ui, x + 6.0, cy, s.knob(id) >= 0.5);
-    ui.c.text(Font::new(13), x + 16.0, cy - 8.0, t.text, label);
+    ui.c.text(Font::new(13), x + 16.0, cy - 8.0, t.text, os_ui::lang::t(label));
 }
 
 /// Lemon MIDI Out's settings (spec: plugins/midi-out.md §6.3; Lemon Studio's layout): Channel, Port, Patch and the two
@@ -121,7 +121,7 @@ fn paint_midi_out(ui: &mut Ui, s: &State, body: Rect) {
     let lines: [(&str, &[MoKnob]); 5] = [("Generator", &[]), ("Channel", &[MoKnob::Channel]), ("Port", &[MoKnob::Port]), ("Patch", &[MoKnob::Patch]), ("Bank", &[MoKnob::Bank, MoKnob::Bank2])];
     for (i, (k, knobs)) in lines.iter().enumerate() {
         let ly = body.y + 10.0 + 24.0 * i as f32;
-        ui.c.text(f, body.x + 12.0, ly, t.text_dim, k);
+        ui.c.text(f, body.x + 12.0, ly, t.text_dim, os_ui::lang::t(k));
         if knobs.is_empty() {
             ui.c.text(f, body.x + 100.0, ly, t.text, "Lemon MIDI Out");
             continue;
@@ -161,7 +161,7 @@ fn paint_clip(ui: &mut Ui, s: &State, body: Rect, kind: String) {
     let f = Font::new(15);
     for (i, (k, v)) in lines.iter().enumerate() {
         let ly = body.y + 10.0 + 22.0 * i as f32;
-        ui.c.text(f, body.x + 12.0, ly, t.text_dim, k);
+        ui.c.text(f, body.x + 12.0, ly, t.text_dim, os_ui::lang::t(k));
         ui.c.text_clip(f, body.x + 100.0, ly, body.w - 200.0, t.text, v);
     }
     knob(ui, s, KnobId::ChanPan(row), body.right() - 104.0, body.y + 34.0, "MIN");

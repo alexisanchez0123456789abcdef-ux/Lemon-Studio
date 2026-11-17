@@ -311,9 +311,9 @@ pub const SOURCE_CODE: &str = "Source code";
 /// About: which build this is and how it is kept up to date (`crate::update`).
 fn update_lines() -> Vec<Row> {
     let how = match (crate::version::CHANNEL, crate::update::enabled()) {
-        (Some("nightly"), true) => "A nightly build of main. It updates itself from the nightly releases.".to_string(),
-        (Some(_), true) => format!("It updates itself from the {} releases.", crate::version::releases()),
-        _ => "Built from its source code: it doesn't update itself (git pull, then build it again).".to_string(),
+        (Some("nightly"), true) => os_ui::lang::t("A nightly build of main. It updates itself from the nightly releases.").to_string(),
+        (Some(_), true) => format!("{} {}.", os_ui::lang::t("It updates itself from the"), crate::version::releases()),
+        _ => os_ui::lang::t("Built from its source code: it doesn't update itself (git pull, then build it again).").to_string(),
     };
     vec![txt(&how), Row::Buttons(vec![(CHECK_UPDATES, 130.0)])]
 }
@@ -426,7 +426,7 @@ fn live_combo(label: &str) -> bool {
 
 /// A buffer length as the Audio page shows it: frames and milliseconds at `rate`.
 pub fn buffer_text(frames: u32, rate: u32) -> String {
-    format!("{frames} frames ({:.1} ms)", f64::from(frames) * 1000.0 / f64::from(rate.max(1)))
+    format!("{frames} {} ({:.1} ms)", os_ui::lang::t("frames"), f64::from(frames) * 1000.0 / f64::from(rate.max(1)))
 }
 
 pub const THEME: usize = 6;
@@ -606,25 +606,25 @@ pub fn page(tab: usize, s: &State) -> Vec<Group> {
             let asio = st.audio.asio_driver().is_some();
             let rate_text = match st.audio.rate {
                 Some(r) => r.to_string(),
-                None if asio => format!("Driver ({rate})"),
-                None => format!("Device ({rate})"),
+                None if asio => format!("{} ({rate})", os_ui::lang::t("Driver")),
+                None => format!("{} ({rate})", os_ui::lang::t("Device")),
             };
             // A Windows device's own period and its smallest, as the device says (spec: audio/wasapi-low-latency.md 4.3).
             let exclusive = st.audio.exclusive();
             let periods = st.periods.as_ref().filter(|_| !asio);
             let buffer = match st.audio.buffer {
                 Some(crate::audio_cfg::SMALLEST) => match periods {
-                    Some(p) => format!("Smallest ({})", buffer_text(p.exclusive_frames(rate).1, rate)),
-                    None => "Smallest".into(),
+                    Some(p) => format!("{} ({})", os_ui::lang::t("Smallest"), buffer_text(p.exclusive_frames(rate).1, rate)),
+                    None => os_ui::lang::t("Smallest").into(),
                 },
                 Some(b) => buffer_text(b, rate),
                 None if asio => match st.driver.as_ref().and_then(|d| d.fixed.map(|b| buffer_text(b, d.rate))) {
-                    Some(b) => format!("Driver ({b})"),
-                    None => "Driver".into(),
+                    Some(b) => format!("{} ({b})", os_ui::lang::t("Driver")),
+                    None => os_ui::lang::t("Driver").into(),
                 },
                 None => match periods {
-                    Some(p) => format!("Device ({})", buffer_text(p.own(exclusive, rate), rate)),
-                    None => "Device default".into(),
+                    Some(p) => format!("{} ({})", os_ui::lang::t("Device"), buffer_text(p.own(exclusive, rate), rate)),
+                    None => os_ui::lang::t("Device default").into(),
                 },
             };
             let listed = st.devices.iter().cloned().chain(st.asio_drivers.iter().map(|d| format!("{d} (ASIO)")));
@@ -636,7 +636,7 @@ pub fn page(tab: usize, s: &State) -> Vec<Group> {
                     // ones, through the sound server or ALSA.
                     if cfg!(windows) || cfg!(target_os = "linux") {
                         let mode = combo(if st.audio.jack() { "JACK" } else if st.audio.exclusive { "Exclusive" } else { "Shared" }, 120.0, MODE);
-                        let device = st.audio.device.as_deref().unwrap_or("the default device");
+                        let device = st.audio.device.as_deref().unwrap_or(os_ui::lang::t("the default device"));
                         let alone = exclusive.then(|| {
                             let line = if cfg!(windows) {
                                 format!("Other programs can't play on {device} while Lemon Studio has it open.")
@@ -731,7 +731,7 @@ pub fn page(tab: usize, s: &State) -> Vec<Group> {
                 Ppi,
                 combo("Main", 64.0, "Pop-ups scaling"),
                 combo("Main", 64.0, "Toolbars scaling"),
-                combo("Off", 64.0, "Transparent windows"),
+                combo("Off", 120.0, "Transparent windows"),
                 combo(crate::anim::level().name(), 126.0, ANIMATIONS),
                 Slider("Smoothing", 0.2),
                 combo("Ultrasmooth", 126.0, "Animation refresh rate"),
@@ -741,7 +741,7 @@ pub fn page(tab: usize, s: &State) -> Vec<Group> {
                 combo("Off", 146.0, "Colorful waveforms"),
             ]),
             gf("Language", false, vec![
-                combo("English (US) (en)", 176.0, "Language"),
+                combo(crate::prefs::choice(&crate::prefs::LANGUAGE), 176.0, crate::prefs::LANGUAGE.label),
                 combo("English", 176.0, "Note names"),
                 combo("Sharps - #", 96.0, "Black notes"),
                 Buttons(vec![("Update languages", 138.0)]),
@@ -819,7 +819,7 @@ pub fn page(tab: usize, s: &State) -> Vec<Group> {
                 ]),
                 g("Plugins", vec![
                     Buttons(vec![("Manage plugins", 124.0)]),
-                    Text(format!("{} instruments, {} effects", s.plugdb.lists.gens.len(), s.plugdb.lists.fx.len()), true),
+                    Text(format!("{} {}, {} {}", s.plugdb.lists.gens.len(), os_ui::lang::t("instruments"), s.plugdb.lists.fx.len(), os_ui::lang::t("effects")), true),
                 ]),
                 g("User data folder", vec![txt(user)]),
                 g(crate::factory_folder::GROUP, vec![FactoryFolder]),
@@ -1071,7 +1071,8 @@ pub fn paint(ui: &mut Ui, s: &State) {
     }
     ui.c.icon(&os_ui::tabler::SETTINGS, Rect::new(r.x + 7.0, r.y + 7.0, 16.0, 16.0), t.text_dim);
     let (_, title, _) = TABS[st.tab.min(TABS.len() - 1)];
-    ui.c.text_mid(Font::new(13), r.x + 28.0, r.y + 15.0, t.text, &format!("Settings - {title}"));
+    let caption = format!("{} - {}", os_ui::lang::t("Settings"), os_ui::lang::t(title));
+    ui.c.text_mid(Font::new(13), r.x + 28.0, r.y + 15.0, t.text, &caption);
     let x = Rect::new(r.right() - 26.0, r.y + 5.0, 20.0, 20.0);
     let hov = super::close_button(ui, x, x, Action::Settings(SAct::Close), "Close");
     ui.c.icon(&os_ui::tabler::X, x.inset(3.0), if hov { t.tx(0xffffff) } else { t.text });
@@ -1113,7 +1114,7 @@ pub fn paint(ui: &mut Ui, s: &State) {
         };
         let lh = ui.c.line_height(font);
         let ty = if lemon { tr.cy() - 2.0 } else { tr.cy() };
-        ui.c.text(font, tr.x + 10.0, (ty - lh / 2.0).round(), col, label);
+        ui.c.text(font, tr.x + 10.0, (ty - lh / 2.0).round(), col, os_ui::lang::t(label));
     }
     ui.c.fill_rect(Rect::new(r.x + 1.0, r.y + TABS_B, r.w - 2.0, 1.0), t.s(0x1c1e21));
     // Page.
@@ -1177,7 +1178,7 @@ fn name_panel(ui: &mut Ui, s: &State, e: &crate::theme_library::NameEdit, win: R
         ui.c.text(f, x, y, t.text, text);
         ui.c.pop_clip();
     } else {
-        ui.c.text_clip(Font::new(13), field.x, field.y + 4.0, field.w, t.text_dim, "The file goes from your themes folder.");
+        ui.c.text_clip(Font::new(13), field.x, field.y + 4.0, field.w, t.text_dim, os_ui::lang::t("The file goes from your themes folder."));
     }
     for (b, act, label, hint) in [
         (ok, SAct::NameOk, e.target.ok(), "Enter"),
@@ -1289,7 +1290,7 @@ fn picker(ui: &mut Ui, s: &State, p: &crate::theme_adjust::Picker, win: Rect) {
     } else {
         kit::bordered(ui.c, b, 2.0, t.s(0x161819), kit::face(t.s(0x212425), kit::State::hover(hov)));
     }
-    ui.c.text_center(Font::new(13), b, if hov { t.glyph } else { t.text }, "Revert");
+    ui.c.text_center(Font::new(13), b, if hov { t.glyph } else { t.text }, os_ui::lang::t("Revert"));
 }
 
 /// Tab rects in window `r`: text width + 10 px each side, 11 px apart, 15 px more between groups. When that is wider
@@ -1333,7 +1334,8 @@ fn paint_group(ui: &mut Ui, s: &State, gr: &Group, r: Rect, open: bool, clip: Re
     let mut y = r.y + 8.0;
     if !gr.title.is_empty() {
         let f = Font::new(13).bold();
-        let tw = ui.c.text_width(f, gr.title);
+        let title = os_ui::lang::t(gr.title);
+        let tw = ui.c.text_width(f, title);
         let hdr = Rect::new(r.x + 1.0, r.y + 1.0, tw + 14.0, 24.0);
         if !lemon {
             ui.c.fill_rect(hdr, t.s(0x222427));
@@ -1342,9 +1344,9 @@ fn paint_group(ui: &mut Ui, s: &State, gr: &Group, r: Rect, open: bool, clip: Re
                 ui.c.fill_rect(Rect::new(hdr.right() + k, hdr.y, 1.0, hdr.h - k * 4.0), t.s(0x222427));
             }
         }
-        ui.c.text(f, r.x + if lemon { 8.0 } else { 4.0 }, r.y + 4.0, if lemon { t.accent } else { t.text }, gr.title);
+        ui.c.text(f, r.x + if lemon { 8.0 } else { 4.0 }, r.y + 4.0, if lemon { t.accent } else { t.text }, title);
         if !gr.note.is_empty() {
-            ui.c.text(Font::new(13), r.x + if lemon { 8.0 } else { 4.0 } + tw, r.y + 4.0, t.text_dim, gr.note);
+            ui.c.text(Font::new(13), r.x + if lemon { 8.0 } else { 4.0 } + tw, r.y + 4.0, t.text_dim, os_ui::lang::t(gr.note));
         }
         if gr.fold {
             let bar = Rect::new(r.x, r.y, r.w, 26.0);
@@ -1372,7 +1374,8 @@ fn check(ui: &mut Ui, key: &'static str, on: bool, x: f32, cy: f32, enabled: boo
     // A check declared in `crate::prefs` shows its state (the row's is its default).
     let on = crate::prefs::find_check(key).map_or(on, crate::prefs::check);
     let t = ui.t;
-    let tw = ui.c.text_width(Font::new(13), key);
+    let label = os_ui::lang::t(key);
+    let tw = ui.c.text_width(Font::new(13), label);
     let hr = Rect::new(x - 8.0, cy - 9.0, tw + 26.0, 18.0);
     let hov = enabled && ui.hit(hr, Action::Settings(SAct::Check(key)), "");
     if !enabled {
@@ -1381,7 +1384,7 @@ fn check(ui: &mut Ui, key: &'static str, on: bool, x: f32, cy: f32, enabled: boo
     led(ui, x, cy, on, hov);
     let col = if hov { t.glyph } else { t.text };
     let lh = ui.c.line_height(Font::new(13));
-    ui.c.text(Font::new(13), x + 11.0, (cy - lh / 2.0).round(), col, key);
+    ui.c.text(Font::new(13), x + 11.0, (cy - lh / 2.0).round(), col, label);
     if !enabled {
         grey(ui, hr);
     }
@@ -1392,12 +1395,13 @@ fn check(ui: &mut Ui, key: &'static str, on: bool, x: f32, cy: f32, enabled: boo
 fn check_greyed(ui: &mut Ui, key: &'static str, x: f32, cy: f32, hint: &'static str) {
     let on = crate::prefs::find_check(key).is_some_and(crate::prefs::check);
     let t = ui.t;
-    let tw = ui.c.text_width(Font::new(13), key);
+    let label = os_ui::lang::t(key);
+    let tw = ui.c.text_width(Font::new(13), label);
     let hr = Rect::new(x - 8.0, cy - 9.0, tw + 26.0, 18.0);
     ui.hit(hr, Action::Settings(SAct::Body), hint);
     led(ui, x, cy, on, false);
     let lh = ui.c.line_height(Font::new(13));
-    ui.c.text(Font::new(13), x + 11.0, (cy - lh / 2.0).round(), t.text, key);
+    ui.c.text(Font::new(13), x + 11.0, (cy - lh / 2.0).round(), t.text, label);
     grey(ui, hr);
 }
 
@@ -1486,8 +1490,8 @@ fn paint_row_at(ui: &mut Ui, s: &State, group: &'static str, row: &Row, g: Rect,
         Row::Combo(v, w, label) if *label == MODE && s.settings.audio.asio_driver().is_some() => {
             let b = Rect::new(x0, y + 3.0, *w, 21.0);
             ui.hit(b, Action::Settings(SAct::Body), MODE_ASIO);
-            kit::combo(ui.c, t, b, v, f, kit::State::NORMAL);
-            let lw = ui.c.text(f, b.right() + 8.0, ty, t.text, label);
+            kit::combo(ui.c, t, b, os_ui::lang::t(v), f, kit::State::NORMAL);
+            let lw = ui.c.text(f, b.right() + 8.0, ty, t.text, os_ui::lang::t(label));
             grey(ui, Rect::new(b.x, b.y, b.w + 8.0 + lw, b.h));
         }
         Row::Combo(v, w, label) if live_combo(label) || crate::prefs::find_combo(label).is_some() => {
@@ -1498,18 +1502,18 @@ fn paint_row_at(ui: &mut Ui, s: &State, group: &'static str, row: &Row, g: Rect,
             };
             let b = Rect::new(x0, y + 3.0, *w, 21.0);
             let hov = ui.hit(b, Action::Settings(SAct::Combo(label, b.x, b.bottom())), "");
-            kit::combo(ui.c, t, b, v, f, kit::State::hover(hov));
+            kit::combo(ui.c, t, b, os_ui::lang::t(v), f, kit::State::hover(hov));
             // Project's "Set as" combo has no label beside it.
             if *label != SET_AS {
-                ui.c.text(f, b.right() + 8.0, ty, if hov { t.glyph } else { t.text }, label);
+                ui.c.text(f, b.right() + 8.0, ty, if hov { t.glyph } else { t.text }, os_ui::lang::t(label));
             }
         }
         // Other combos and value boxes do not work yet. A combo keeps showing its value, greyed out.
         Row::Combo(v, w, label) => {
             let b = Rect::new(x0, y + 3.0, *w, 21.0);
             ui.off(b, name_of(label, group));
-            kit::combo(ui.c, t, b, v, f, kit::State::NORMAL);
-            let lw = ui.c.text(f, b.right() + 8.0, ty, t.text, label);
+            kit::combo(ui.c, t, b, os_ui::lang::t(v), f, kit::State::NORMAL);
+            let lw = ui.c.text(f, b.right() + 8.0, ty, t.text, os_ui::lang::t(label));
             grey(ui, Rect::new(b.x, b.y, b.w + 8.0 + lw, b.h));
         }
         // Project ▸ Time settings as a time division, General ▸ Undo history ▸ Maximum undo levels: the wheel changes
@@ -1518,27 +1522,27 @@ fn paint_row_at(ui: &mut Ui, s: &State, group: &'static str, row: &Row, g: Rect,
             let b = Rect::new(x0, y + 3.0, 38.0, 21.0);
             let hov = ui.hit(b, Action::Settings(SAct::Number(label)), "");
             value_red(ui, b, v);
-            ui.c.text(f, b.right() + 8.0, ty, if hov { t.glyph } else { t.text }, label);
+            ui.c.text(f, b.right() + 8.0, ty, if hov { t.glyph } else { t.text }, os_ui::lang::t(label));
         }
         Row::Value(v, label) => {
             let b = Rect::new(x0, y + 3.0, 38.0, 21.0);
             ui.off(b, name_of(label, group));
             value_red(ui, b, v);
-            let lw = ui.c.text(f, b.right() + 8.0, ty, t.text, label);
+            let lw = ui.c.text(f, b.right() + 8.0, ty, t.text, os_ui::lang::t(label));
             grey(ui, Rect::new(b.x, b.y, b.w + 8.0 + lw, b.h));
         }
         Row::ValueR(label, v) if number_range(label).is_some() => {
             let b = Rect::new(g.right() - 52.0, y + 3.0, 42.0, 21.0);
             let hov = ui.hit(b, Action::Settings(SAct::Number(label)), "");
             value_red(ui, b, v);
-            ui.c.text_right(f, b.x - 8.0, ty, if hov { t.glyph } else { t.text }, label);
+            ui.c.text_right(f, b.x - 8.0, ty, if hov { t.glyph } else { t.text }, os_ui::lang::t(label));
         }
         Row::ValueR(label, v) => {
             let b = Rect::new(g.right() - 52.0, y + 3.0, 42.0, 21.0);
             ui.off(b, name_of(label, group));
             value_red(ui, b, v);
-            ui.c.text_right(f, b.x - 8.0, ty, t.text, label);
-            let lw = ui.c.text_width(f, label);
+            ui.c.text_right(f, b.x - 8.0, ty, t.text, os_ui::lang::t(label));
+            let lw = ui.c.text_width(f, os_ui::lang::t(label));
             grey(ui, Rect::span(b.x - 8.0 - lw, b.right(), b.y, b.bottom()));
         }
         Row::Buttons(bs) => {
@@ -1561,7 +1565,7 @@ fn paint_row_at(ui: &mut Ui, s: &State, group: &'static str, row: &Row, g: Rect,
                 } else {
                     kit::bordered(ui.c, b, 2.0, t.s(0x161819), kit::face(t.s(0x212425), kit::State::hover(hov)));
                 }
-                ui.c.text_center(Font::new(13), b, if hov { t.glyph } else { t.text }, label);
+                ui.c.text_center(Font::new(13), b, if hov { t.glyph } else { t.text }, os_ui::lang::t(label));
                 if !on {
                     grey(ui, b);
                 }
@@ -1576,12 +1580,12 @@ fn paint_row_at(ui: &mut Ui, s: &State, group: &'static str, row: &Row, g: Rect,
             let tr = Rect::new(x0, cy - 2.0, 150.0, 4.0);
             let hov = ui.hit(Rect::span(tr.x - 9.0, tr.right() + 9.0, cy - 9.0, cy + 9.0), Action::Settings(SAct::Slider(label, tr.x, tr.w)), "");
             slider_track(ui, tr, cy, v);
-            ui.c.text(f, tr.right() + 12.0, ty, if hov { t.glyph } else { t.text }, label);
+            ui.c.text(f, tr.right() + 12.0, ty, if hov { t.glyph } else { t.text }, os_ui::lang::t(label));
         }
         Row::Slider(label, v) => {
             let tr = Rect::new(x0, cy - 2.0, 150.0, 4.0);
             slider_track(ui, tr, cy, *v);
-            let lw = ui.c.text(f, tr.right() + 12.0, ty, t.text, label);
+            let lw = ui.c.text(f, tr.right() + 12.0, ty, t.text, os_ui::lang::t(label));
             let r = Rect::span(tr.x - 9.0, tr.right() + 14.0 + lw, cy - 9.0, cy + 9.0);
             ui.off(r, name_of(label, group));
             grey(ui, r);
@@ -1597,7 +1601,7 @@ fn paint_row_at(ui: &mut Ui, s: &State, group: &'static str, row: &Row, g: Rect,
             let mut ry = b.y + 2.0;
             if cols.iter().any(|c| !c.0.is_empty()) {
                 for (c, cx) in cols {
-                    ui.c.text(Font::new(13), b.x + 6.0 + cx, ry, t.text_dim, c);
+                    ui.c.text(Font::new(13), b.x + 6.0 + cx, ry, t.text_dim, os_ui::lang::t(c));
                 }
                 ry += 18.0;
             }
@@ -1612,13 +1616,13 @@ fn paint_row_at(ui: &mut Ui, s: &State, group: &'static str, row: &Row, g: Rect,
             }
         }
         Row::Text(v, dim) => {
-            ui.c.text(if *dim { Font::new(13) } else { f }, x0, ty, if *dim { t.text_dim } else { t.text }, v);
+            ui.c.text(if *dim { Font::new(13) } else { f }, x0, ty, if *dim { t.text_dim } else { t.text }, os_ui::lang::t(v));
         }
         Row::Big(v) => {
             let b = Rect::new(x0 - 4.0, y + 2.0, g.w - 16.0, 24.0);
             ui.c.fill_rect(b, t.s(0x1d1f21));
             let lh = ui.c.line_height(Font::new(14));
-            ui.c.text_clip(Font::new(14), b.x + 6.0, (b.cy() - lh / 2.0).round(), b.w - 12.0, t.text, v);
+            ui.c.text_clip(Font::new(14), b.x + 6.0, (b.cy() - lh / 2.0).round(), b.w - 12.0, t.text, os_ui::lang::t(v));
         }
         Row::Tiles(kind, names, sel) => {
             let previews = match kind {
@@ -1677,7 +1681,7 @@ fn paint_row_at(ui: &mut Ui, s: &State, group: &'static str, row: &Row, g: Rect,
             let (cx, cy) = (b.right() + 20.0, cy);
             ui.c.fill_circle(cx, cy, 8.0, warn);
             ui.c.text_center(Font::new(13).bold(), Rect::new(cx - 8.0, cy - 8.0, 16.0, 16.0), Color::rgb(0x1a1a1a), "!");
-            ui.c.text_clip(f, cx + 14.0, ty, g.right() - 12.0 - (cx + 14.0), t.text, "Text is hard to read on some surfaces with these colours.");
+            ui.c.text_clip(f, cx + 14.0, ty, g.right() - 12.0 - (cx + 14.0), t.text, os_ui::lang::t("Text is hard to read on some surfaces with these colours."));
         }
         // The applied theme's values and colours, edited live (spec: ui/theme-presets.md §C, `crate::theme_adjust`).
         Row::ThemeKnobs => {
@@ -1689,7 +1693,7 @@ fn paint_row_at(ui: &mut Ui, s: &State, group: &'static str, row: &Row, g: Rect,
                 let v = adj::knob_value(&th, i);
                 let act = Action::Settings(SAct::ThemeKnob(i as u8));
                 let held = ui.held(&act);
-                let hint = format!("{} (drag or scroll; middle click: the theme's own value)", k.text(v));
+                let hint = format!("{} {}", k.text(v), os_ui::lang::t("(drag or scroll; middle click: the theme's own value)"));
                 let hov = ui.hit(Rect::new(cx - 28.0, y + 4.0, 56.0, 58.0), act, hint);
                 kit::knob(ui.c, t, cx, y + 24.0, 14.0, k.pos(v), true, kit::KnobLook::Ring, kit::State::hover(hov || held));
                 ui.c.text_center(Font::new(13), Rect::new(cx - 30.0, y + 42.0, 60.0, 18.0), t.text, k.label);
@@ -1769,8 +1773,8 @@ fn paint_row_at(ui: &mut Ui, s: &State, group: &'static str, row: &Row, g: Rect,
             let small = Font::new(13);
             let lh = ui.c.line_height(small);
             let ty = (r.cy() - lh).round();
-            ui.c.text(small, r.right() + 8.0, ty, t.text_dim, "ASIO is a registered trademark of");
-            ui.c.text(small, r.right() + 8.0, ty + lh, t.text_dim, "Steinberg Media Technologies GmbH.");
+            ui.c.text(small, r.right() + 8.0, ty, t.text_dim, os_ui::lang::t("ASIO is a registered trademark of"));
+            ui.c.text(small, r.right() + 8.0, ty + lh, t.text_dim, os_ui::lang::t("Steinberg Media Technologies GmbH."));
         }
     }
 }
@@ -1988,7 +1992,7 @@ fn folders(ui: &mut Ui, list: &[(String, &'static str, bool, bool)], b: Rect) {
     let f = Font::new(13);
     let lh = ui.c.line_height(f);
     if list.is_empty() {
-        ui.c.text(f, b.x + 8.0, (b.y + 2.0 + 10.5 - lh / 2.0).round(), t.text_dim, "(no folders)");
+        ui.c.text(f, b.x + 8.0, (b.y + 2.0 + 10.5 - lh / 2.0).round(), t.text_dim, os_ui::lang::t("(no folders)"));
     }
     for (i, (path, tag, on, added)) in list.iter().enumerate() {
         let rr = Rect::new(b.x + 2.0, b.y + 2.0 + i as f32 * 21.0, b.w - 4.0, 21.0);
@@ -2016,7 +2020,7 @@ fn folders(ui: &mut Ui, list: &[(String, &'static str, bool, bool)], b: Rect) {
 fn prefer(ui: &mut Ui, cur: Prefer, x0: f32, y: f32, ty: f32) {
     let t = ui.t;
     let f = LABEL;
-    let lw = ui.c.text(f, x0, ty, t.text, "Preferred format");
+    let lw = ui.c.text(f, x0, ty, t.text, os_ui::lang::t("Preferred format"));
     let lemon = super::lemon(ui);
     let mut x = x0 + lw + 12.0;
     for p in [Prefer::Vst3, Prefer::Clap, Prefer::Vst2] {
@@ -2061,7 +2065,7 @@ fn table(ui: &mut Ui, s: &State, area: Rect) {
     for (col, &(cx, cw)) in Col::ALL.iter().zip(&COLS) {
         let hr = Rect::new(x0 + cx, hy, cw, 18.0);
         let hov = ui.hit(hr, Action::Settings(SAct::Plug(Plug::Sort(*col))), "Sort by this column");
-        let tw = ui.c.text(f, hr.x + 4.0, (hr.cy() - lh / 2.0).round(), if hov { t.glyph } else { t.text_dim }, col.title());
+        let tw = ui.c.text(f, hr.x + 4.0, (hr.cy() - lh / 2.0).round(), if hov { t.glyph } else { t.text_dim }, os_ui::lang::t(col.title()));
         if d.sort.0 == *col {
             kit::chevron(ui.c, hr.x + 4.0 + tw + 6.0, hr.cy(), 3.0, if d.sort.1 { Dir::Up } else { Dir::Down }, t.text_dim);
         }
@@ -2073,7 +2077,7 @@ fn table(ui: &mut Ui, s: &State, area: Rect) {
     let scroll = n > TABLE_ROWS;
     let rw = b.w - 4.0 - if scroll { 10.0 } else { 0.0 };
     if n == 0 {
-        let msg = if d.find.is_empty() { "(no plugins)" } else { "(no plugin matches)" };
+        let msg = os_ui::lang::t(if d.find.is_empty() { "(no plugins)" } else { "(no plugin matches)" });
         ui.c.text(f, x0 + 8.0, ry0 + 1.0, t.text_dim, msg);
     }
     for (vi, row) in d.rows.iter().enumerate().skip(d.top).take(TABLE_ROWS) {
@@ -2126,7 +2130,7 @@ fn table(ui: &mut Ui, s: &State, area: Rect) {
     // Count and Find box.
     let fy = b.bottom() + 6.0;
     let all = d.all_rows.len();
-    let count = if n == all { format!("{n} plugins") } else { format!("{n} of {all} plugins") };
+    let count = if n == all { format!("{n} {}", os_ui::lang::t("plugins")) } else { format!("{n} {} {all} {}", os_ui::lang::t("of"), os_ui::lang::t("plugins")) };
     ui.c.text(f, b.x + 4.0, (fy + 11.0 - lh / 2.0).round(), t.text_dim, &count);
     let fr = Rect::new(b.right() - 220.0, fy, 220.0, 22.0);
     let hov = ui.hit(fr, Action::Settings(SAct::Plug(Plug::Find)), "Find: type to keep the plugins whose name, vendor or file contain the text (Esc clears)");
@@ -2136,7 +2140,7 @@ fn table(ui: &mut Ui, s: &State, area: Rect) {
     let tx = fr.x + 23.0;
     let ty = (fr.cy() - lh / 2.0).round();
     if d.find.is_empty() && !d.finding {
-        ui.c.text(f, tx, ty, t.text_dim, "Find");
+        ui.c.text(f, tx, ty, t.text_dim, os_ui::lang::t("Find"));
     } else {
         ui.c.text_clip(f, tx, ty, fr.w - 30.0, t.text, &d.find);
         if d.finding {
